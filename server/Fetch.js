@@ -1,34 +1,33 @@
+const axios = require("axios");
 const fetchPatch = async (payloadData) => {
-   const response = await fetch(payloadData.instanceUrl + payloadData.url, {
-      method: "PATCH",
-      body: payloadData.body,
+   const config = {
       headers: {
          "Content-Type": "application/json",
          Authorization: `Bearer ${payloadData.accessToken}`,
       },
-   });
-   return response.json();
+   };
+   const response = await axios.patch(payloadData.instanceUrl + payloadData.url, payloadData.body, config);
+   return response.data;
 };
 const fetchPost = async (payloadData) => {
-   const response = await fetch(payloadData.instanceUrl + payloadData.url, {
-      method: "POST",
-      body: payloadData.body,
+   const config = {
       headers: {
          "Content-Type": "application/json",
          Authorization: `Bearer ${payloadData.accessToken}`,
       },
-   });
-   return response.json();
+   };
+   const response = await axios.post(payloadData.instanceUrl + payloadData.url, payloadData.body, config);
+   return response.data;
 };
 const fetchJSON = async (payloadData) => {
-   const response = await fetch(payloadData.instanceUrl + payloadData.url, {
-      method: "GET",
+   const config = {
       headers: {
          "Content-Type": "application/json",
          Authorization: `Bearer ${payloadData.accessToken}`,
       },
-   });
-   return response.json();
+   };
+   const response = await axios.get(payloadData.instanceUrl + payloadData.url, config);
+   return response.data;
 };
 
 const fetchCall = async (payloadData) => {
