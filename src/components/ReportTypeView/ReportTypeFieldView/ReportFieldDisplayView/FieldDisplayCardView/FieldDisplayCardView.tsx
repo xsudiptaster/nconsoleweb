@@ -64,7 +64,6 @@ const FieldDisplayCardView: React.FC<IFieldDisplayCardViewProps> = (props) => {
          <div style={{ padding: "5px", border: "1px solid #4d4c4c", borderRadius: "5px", height: "100%" }}>
             <Space.Compact direction="vertical">
                <div style={{ wordBreak: "break-all" }}>{column.field}</div>
-
                <RenderIf renderIf={!inLineEdit}>
                   <div
                      onClick={() => {
