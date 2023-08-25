@@ -1,10 +1,10 @@
-import { Col, Input, Modal, Row, Tabs } from "antd";
+import { Badge, Col, Input, Modal, Row, Tabs } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { reportFieldTreeDataAtom, selectedReportTypeAtom } from "../../../atoms/atom";
 import FieldDisplayPanelView from "../FieldDisplayPanelView";
 import ReportFieldDisplayView from "./ReportFieldDisplayView";
-import { addNewSection, removeSection } from "./ReportTypeFieldView.util";
+import { addNewSection, countField, removeSection } from "./ReportTypeFieldView.util";
 import TabHeaderView from "./TabHeaderView";
 
 interface IReportTypeFieldViewProps {
@@ -61,7 +61,11 @@ const ReportTypeFieldView: React.FC<IReportTypeFieldViewProps> = (props) => {
                      selectedReportType?.sections
                         ? selectedReportType?.sections.map((section: any, index: number) => {
                              return {
-                                label: <TabHeaderView section={section} index={index} />,
+                                label: (
+                                   <Badge count={countField(section, searchString)}>
+                                      <TabHeaderView section={section} index={index} />
+                                   </Badge>
+                                ),
                                 key: index,
                                 children: <ReportFieldDisplayView section={section} searchString={searchString} index={index} />,
                              };
