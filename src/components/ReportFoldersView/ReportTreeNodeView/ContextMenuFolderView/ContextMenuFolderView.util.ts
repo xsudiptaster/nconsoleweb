@@ -57,6 +57,7 @@ const copyFolder = async (node: any, parentId: string) => {
       records: [
          {
             Name: "Copy of " + node.title,
+            DeveloperName: ("Copy of" + node.title).replace(" ", ""),
             ParentId: parentId,
             AccessType: "Hidden",
             Type: "Report",
@@ -84,10 +85,12 @@ export const handlePaste = async (treeData: any[], nodeMove: any, parentId: stri
       }
    } else {
       let response = await copyFolder(nodeMove.node, parentId);
+      console.log("🚀 ~ file: ContextMenuFolderView.util.ts:87 ~ handlePaste ~ response:", response);
       if (response[0].success) {
          newNode = { ...nodeMove.node };
          newNode.title = "Copy of" + nodeMove.node.title;
          newNode.key = response[0].id;
+         newNode.children = [];
          newNode.parentId = parentId;
          let treeNodes = addNode(treeData, parentId, newNode);
          return { success: true, treeNodes };

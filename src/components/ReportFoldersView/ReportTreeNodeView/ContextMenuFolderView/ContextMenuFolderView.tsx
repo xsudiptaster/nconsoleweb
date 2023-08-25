@@ -30,9 +30,9 @@ const ContextMenuFolderView: React.FC<IContextMenuFolderViewProps> = (props) => 
    const handleResponse = (response: any) => {
       if (!response.success) {
          message.error(response.error);
-         setNodeMove({});
       } else {
          setTreeData(response.treeNodes);
+         setNodeMove({});
          message.success("Successfully Completed");
       }
       setAdd(false);
