@@ -1,13 +1,14 @@
 import { FileImageOutlined, SettingOutlined } from "@ant-design/icons";
-import { App, Layout, Menu, MenuProps, Spin } from "antd";
+import { App, Layout, Menu, MenuProps, Spin, Switch } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loadingAtom, selectedAppAtom } from "../../atoms/atom";
 import RenderIf from "../../utils/RenderIf";
 import DiagramView from "../DiagramView";
+import ReportFoldersView from "../ReportFoldersView";
 import ReportTypeView from "../ReportTypeView";
-import { checkLogin } from "./MainLayoutView.util";
+import { checkLogin, handleLogout } from "./MainLayoutView.util";
 interface IMainLayoutViewProps {
    children?: React.ReactNode;
 }
@@ -17,12 +18,16 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
    const [current, setCurrent] = useRecoilState(selectedAppAtom);
    React.useEffect(() => {
       const onload = async () => {
-         checkLogin();
+         await checkLogin();
       };
       onload();
    }, []);
    const onClick: MenuProps["onClick"] = (e) => {
       setCurrent(e.key);
+   };
+   const onLogout = async () => {
+      await handleLogout();
+      window.open("/", "_self");
    };
    const items: MenuProps["items"] = [
       {
@@ -44,8 +49,8 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                      key: "reportType",
                   },
                   {
-                     label: "Option 2",
-                     key: "setting:2",
+                     label: "Report Folders",
+                     key: "reportFolders",
                   },
                ],
             },
@@ -72,14 +77,16 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
             <Spin spinning={loading} tip="Loading..." delay={500} size="large">
                <Layout>
                   <Header style={{ width: "100%", backgroundColor: "#141414" }}>
+                     <div style={{ float: "right" }}>
+                        <Switch checkedChildren="Log Out" defaultChecked={true} unCheckedChildren="Log In" onChange={onLogout} />
+                     </div>
                      <Menu
                         onClick={onClick}
                         selectedKeys={[current]}
                         mode="horizontal"
                         items={items}
-                        style={{ width: "100%", backgroundColor: "#fffff" }}
+                        style={{ width: "90%", backgroundColor: "#fffff" }}
                      />
-                     ;
                   </Header>
                   <Layout>
                      <Content style={{ minHeight: "87vh", overflow: "auto" }}>
@@ -88,6 +95,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "reportType"}>
                            <ReportTypeView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "reportFolders"}>
+                           <ReportFoldersView />
                         </RenderIf>
                      </Content>
                   </Layout>

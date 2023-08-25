@@ -1,3 +1,4 @@
+import { Button, Result } from "antd";
 import React, { useEffect, useState } from "react";
 
 interface IErrorBoundaryProps {
@@ -32,7 +33,25 @@ const ErrorBoundary: React.FC<IErrorBoundaryProps> = (props) => {
 
    if (hasError) {
       // Fallback UI when an error occurs
-      return <div>Something went wrong. Please try again later.</div>;
+      return (
+         <div>
+            <Result
+               status="500"
+               title="500"
+               subTitle="Sorry, something went wrong."
+               extra={
+                  <Button
+                     type="primary"
+                     onClick={() => {
+                        window.open("/", "_self");
+                     }}
+                  >
+                     Back Login
+                  </Button>
+               }
+            />
+         </div>
+      );
    }
 
    return <>{children}</>;

@@ -9,6 +9,10 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const query = require("./server/Query");
+const insert = require("./server/Insert");
+const deleteMethod = require("./server/Delete");
+const update = require("./server/Update");
 dotenv.config();
 
 const app = express();
@@ -29,6 +33,26 @@ app.post("/api/login", async (req, res) => {
 });
 app.post("/api/identity", async (req, res) => {
    let response = await identity(req.body);
+   res.json(response);
+});
+app.post("/api/logOut", async (req, res) => {
+   let response = await logout(req.body);
+   res.json(response);
+});
+app.post("/api/query", async (req, res) => {
+   let response = await query(req.body);
+   res.json(response);
+});
+app.post("/api/insert", async (req, res) => {
+   let response = await insert(req.body);
+   res.json(response);
+});
+app.post("/api/delete", async (req, res) => {
+   let response = await deleteMethod(req.body);
+   res.json(response);
+});
+app.post("/api/update", async (req, res) => {
+   let response = await update(req.body);
    res.json(response);
 });
 app.post("/api/describeGlobal", async (req, res) => {

@@ -1,8 +1,7 @@
-import { versionInt } from "./config";
+const versionInt = require("./config.js");
+const jsforce = require("jsforce");
 
-import jsforce from "jsforce";
-
-const insert = async (data: any) => {
+const insert = async (data) => {
    try {
       const conn = new jsforce.Connection({
          instanceUrl: data.instanceUrl,
@@ -11,11 +10,11 @@ const insert = async (data: any) => {
       });
       const result = await conn.sobject(data.objectName).create(data.records, { allOrNone: false, allowRecursive: true });
       return result;
-   } catch (err: any) {
+   } catch (err) {
       return {
          success: false,
          error: err.message,
       };
    }
 };
-export default insert;
+module.exports = insert;

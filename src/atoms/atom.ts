@@ -5,7 +5,7 @@ export const loadingAtom = atom({
 });
 export const selectedAppAtom = atom({
    key: "selectedAppAtom",
-   default: "reportType",
+   default: "reportFolders",
 });
 export const nodesAtom = atom({
    key: "nodesAtom",
@@ -38,4 +38,12 @@ export const reportFieldTreeDataAtom = atom({
 export const reportTypeDragFieldAtom = atom({
    key: "reportTypeDragFieldAtom",
    default: {},
+});
+export const reportFolderTreeAtom = atom({
+   key: "reportFolderTreeAtom",
+   default: [] as any[],
+});
+export const reportFolderNodeAtom = atom({
+   key: "reportFolderNodeAtom",
+   default: {} as any,
 });

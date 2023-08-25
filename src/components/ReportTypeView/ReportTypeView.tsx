@@ -50,7 +50,14 @@ const ReportTypeView: React.FC<IReportTypeViewProps> = (props) => {
             title={
                <Row>
                   <Col span={6}>
-                     <Select showSearch style={{ width: "100%" }} options={reportTypeList} size="small" onChange={onChange} />
+                     <Select
+                        showSearch
+                        style={{ width: "100%" }}
+                        options={reportTypeList}
+                        size="small"
+                        onChange={onChange}
+                        placeholder="Search Report Type"
+                     />
                   </Col>
                   <Col span={18}>
                      <Row>
