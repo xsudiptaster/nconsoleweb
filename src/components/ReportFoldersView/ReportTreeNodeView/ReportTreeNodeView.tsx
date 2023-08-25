@@ -1,10 +1,10 @@
 import { CloseOutlined, RiseOutlined, SaveOutlined } from "@ant-design/icons";
-import { App, Button, Input, Popover, Space } from "antd";
+import { App, Badge, Button, Input, Popover, Space } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { getCookie } from "tiny-cookie";
 import { reportFolderTreeAtom } from "../../../atoms/atom";
-import { updateRecord } from "../ReportFoldersView.util";
+import { countFinder, updateRecord } from "../ReportFoldersView.util";
 import ContextMenuView from "./ContextMenuView";
 
 interface IReportTreeNodeViewProps {
@@ -30,6 +30,7 @@ const ReportTreeNodeView: React.FC<IReportTreeNodeViewProps> = (props) => {
          setEdit(false);
       }
    };
+   const count = React.useMemo(() => countFinder([nodeData], searchString), [nodeData, searchString]);
    return (
       <>
          <Popover
@@ -89,7 +90,7 @@ const ReportTreeNodeView: React.FC<IReportTreeNodeViewProps> = (props) => {
                      }
                   />
                ) : (
-                  nodeData.title
+                  <Badge count={count ? count : 0}>{nodeData.title}</Badge>
                )}
             </Space>
          </Popover>

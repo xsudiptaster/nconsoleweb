@@ -145,3 +145,18 @@ export const updateRecord = async (treeData: any, currentNode: any, value: strin
    }
    return { success: false, error: JSON.stringify(response) };
 };
+export const countFinder = (nodes: any[], searchString: string) => {
+   if (nodes && nodes.length > 0 && searchString && searchString !== "") {
+      let count = 0;
+      nodes.forEach((node) => {
+         if (node.title.toUpperCase().includes(searchString.toUpperCase())) {
+            count++;
+         }
+         if (node.children) {
+            count = count + countFinder(node.children, searchString);
+         }
+      });
+      return count;
+   }
+   return 0;
+};
