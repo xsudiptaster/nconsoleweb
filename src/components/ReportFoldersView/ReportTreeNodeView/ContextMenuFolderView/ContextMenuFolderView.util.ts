@@ -68,13 +68,16 @@ const copyFolder = async (node: any, parentId: string) => {
 };
 export const handlePaste = async (treeData: any[], nodeMove: any, parentId: string) => {
    let newNode: any = {};
+   let grabError = "";
    if (nodeMove.node.isLeaf) {
       newNode = { ...nodeMove.node };
       let response: any = {};
       if (nodeMove.method === "cut") {
          response = await moveReport(nodeMove.node, parentId);
+         grabError = JSON.stringify(response);
       } else {
          response = await cloneReport(nodeMove.node, parentId);
+         grabError = JSON.stringify(response);
       }
       if (response.reportMetadata) {
          newNode.title = response.reportMetadata.name;
@@ -85,7 +88,7 @@ export const handlePaste = async (treeData: any[], nodeMove: any, parentId: stri
       }
    } else {
       let response = await copyFolder(nodeMove.node, parentId);
-      console.log("🚀 ~ file: ContextMenuFolderView.util.ts:87 ~ handlePaste ~ response:", response);
+      grabError = JSON.stringify(response);
       if (response[0].success) {
          newNode = { ...nodeMove.node };
          newNode.title = "Copy of" + nodeMove.node.title;
@@ -96,5 +99,5 @@ export const handlePaste = async (treeData: any[], nodeMove: any, parentId: stri
          return { success: true, treeNodes };
       }
    }
-   return { success: false, error: "Oops Something went Wrong" };
+   return { success: false, error: grabError };
 };

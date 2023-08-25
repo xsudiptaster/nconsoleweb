@@ -5,6 +5,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { loadingAtom, selectedAppAtom } from "../../atoms/atom";
 import RenderIf from "../../utils/RenderIf";
+import DashBoardFoldersView from "../DashBoardFoldersView";
 import DiagramView from "../DiagramView";
 import ReportFoldersView from "../ReportFoldersView";
 import ReportTypeView from "../ReportTypeView";
@@ -52,6 +53,10 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                      label: "Report Folders",
                      key: "reportFolders",
                   },
+                  {
+                     label: "Dashboard Folders",
+                     key: "dashboardFolders",
+                  },
                ],
             },
             {
@@ -98,6 +103,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "reportFolders"}>
                            <ReportFoldersView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "dashboardFolders"}>
+                           <DashBoardFoldersView />
                         </RenderIf>
                      </Content>
                   </Layout>
