@@ -3,33 +3,36 @@ import { App, Badge, Button, Input, Popover, Space } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { getCookie } from "tiny-cookie";
-import { reportFolderTreeAtom } from "../../../atoms/atom";
-import { countFinder, updateRecord } from "../ReportFoldersView.util";
+import { dashboardFolderTreeAtom, loadingAtom } from "../../../atoms/atom";
+import { countFinder } from "../../ReportFoldersView/ReportFoldersView.util";
 import ContextMenuView from "./ContextMenuView";
+import { saveNodeUpdate } from "./DashboardTreeNodeView.util";
 
-interface IReportTreeNodeViewProps {
+interface IDashboardTreeNodeViewProps {
    children?: React.ReactNode;
    nodeData: any;
    searchString: string;
 }
 
-const ReportTreeNodeView: React.FC<IReportTreeNodeViewProps> = (props) => {
+const DashboardTreeNodeView: React.FC<IDashboardTreeNodeViewProps> = (props) => {
    const { nodeData, searchString } = props;
-   console.log("🚀 ~ file: ReportTreeNodeView.tsx:18 ~ nodeData:", nodeData);
    const { message } = App.useApp();
-   const [treeData, setTreeData] = useRecoilState(reportFolderTreeAtom);
-
+   const [, setLoading] = useRecoilState(loadingAtom);
+   const [treeData, setTreeData] = useRecoilState(dashboardFolderTreeAtom);
    const [edit, setEdit] = React.useState(false);
    const [updateLabel, setUpdateLabel] = React.useState(nodeData.title);
    const onSaveClick = async () => {
-      let response = await updateRecord(treeData, nodeData, updateLabel);
-      if (!response.success) {
-         message.error(response.error);
-      } else {
+      setLoading(true);
+      let response: any = await saveNodeUpdate(treeData, nodeData, updateLabel);
+      if (response.success) {
+         message.success("Saved Successfully");
          setTreeData(response.treeNodes);
-         message.success("Successfully Updated");
          setEdit(false);
+      } else {
+         message.error(response.error);
+         setUpdateLabel(nodeData.title);
       }
+      setLoading(false);
    };
    const count = React.useMemo(() => countFinder([nodeData], searchString), [nodeData, searchString]);
    return (
@@ -38,7 +41,7 @@ const ReportTreeNodeView: React.FC<IReportTreeNodeViewProps> = (props) => {
             content={<ContextMenuView nodeData={nodeData} />}
             title={
                <>
-                  <> {(nodeData.isLeaf ? "Report" : "Folder") + " - " + nodeData.title}</>
+                  <> {(nodeData.isLeaf ? "Dashboard" : "Folder") + " - " + nodeData.title}</>
                   <div style={{ float: "right" }}>
                      <Button
                         size="small"
@@ -99,4 +102,4 @@ const ReportTreeNodeView: React.FC<IReportTreeNodeViewProps> = (props) => {
    );
 };
 
-export default ReportTreeNodeView;
+export default DashboardTreeNodeView;

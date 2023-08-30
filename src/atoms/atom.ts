@@ -3,9 +3,13 @@ export const loadingAtom = atom({
    key: "loadingAtom",
    default: false,
 });
+export const statusModalAtom = atom({
+   key: "statusModalAtom",
+   default: {},
+});
 export const selectedAppAtom = atom({
    key: "selectedAppAtom",
-   default: "reportFolders",
+   default: "apexCode",
 });
 export const nodesAtom = atom({
    key: "nodesAtom",
@@ -45,5 +49,13 @@ export const reportFolderTreeAtom = atom({
 });
 export const reportFolderNodeAtom = atom({
    key: "reportFolderNodeAtom",
+   default: {} as any,
+});
+export const dashboardFolderTreeAtom = atom({
+   key: "",
+   default: [] as any[],
+});
+export const dashboardFolderNodeAtom = atom({
+   key: "dashboardFolderNodeAtom",
    default: {} as any,
 });

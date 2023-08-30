@@ -1,14 +1,16 @@
-import { FileImageOutlined, SettingOutlined } from "@ant-design/icons";
+import { BoxPlotOutlined, ExperimentOutlined, FileImageOutlined, SettingOutlined } from "@ant-design/icons";
 import { App, Layout, Menu, MenuProps, Spin, Switch } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loadingAtom, selectedAppAtom } from "../../atoms/atom";
 import RenderIf from "../../utils/RenderIf";
+import ApexCodeView from "../ApexCodeView";
 import DashBoardFoldersView from "../DashBoardFoldersView";
 import DiagramView from "../DiagramView";
 import ReportFoldersView from "../ReportFoldersView";
 import ReportTypeView from "../ReportTypeView";
+import StatusModalView from "../StatusModalView";
 import { checkLogin, handleLogout } from "./MainLayoutView.util";
 interface IMainLayoutViewProps {
    children?: React.ReactNode;
@@ -59,19 +61,35 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                   },
                ],
             },
+         ],
+      },
+      {
+         label: "Data Manipulation",
+         key: "Data",
+         icon: <BoxPlotOutlined />,
+         children: [
             {
-               type: "group",
-               label: "Wave",
-               children: [
-                  {
-                     label: "Option 3",
-                     key: "setting:3",
-                  },
-                  {
-                     label: "Option 4",
-                     key: "setting:4",
-                  },
-               ],
+               label: "Apex Code",
+               key: "apexCode",
+            },
+            {
+               label: "Query",
+               key: "query",
+            },
+         ],
+      },
+      {
+         label: "Permissions",
+         key: "permissions",
+         icon: <ExperimentOutlined />,
+         children: [
+            {
+               label: "Permission Edit",
+               key: "permissionEdit",
+            },
+            {
+               label: "Permission Compare",
+               key: "permisionCompare",
             },
          ],
       },
@@ -79,7 +97,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
    return (
       <>
          <App>
-            <Spin spinning={loading} tip="Loading..." delay={500} size="large">
+            <Spin spinning={loading} tip={<StatusModalView />} delay={500} size="large">
                <Layout>
                   <Header style={{ width: "100%", backgroundColor: "#141414" }}>
                      <div style={{ float: "right" }}>
@@ -106,6 +124,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "dashboardFolders"}>
                            <DashBoardFoldersView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "apexCode"}>
+                           <ApexCodeView />
                         </RenderIf>
                      </Content>
                   </Layout>
