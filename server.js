@@ -18,6 +18,7 @@ const apexCode = require("./server/ApexCode");
 const cluster = require("cluster");
 dotenv.config();
 const numCPUs = nodeOS.availableParallelism();
+console.log("🚀 ~ file: server.js:21 ~ numCPUs:", numCPUs);
 
 const port = process.env.PORT || 5000;
 const buildPath = path.join(__dirname, "build");
