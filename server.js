@@ -1,4 +1,4 @@
-const nodeOS = require("node:os");
+const nodeOS = require("os");
 const identity = require("./server/Identity");
 const describeGlobal = require("./server/DescribeGlobal");
 const objectDescribe = require("./server/ObjectDescribe");
