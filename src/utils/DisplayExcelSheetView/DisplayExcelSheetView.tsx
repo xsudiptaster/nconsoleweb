@@ -1,15 +1,17 @@
 import { Button, Select, Table } from "antd";
 import React from "react";
+import RenderIf from "../RenderIf";
 import { writeFileWithXLSX } from "../utils";
 import { createDisplayColumns } from "./DisplayExcelSheetView.util";
 
 interface IDisplayExcelSheetViewProps {
    children?: React.ReactNode;
    data: any[];
+   showDownload: boolean;
 }
 
 const DisplayExcelSheetView: React.FC<IDisplayExcelSheetViewProps> = (props) => {
-   const { data } = props;
+   const { data, showDownload } = props;
    const [columns, setColumns] = React.useState<any[]>([]);
    React.useEffect(() => {
       const onload = () => {
@@ -19,7 +21,7 @@ const DisplayExcelSheetView: React.FC<IDisplayExcelSheetViewProps> = (props) => 
    }, [data]);
    const displayColumns: any[] = createDisplayColumns(columns, data);
    return (
-      <div style={{ maxWidth: "60vw", overflow: "auto" }}>
+      <div style={{ overflow: "auto" }}>
          <Select
             mode="multiple"
             size="small"
@@ -43,17 +45,18 @@ const DisplayExcelSheetView: React.FC<IDisplayExcelSheetViewProps> = (props) => 
             columns={displayColumns}
             sticky
             showSorterTooltip
-            tableLayout="auto"
             footer={() => {
                return (
-                  <Button
-                     size="small"
-                     onClick={() => {
-                        writeFileWithXLSX(data, "Log-" + new Date().getTime());
-                     }}
-                  >
-                     Download
-                  </Button>
+                  <RenderIf renderIf={showDownload === true}>
+                     <Button
+                        size="small"
+                        onClick={() => {
+                           writeFileWithXLSX(data, "Log-" + new Date().getTime());
+                        }}
+                     >
+                        Download
+                     </Button>
+                  </RenderIf>
                );
             }}
          />

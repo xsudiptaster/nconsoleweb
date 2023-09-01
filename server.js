@@ -14,7 +14,8 @@ const insert = require("./server/Insert");
 const deleteMethod = require("./server/Delete");
 const update = require("./server/Update");
 const apexCode = require("./server/ApexCode");
-
+const metadataRetrieve = require("./server/MetadataRetrieve");
+const metadataDeploy = require("./server/MetadataDeploy");
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -22,7 +23,7 @@ const buildPath = path.join(__dirname, "build");
 
 const app = express();
 app.use(express.static(buildPath));
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 app.use(cors());
 app.post("/api", async (req, res) => {
    let response = await identity(req.body);
@@ -82,6 +83,14 @@ app.post("/api/metadataRead", async (req, res) => {
 });
 app.post("/api/metadataUpsert", async (req, res) => {
    let response = await metadataUpsert(req.body);
+   res.json(response);
+});
+app.post("/api/metadataRetrieve", async (req, res) => {
+   let response = await metadataRetrieve(req.body);
+   res.json(response);
+});
+app.post("/api/metadataDeploy", async (req, res) => {
+   let response = await metadataDeploy(req.body);
    res.json(response);
 });
 app.post("/api/apexCode", async (req, res) => {

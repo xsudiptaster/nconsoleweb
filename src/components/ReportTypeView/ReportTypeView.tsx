@@ -54,7 +54,12 @@ const ReportTypeView: React.FC<IReportTypeViewProps> = (props) => {
                         showSearch
                         style={{ width: "100%" }}
                         options={reportTypeList}
+                        filterOption={(input: any, option: any) =>
+                           (option?.label ?? "").toLowerCase().includes(input.toLowerCase()) ||
+                           (option?.value ?? "").toLowerCase().includes(input.toLowerCase())
+                        }
                         size="small"
+                        bordered={false}
                         onChange={onChange}
                         placeholder="Search Report Type"
                      />
@@ -103,7 +108,7 @@ const ReportTypeView: React.FC<IReportTypeViewProps> = (props) => {
             }
             extra={
                <Space>
-                  <Button icon={<SaveOutlined />} onClick={onSave} size="small">
+                  <Button icon={<SaveOutlined />} onClick={onSave} size="small" type="text">
                      Save
                   </Button>
                </Space>

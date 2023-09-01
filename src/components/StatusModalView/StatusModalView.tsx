@@ -17,12 +17,13 @@ const StatusModalView: React.FC<IStatusModalViewProps> = (props) => {
       window.addEventListener("message", handleStateUpdate);
       return () => {
          window.removeEventListener("message", handleStateUpdate);
+         setTotal(0);
       };
    }, []);
    return (
       <>
          <RenderIf renderIf={total === 0}>Loading.....</RenderIf>
-         <RenderIf renderIf={total !== 0}>
+         <RenderIf renderIf={total !== 0 && current !== 0}>
             <Progress type="circle" percent={Math.round((current / total) * 100)} />
          </RenderIf>
       </>

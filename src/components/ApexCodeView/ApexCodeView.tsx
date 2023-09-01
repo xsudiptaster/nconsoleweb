@@ -122,7 +122,7 @@ const ApexCodeView: React.FC<IApexCodeViewProps> = (props) => {
             </Col>
             <Col span={16} style={{ maxHeight: "80vh", overflow: "auto" }}>
                <RenderIf renderIf={jsonData.length > 0}>
-                  <DisplayExcelSheetView data={jsonData} />
+                  <DisplayExcelSheetView data={jsonData} showDownload />
                </RenderIf>
             </Col>
          </Row>

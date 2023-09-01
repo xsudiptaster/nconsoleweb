@@ -1,4 +1,6 @@
 import axios from "axios";
+import { XMLBuilder, XMLParser } from "fast-xml-parser";
+import JSZip from "jszip";
 import { getCookie } from "tiny-cookie";
 import * as XLSX from "xlsx";
 export const version = "57.0";
@@ -68,4 +70,32 @@ export const writeFileWithXLSX = (processedData: any[], fileName: string) => {
    XLSX.utils.book_append_sheet(wb, ws, "Output");
    XLSX.writeFile(wb, `${fileName}.xlsx`);
    return wb;
+};
+
+export const processZip = async (zip: any) => {
+   const zipFileLoaded = await JSZip.loadAsync(zip, { base64: true });
+   const options = {
+      ignoreAttributes: false,
+   };
+   const parser = new XMLParser(options);
+   const jsonFiles: any = {};
+   for (const key in zipFileLoaded.files) {
+      const xmlData = await zipFileLoaded.files[key].async("text");
+      jsonFiles[key] = parser.parse(xmlData);
+   }
+   return jsonFiles;
+};
+export const createBaseFile = async (jsonZip: any) => {
+   const zip = new JSZip();
+   const options = {
+      ignoreAttributes: false,
+   };
+   const builder = new XMLBuilder(options);
+   // eslint-disable-next-line guard-for-in
+   for (const key in jsonZip) {
+      const xmlData = builder.build(jsonZip[key]);
+      zip.file(key, xmlData);
+   }
+   const base64File = await zip.generateAsync({ type: "base64" });
+   return base64File;
 };

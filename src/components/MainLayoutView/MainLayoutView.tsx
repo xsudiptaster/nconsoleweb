@@ -1,4 +1,11 @@
-import { BoxPlotOutlined, ExperimentOutlined, FileImageOutlined, SettingOutlined } from "@ant-design/icons";
+import {
+   BoxPlotOutlined,
+   DeploymentUnitOutlined,
+   ExperimentOutlined,
+   FileImageOutlined,
+   HomeOutlined,
+   SettingOutlined,
+} from "@ant-design/icons";
 import { App, Layout, Menu, MenuProps, Spin, Switch } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React from "react";
@@ -6,8 +13,12 @@ import { useRecoilState } from "recoil";
 import { loadingAtom, selectedAppAtom } from "../../atoms/atom";
 import RenderIf from "../../utils/RenderIf";
 import ApexCodeView from "../ApexCodeView";
+import CountryPicklistView from "../CountryPicklistView";
+import CustomMetadataEditView from "../CustomMetadataEditView";
 import DashBoardFoldersView from "../DashBoardFoldersView";
 import DiagramView from "../DiagramView";
+import HomePageView from "../HomePageView";
+import QuerySheetView from "../QuerySheetView";
 import ReportFoldersView from "../ReportFoldersView";
 import ReportTypeView from "../ReportTypeView";
 import StatusModalView from "../StatusModalView";
@@ -34,6 +45,11 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
    };
    const items: MenuProps["items"] = [
       {
+         label: "Home",
+         key: "home",
+         icon: <HomeOutlined />,
+      },
+      {
          label: "Diagram",
          key: "diagram",
          icon: <FileImageOutlined />,
@@ -48,15 +64,15 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                label: "Salesforce",
                children: [
                   {
-                     label: "Report Type",
+                     label: "Custom Report Editor Pro",
                      key: "reportType",
                   },
                   {
-                     label: "Report Folders",
+                     label: "Report Tree View",
                      key: "reportFolders",
                   },
                   {
-                     label: "Dashboard Folders",
+                     label: "Dashboard Tree View",
                      key: "dashboardFolders",
                   },
                ],
@@ -69,12 +85,27 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          icon: <BoxPlotOutlined />,
          children: [
             {
-               label: "Apex Code",
+               label: "ApexLogic Runner",
                key: "apexCode",
             },
             {
-               label: "Query",
+               label: "ExcelQuery Pro",
                key: "query",
+            },
+         ],
+      },
+      {
+         label: "Metadata Edit",
+         key: "metadataEdit",
+         icon: <DeploymentUnitOutlined />,
+         children: [
+            {
+               label: "Custom Metadata",
+               key: "customMetadata",
+            },
+            {
+               label: "GeoData Manager",
+               key: "addressUpdate",
             },
          ],
       },
@@ -113,6 +144,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                   </Header>
                   <Layout>
                      <Content style={{ minHeight: "87vh", overflow: "auto" }}>
+                        <RenderIf renderIf={current === "home"}>
+                           <HomePageView />
+                        </RenderIf>
                         <RenderIf renderIf={current === "diagram"}>
                            <DiagramView />
                         </RenderIf>
@@ -127,6 +161,15 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "apexCode"}>
                            <ApexCodeView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "query"}>
+                           <QuerySheetView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "addressUpdate"}>
+                           <CountryPicklistView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "customMetadata"}>
+                           <CustomMetadataEditView />
                         </RenderIf>
                      </Content>
                   </Layout>

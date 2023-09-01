@@ -9,7 +9,7 @@ export const statusModalAtom = atom({
 });
 export const selectedAppAtom = atom({
    key: "selectedAppAtom",
-   default: "apexCode",
+   default: "home",
 });
 export const nodesAtom = atom({
    key: "nodesAtom",
