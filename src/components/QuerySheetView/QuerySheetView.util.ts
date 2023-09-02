@@ -1,4 +1,4 @@
-import { handleApi, sendMessage } from "../../utils/utils";
+import { flattenJson, handleApi, sendMessage } from "../../utils/utils";
 
 const replaceQuery = (record: any, query: string) => {
    let keys = Object.keys(record);
@@ -26,5 +26,8 @@ export const handleQuery = async (query: string, data: any[]) => {
       sendMessage({ current: i, total: data.length });
       tempResponse = [...tempResponse, ...records];
    }
-   return { success: true, data: tempResponse };
+   let resultRecords = tempResponse.map((record) => {
+      return flattenJson(record);
+   });
+   return { success: true, data: resultRecords };
 };
