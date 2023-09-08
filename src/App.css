@@ -1,8 +1,32 @@
 body::-webkit-scrollbar {
     width: 10px;
     background-color: rgb(28, 24, 24);
+
+    &--simple::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    &--simple::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    &--simple::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    &--simple::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    &--simple::-webkit-scrollbar-thumb:active {
+        background: rgba(0, 0, 0, .9);
+    }
 }
 
 .rowHover :hover {
     background-color: rgba(238, 9, 9, 0.863);
 }
+

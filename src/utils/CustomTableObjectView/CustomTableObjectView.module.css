@@ -1,0 +1,41 @@
+.container {
+  max-width: 100vw;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.buttonHolder {
+  float: right;
+  position: inherit;
+  left: 90%;
+}
+
+.table {
+  width: 100%;
+  border: 1px solid #eeeeee;
+  padding: 0%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  position: sticky;
+  font-size: medium;
+  border-bottom: 1px solid white;
+}
+.table tr:hover {
+  background-color: rgb(71, 71, 71);
+}
+
+.table td {
+  width: 200;
+  word-break: break-all;
+}
+
+.table tbody {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.table tbody td {
+  word-break: break-all;
+}

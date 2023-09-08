@@ -36,7 +36,8 @@ const handleJsondata = async (code: string, data: any[]) => {
          };
       }
       sendMessage({ current: i, total: data.length });
-      tempResponse = [...tempResponse, response];
+      let result = { ...response, ...data[i] };
+      tempResponse = [...tempResponse, result];
    }
    return { success: true, data: tempResponse };
 };
