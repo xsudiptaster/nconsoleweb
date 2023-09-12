@@ -47,7 +47,7 @@ export const setChangeObjectPermissions = (
       modifyAllRecords: "false",
       viewAllRecords: "false",
     };
-    tempPermissions[option][objectName][permissionName] = value;
+    tempPermissions[option][objectName][permissionName] = value.toString();
   }
   return tempPermissions;
 };
