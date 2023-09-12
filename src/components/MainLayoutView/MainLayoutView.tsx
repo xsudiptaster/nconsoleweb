@@ -135,7 +135,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
           key: "permissionEdit",
         },
         {
-          label: "Permission Compare",
+          label: "Profile & Permission Set Comparator",
           key: "permisionCompare",
         },
       ],

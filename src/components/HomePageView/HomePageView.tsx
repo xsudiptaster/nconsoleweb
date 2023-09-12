@@ -6,6 +6,7 @@ import CountryPicklistDescriptionView from "./CountryPicklistDescriptionView";
 import CustomMetadataDescriptionView from "./CustomMetadataDescriptionView";
 import DashboardFolderDescriptionView from "./DashboardFolderDescriptionView";
 import DiagramDescriptionView from "./DiagramDescriptionView";
+import PermissionsCompareDescriptionView from "./PermissionsCompareDescriptionView";
 import QueryDescriptionView from "./QueryDescriptionView";
 import ReportFolderDescriptionView from "./ReportFolderDescriptionView";
 import ReportTypeDescriptionView from "./ReportTypeDescriptionView";
@@ -19,7 +20,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
     <Card size="small" bodyStyle={{ maxHeight: "85vh", overflow: "auto" }}>
       <Row gutter={[16, 16]}>
         <Col
-          span={6}
+          span={24}
           style={{
             alignContent: "center",
             borderRadius: "30px",
@@ -30,7 +31,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
           <DiagramDescriptionView />
         </Col>
         <Col
-          span={6}
+          span={24}
           style={{
             alignContent: "center",
             borderRadius: "30px",
@@ -41,7 +42,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
           <ReportTypeDescriptionView />
         </Col>
         <Col
-          span={6}
+          span={24}
           style={{
             alignContent: "center",
             borderRadius: "30px",
@@ -52,7 +53,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
           <ReportFolderDescriptionView />
         </Col>
         <Col
-          span={6}
+          span={24}
           style={{
             alignContent: "center",
             borderRadius: "30px",
@@ -63,7 +64,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
           <DashboardFolderDescriptionView />
         </Col>
         <Col
-          span={6}
+          span={24}
           style={{
             alignContent: "center",
             borderRadius: "30px",
@@ -74,7 +75,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
           <ApexCodeDescriptionView />
         </Col>
         <Col
-          span={6}
+          span={24}
           style={{
             alignContent: "center",
             borderRadius: "30px",
@@ -85,7 +86,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
           <QueryDescriptionView />
         </Col>
         <Col
-          span={6}
+          span={24}
           style={{
             alignContent: "center",
             borderRadius: "30px",
@@ -96,7 +97,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
           <CountryPicklistDescriptionView />
         </Col>
         <Col
-          span={6}
+          span={24}
           style={{
             alignContent: "center",
             borderRadius: "30px",
@@ -105,6 +106,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
           }}
         >
           <CustomMetadataDescriptionView />
+        </Col>
+        <Col
+          span={24}
+          style={{
+            alignContent: "center",
+            borderRadius: "30px",
+            background: " #212121",
+            boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+          }}
+        >
+          <PermissionsCompareDescriptionView />
         </Col>
       </Row>
     </Card>
