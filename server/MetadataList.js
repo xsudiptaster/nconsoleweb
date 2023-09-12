@@ -1,8 +1,7 @@
-import { versionInt } from './config';
+const versionInt = require("./config.js");
+const jsforce = require("jsforce");
 
-const jsforce = require('jsforce');
-
-const metadataList = async (data: any) => {
+const metadataList = async (data) => {
   try {
     const conn = new jsforce.Connection({
       instanceUrl: data.instanceUrl,
@@ -11,11 +10,11 @@ const metadataList = async (data: any) => {
     });
     const result = await conn.metadata.list(data.types, versionInt.toString());
     return result;
-  } catch (err: any) {
+  } catch (err) {
     return {
       success: false,
       error: err.message,
     };
   }
 };
-export default metadataList;
+module.exports= metadataList;

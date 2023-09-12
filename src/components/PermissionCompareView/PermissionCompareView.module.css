@@ -1,0 +1,8 @@
+.tableClass {
+  width: 100%;
+}
+.tableClass th {
+  text-align: center;
+  align-content: center;
+  align-items: center;
+}

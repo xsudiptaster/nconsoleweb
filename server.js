@@ -17,6 +17,7 @@ const apexCode = require("./server/ApexCode");
 const metadataRetrieve = require("./server/MetadataRetrieve");
 const metadataDeploy = require("./server/MetadataDeploy");
 const metadataDelete = require("./server/MetadataDelete")
+const metadataList = require('./server/MetadataList')
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -96,6 +97,10 @@ app.post("/api/metadataDeploy", async (req, res) => {
 });
 app.post("/api/metadataDelete", async (req, res) => {
    let response = await metadataDelete(req.body);
+   res.json(response);
+});
+app.post("/api/metadataList", async (req, res) => {
+   let response = await metadataList(req.body);
    res.json(response);
 });
 app.post("/api/apexCode", async (req, res) => {
