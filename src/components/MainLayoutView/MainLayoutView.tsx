@@ -135,7 +135,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          icon: <ExperimentOutlined />,
          children: [
             {
-               label: "Permission Edit",
+               label: "ProfilePro Bulk Editor",
                key: "permissionEdit",
             },
             {
