@@ -10,7 +10,6 @@ import PermissionsCompareDescriptionView from "./PermissionsCompareDescriptionVi
 import QueryDescriptionView from "./QueryDescriptionView";
 import ReportFolderDescriptionView from "./ReportFolderDescriptionView";
 import ReportTypeDescriptionView from "./ReportTypeDescriptionView";
-
 interface IHomePageViewProps {
   children?: React.ReactNode;
 }
