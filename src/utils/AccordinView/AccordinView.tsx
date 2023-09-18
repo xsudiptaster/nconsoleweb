@@ -11,7 +11,7 @@ interface IAccordinViewProps {
 
 const AccordinView: React.FC<IAccordinViewProps> = (props) => {
    const { title, children, style } = props;
-   const [open, setOpen] = React.useState(false);
+   const [open, setOpen] = React.useState(true);
    return (
       <>
          <Card
