@@ -50,7 +50,7 @@ const PermissionEditView: React.FC<IPermissionEditViewProps> = (props) => {
                <Space>
                   <Select
                      size="small"
-                     mode="tags"
+                     mode="multiple"
                      showSearch
                      onChange={(values, valuesOptions) => {
                         setSelectedProfiles(valuesOptions);
@@ -62,7 +62,7 @@ const PermissionEditView: React.FC<IPermissionEditViewProps> = (props) => {
                   />
                   <Select
                      size="small"
-                     mode="tags"
+                     mode="multiple"
                      showSearch
                      onChange={(values, valuesOptions) => {
                         setSelectedObjects(valuesOptions);
