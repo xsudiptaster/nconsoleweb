@@ -84,6 +84,12 @@ const DiagramDescriptionView: React.FC<IDiagramDescriptionViewProps> = (props) =
                      </ul>
                   </Paragraph>
                   Experience the future of data visualization today.
+                  <iframe
+                     src="https://scribehow.com/embed/How_to_Navigate_and_Select_Objects_in_nConsole__PPfwm8ULRr6EIO84MqTjbg"
+                     title="How To"
+                     width="100%"
+                     height="640"
+                  ></iframe>
                   <Button
                      type="link"
                      size="small"
