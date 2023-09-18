@@ -29,7 +29,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
          </div>
          <Row gutter={[16, 16]}>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -40,7 +40,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <DiagramDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -51,7 +51,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <ReportTypeDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -62,7 +62,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <ReportFolderDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -73,7 +73,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <DashboardFolderDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -84,7 +84,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <ApexCodeDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -95,7 +95,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <QueryDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -106,7 +106,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <CountryPicklistDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -117,7 +117,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <CustomMetadataDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
@@ -128,7 +128,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                <PermissionsCompareDescriptionView />
             </Col>
             <Col
-               span={12}
+               span={24}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
