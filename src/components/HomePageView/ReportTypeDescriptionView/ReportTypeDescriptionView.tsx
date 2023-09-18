@@ -92,7 +92,13 @@ const ReportTypeDescriptionView: React.FC<IReportTypeDescriptionViewProps> = (pr
                   </ul>
                </Paragraph>
                <Text strong>Get Started with Custom Report Editor Pro</Text> and redefine how you craft, customize, and convey
-               your data stories. Experience the future of Salesforce reporting today.{" "}
+               your data stories. Experience the future of Salesforce reporting today. <br />
+               <iframe
+                  src="https://scribehow.com/embed/How_to_Modify_a_Custom_Report_using_Custom_Report_Editor_Pro_in_nConsole__ZkIv2kVrTNe5QM7c1kMBoQ"
+                  width="100%"
+                  height="640"
+                  title="Custom Report Type Editor"
+               ></iframe>
                <Button
                   type="link"
                   size="small"
