@@ -1,4 +1,4 @@
-import { handleApiSecond } from "../../../utils/utils";
+import { handleApiSecond, sendMessage } from "../../../utils/utils";
 
 const createProfile = (currentProfile: any, trackChanges: any) => {
    console.log("🚀 ~ file: DeployChangesView.util.ts:4 ~ createProfile ~ currentProfile:", currentProfile);
@@ -44,6 +44,7 @@ export const deployChanges = async (fetchedProfiles: any[], trackChanges: any, c
             errors.push(result.error);
          }
       }
+      sendMessage({ current: i, total: fetchedProfiles.length });
    }
    if (errors.length > 0) {
       return { success: false, message: errors.join(",") };
