@@ -1,5 +1,6 @@
 import { Card, Col, Row, Typography } from "antd";
 import React from "react";
+import UserPermissionAnalysisView from "../UserPermissionAnalysisView";
 import ApexCodeDescriptionView from "./ApexCodeDescriptionView";
 import CountryPicklistDescriptionView from "./CountryPicklistDescriptionView";
 import CustomMetadataDescriptionView from "./CustomMetadataDescriptionView";
@@ -14,7 +15,7 @@ import ReportTypeDescriptionView from "./ReportTypeDescriptionView";
 interface IHomePageViewProps {
    children?: React.ReactNode;
 }
-const { Title, Paragraph, Link, Text } = Typography;
+const { Title, Text } = Typography;
 const HomePageView: React.FC<IHomePageViewProps> = (props) => {
    return (
       <Card size="small" bodyStyle={{ maxHeight: "85vh", overflow: "auto", backgroundImage: "../../nconsoleimg_edge.png" }}>
@@ -137,6 +138,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                }}
             >
                <PermissionEditDescriptionView />
+            </Col>
+            <Col
+               span={24}
+               style={{
+                  alignContent: "center",
+                  borderRadius: "30px",
+                  background: " #212121",
+                  boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+               }}
+            >
+               <UserPermissionAnalysisView />
             </Col>
          </Row>
       </Card>

@@ -26,6 +26,7 @@ import QuerySheetView from "../QuerySheetView";
 import ReportFoldersView from "../ReportFoldersView";
 import ReportTypeView from "../ReportTypeView";
 import StatusModalView from "../StatusModalView";
+import UserPermissionAnalysisView from "../UserPermissionAnalysisView";
 import { checkLogin, handleLogout } from "./MainLayoutView.util";
 interface IMainLayoutViewProps {
    children?: React.ReactNode;
@@ -142,6 +143,10 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                label: "Profile & Permission Set Comparator",
                key: "permisionCompare",
             },
+            {
+               label: "UserPermissions Insight",
+               key: "userPermission",
+            },
          ],
       },
    ];
@@ -224,6 +229,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "permissionEdit"}>
                            <PermissionEditView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "userPermission"}>
+                           <UserPermissionAnalysisView />
                         </RenderIf>
                      </Content>
                   </Layout>

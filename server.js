@@ -16,8 +16,9 @@ const update = require("./server/Update");
 const apexCode = require("./server/ApexCode");
 const metadataRetrieve = require("./server/MetadataRetrieve");
 const metadataDeploy = require("./server/MetadataDeploy");
-const metadataDelete = require("./server/MetadataDelete")
-const metadataList = require('./server/MetadataList')
+const metadataDelete = require("./server/MetadataDelete");
+const metadataList = require("./server/MetadataList");
+const toolingQuery = require("./server/ToolingQuery");
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -49,6 +50,10 @@ app.post("/api/logOut", async (req, res) => {
 });
 app.post("/api/query", async (req, res) => {
    let response = await query(req.body);
+   res.json(response);
+});
+app.post("/api/toolingQuery", async (req, res) => {
+   let response = await toolingQuery(req.body);
    res.json(response);
 });
 app.post("/api/insert", async (req, res) => {
@@ -101,6 +106,10 @@ app.post("/api/metadataDelete", async (req, res) => {
 });
 app.post("/api/metadataList", async (req, res) => {
    let response = await metadataList(req.body);
+   res.json(response);
+});
+app.post("/api/apexCode", async (req, res) => {
+   let response = await apexCode(req.body);
    res.json(response);
 });
 app.post("/api/apexCode", async (req, res) => {
