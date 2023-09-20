@@ -1,6 +1,5 @@
 import { Card, Col, Row, Typography } from "antd";
 import React from "react";
-import UserPermissionAnalysisView from "../UserPermissionAnalysisView";
 import ApexCodeDescriptionView from "./ApexCodeDescriptionView";
 import CountryPicklistDescriptionView from "./CountryPicklistDescriptionView";
 import CustomMetadataDescriptionView from "./CustomMetadataDescriptionView";
@@ -12,6 +11,7 @@ import PermissionsCompareDescriptionView from "./PermissionsCompareDescriptionVi
 import QueryDescriptionView from "./QueryDescriptionView";
 import ReportFolderDescriptionView from "./ReportFolderDescriptionView";
 import ReportTypeDescriptionView from "./ReportTypeDescriptionView";
+import UserPermissionDescriptionView from "./UserPermissionDescriptionView";
 interface IHomePageViewProps {
    children?: React.ReactNode;
 }
@@ -148,7 +148,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
-               <UserPermissionAnalysisView />
+               <UserPermissionDescriptionView />
             </Col>
          </Row>
       </Card>
