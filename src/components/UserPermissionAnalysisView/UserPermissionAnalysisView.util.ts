@@ -32,8 +32,9 @@ export const handleUserSelection = async (user: any) => {
       userPermissionMap: getUserPermissionMap(profileResponse),
       apexPagePermissionMap: getApexPagePermissionMap(profileResponse),
       apexClassPermissionMap: getApexClassPermissionMap(profileResponse),
+      recordTypePermissionMap: getRecordTypePermissionsMap(profileResponse),
    };
-
+   console.log("🚀 ~ file: UserPermissionAnalysisView.util.ts:53 ~ handleUserSelection ~ permissionMap:PROFILE", permissionMap);
    if (user.PermissionSetAssignments.records) {
       for (let i = 0; i < user.PermissionSetAssignments.records.length; i++) {
          let record = user.PermissionSetAssignments.records[i];
@@ -54,6 +55,7 @@ export const handleUserSelection = async (user: any) => {
                userPermissionMap: getUserPermissionMap(permissionSetMetadata),
                apexPagePermissionMap: getApexPagePermissionMap(permissionSetMetadata),
                apexClassPermissionMap: getApexClassPermissionMap(permissionSetMetadata),
+               recordTypePermissionMap: getRecordTypePermissionsMap(permissionSetMetadata),
             };
          }
          sendMessage({ current: i, total: user.PermissionSetAssignments.records.length });
@@ -64,12 +66,17 @@ export const handleUserSelection = async (user: any) => {
    let userPermissionList: string[] = [];
    let apexPagePermissionList: string[] = [];
    let apexClassPermissionList: string[] = [];
+   let recordTypePermissionList = {};
    for (let key in permissionMap) {
       fieldPermissionList = getFieldPermissionList(permissionMap[key].fieldPermissionMap, fieldPermissionList);
       objectPermissionList = getObjectPermissionList(permissionMap[key].fieldPermissionMap, objectPermissionList);
       userPermissionList = getUserPermissionList(permissionMap[key].userPermissionMap, userPermissionList);
       apexPagePermissionList = getApexPagePermissionList(permissionMap[key].apexPagePermissionMap, apexPagePermissionList);
       apexClassPermissionList = getApexClassPermissionList(permissionMap[key].apexClassPermissionMap, apexClassPermissionList);
+      recordTypePermissionList = getRecordTypePermissionList(
+         permissionMap[key].recordTypePermissionMap,
+         recordTypePermissionList
+      );
    }
    let permissionList = {
       fieldPermissionList,
@@ -77,13 +84,13 @@ export const handleUserSelection = async (user: any) => {
       userPermissionList,
       apexPagePermissionList,
       apexClassPermissionList,
+      recordTypePermissionList,
    };
    let result = {
       permissionMap,
       profileMap,
       permissionList,
    };
-   console.log("🚀 ~ file: UserPermissionAnalysisView.util.ts:58 ~ handleUserSelection ~ result:", result);
    return result;
 };
 const getFieldPermissionsMap = (profile: any) => {
@@ -187,4 +194,39 @@ const getApexClassPermissionList = (apexClassPermissionMap: any, apexClassPermis
    apexClassPermissionList = [...Object.keys(apexClassPermissionMap), ...apexClassPermissionList];
    apexClassPermissionList = Array.from(new Set(apexClassPermissionList));
    return apexClassPermissionList;
+};
+const getRecordTypePermissionsMap = (profile: any) => {
+   let permissionMap: any = {};
+   if (profile?.recordTypeVisibilities && profile?.recordTypeVisibilities[0]) {
+      for (let i = 0; i < profile.recordTypeVisibilities.length; i++) {
+         let permission = profile.recordTypeVisibilities[i];
+         let object = permission.recordType.split(".")[0];
+         let recordType = permission.recordType;
+         if (permissionMap[object]) {
+            permissionMap[object][recordType] = permission;
+         } else {
+            permissionMap[object] = {};
+            permissionMap[object][recordType] = permission;
+         }
+      }
+   } else if (profile?.recordTypeVisibilities) {
+      let permission = profile.recordTypeVisibilities;
+      let object = permission.recordType.split(".")[0];
+      let recordType = permission.recordType;
+      permissionMap[object] = {};
+      permissionMap[object][recordType] = permission;
+   }
+   console.log("🚀 ~ file: UserPermissionAnalysisView.util.ts:221 ~ getRecordTypePermissionsMap ~ permissionMap:", permissionMap);
+   return permissionMap;
+};
+const getRecordTypePermissionList = (recordTypePermissionMap: any, recordTypePermissionList: any) => {
+   for (let key in recordTypePermissionMap) {
+      if (recordTypePermissionList[key]) {
+         recordTypePermissionList[key] = [...Object.keys(recordTypePermissionMap[key]), ...recordTypePermissionList[key]];
+      } else {
+         recordTypePermissionList[key] = Object.keys(recordTypePermissionMap[key]);
+      }
+      recordTypePermissionList[key] = Array.from(new Set(recordTypePermissionList[key]));
+   }
+   return recordTypePermissionList;
 };

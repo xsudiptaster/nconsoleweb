@@ -7,6 +7,7 @@ import ApexClassPermissionAssignedView from "./ApexClassPermissionAssignedView";
 import ApexPagePermissionAssignedView from "./ApexPagePermissionAssignedView";
 import FieldPermissionAssignedView from "./FieldPermissionAssignedView";
 import ObjectPermissionAssignedView from "./ObjectPermissionAssignedView";
+import RecordTypePermissionAssignedView from "./RecordTypePermissionAssignedView";
 import { handleLoad, handleUserSelection } from "./UserPermissionAnalysisView.util";
 import UserPermissionAssignedView from "./UserPermissionAssignedView";
 
@@ -89,6 +90,19 @@ const UserPermissionAnalysisView: React.FC<IUserPermissionAnalysisViewProps> = (
                            <ObjectPermissionAssignedView
                               objectPermissionList={
                                  permissionList?.objectPermissionList ? permissionList?.objectPermissionList : []
+                              }
+                              permissionMap={permissionMap}
+                              profileMap={profileMap}
+                           />
+                        ),
+                     },
+                     {
+                        key: "recordTypePermissions",
+                        label: "RecordType Permissions",
+                        children: (
+                           <RecordTypePermissionAssignedView
+                              recordTypePermissionList={
+                                 permissionList?.recordTypePermissionList ? permissionList?.recordTypePermissionList : []
                               }
                               permissionMap={permissionMap}
                               profileMap={profileMap}

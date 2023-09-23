@@ -9,9 +9,6 @@ interface INodeViewProps {
 
 const NodeView: React.FC<INodeViewProps> = (props) => {
    const { data } = props;
-   console.log("🚀 ---------------------------------------🚀");
-   console.log("🚀 ~ file: NodeView.tsx:12 ~ data:", data);
-   console.log("🚀 ---------------------------------------🚀");
    return (
       <>
          <Card title={data.label} size="small" extra={<sub>&nbsp;&nbsp;{data.name}</sub>}>
