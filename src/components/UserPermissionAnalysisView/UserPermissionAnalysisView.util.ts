@@ -15,11 +15,9 @@ export const handleLoad = async () => {
    return options;
 };
 export const handleUserSelection = async (user: any) => {
-   console.log("🚀 ~ file: UserPermissionAnalysisView.util.ts:18 ~ handleUserSelection ~ user:", user);
    let profileQuery = "Select id,Name,FullName   from Profile where id='" + user.ProfileId + "'";
    let response = await handleApi("toolingQuery", { query: profileQuery });
    let profileResponse = await handleApi("metadataRead", { objectName: "Profile", types: [response.records[0].FullName] });
-   console.log("🚀 ~ file: UserPermissionAnalysisView.util.ts:22 ~ handleUserSelection ~ profileResponse:", profileResponse);
    let permissionMap: any = {};
    let profileMap: any = {};
    profileMap[user.ProfileId] = {

@@ -20,6 +20,7 @@ import CustomMetadataEditView from "../CustomMetadataEditView";
 import DashBoardFoldersView from "../DashBoardFoldersView";
 import DiagramView from "../DiagramView";
 import HomePageView from "../HomePageView";
+import PermissionCheckerView from "../PermissionCheckerView";
 import PermissionCompareView from "../PermissionCompareView";
 import PermissionEditView from "../PermissionEditView";
 import QuerySheetView from "../QuerySheetView";
@@ -147,6 +148,10 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                label: "UserPermissions Insight",
                key: "userPermission",
             },
+            {
+               label: "Permission Checker",
+               key: "permissionChecker",
+            },
          ],
       },
    ];
@@ -232,6 +237,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "userPermission"}>
                            <UserPermissionAnalysisView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "permissionChecker"}>
+                           <PermissionCheckerView />
                         </RenderIf>
                      </Content>
                   </Layout>
