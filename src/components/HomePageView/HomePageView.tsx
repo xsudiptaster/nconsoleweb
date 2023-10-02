@@ -6,6 +6,7 @@ import CustomMetadataDescriptionView from "./CustomMetadataDescriptionView";
 import DashboardFolderDescriptionView from "./DashboardFolderDescriptionView";
 import DiagramDescriptionView from "./DiagramDescriptionView";
 import style from "./HomePageView.module.css";
+import PermissionCheckerDescriptionView from "./PermissionCheckerDescriptionView";
 import PermissionEditDescriptionView from "./PermissionEditDescriptionView";
 import PermissionsCompareDescriptionView from "./PermissionsCompareDescriptionView";
 import QueryDescriptionView from "./QueryDescriptionView";
@@ -149,6 +150,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                }}
             >
                <UserPermissionDescriptionView />
+            </Col>
+            <Col
+               span={24}
+               style={{
+                  alignContent: "center",
+                  borderRadius: "30px",
+                  background: " #212121",
+                  boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+               }}
+            >
+               <PermissionCheckerDescriptionView />
             </Col>
          </Row>
       </Card>

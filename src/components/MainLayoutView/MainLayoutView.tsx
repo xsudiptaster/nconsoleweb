@@ -149,7 +149,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                key: "userPermission",
             },
             {
-               label: "Permission Checker",
+               label: "Permission Detective Pro",
                key: "permissionChecker",
             },
          ],
