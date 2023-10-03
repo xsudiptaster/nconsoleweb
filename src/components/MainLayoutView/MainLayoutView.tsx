@@ -11,10 +11,12 @@ import { Content, Footer, Header } from "antd/es/layout/layout";
 import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
 import { BsFillSendFill } from "react-icons/bs";
+import { SiAdobeaudition } from "react-icons/si";
 import { useRecoilState } from "recoil";
 import { loadingAtom, loginInfoAtom, selectedAppAtom } from "../../atoms/atom";
 import RenderIf from "../../utils/RenderIf";
 import ApexCodeView from "../ApexCodeView";
+import AuditTrackingView from "../AuditTrackingView";
 import CountryPicklistView from "../CountryPicklistView";
 import CustomMetadataEditView from "../CustomMetadataEditView";
 import DashBoardFoldersView from "../DashBoardFoldersView";
@@ -154,6 +156,11 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
             },
          ],
       },
+      {
+         icon: <SiAdobeaudition />,
+         label: "Audit Trail Analyzer",
+         key: "auditTracker",
+      },
    ];
    return (
       <>
@@ -240,6 +247,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "permissionChecker"}>
                            <PermissionCheckerView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "auditTracker"}>
+                           <AuditTrackingView />
                         </RenderIf>
                      </Content>
                   </Layout>

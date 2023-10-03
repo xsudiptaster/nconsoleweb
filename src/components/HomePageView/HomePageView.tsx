@@ -1,6 +1,7 @@
 import { Card, Col, Row, Typography } from "antd";
 import React from "react";
 import ApexCodeDescriptionView from "./ApexCodeDescriptionView";
+import AuditTrackingDescriptionView from "./AuditTrackingDescriptionView";
 import CountryPicklistDescriptionView from "./CountryPicklistDescriptionView";
 import CustomMetadataDescriptionView from "./CustomMetadataDescriptionView";
 import DashboardFolderDescriptionView from "./DashboardFolderDescriptionView";
@@ -161,6 +162,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                }}
             >
                <PermissionCheckerDescriptionView />
+            </Col>
+            <Col
+               span={24}
+               style={{
+                  alignContent: "center",
+                  borderRadius: "30px",
+                  background: " #212121",
+                  boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+               }}
+            >
+               <AuditTrackingDescriptionView />
             </Col>
          </Row>
       </Card>

@@ -90,7 +90,7 @@ const UserPermissionDescriptionView: React.FC<IUserPermissionDescriptionViewProp
                      Experience the power of streamlined permission visualization with "UserPermissions Insight" – where
                      permissions become transparent, access control is managed effectively, and your workflows become more
                      efficient.
-                  </Text>{" "}
+                  </Text>
                   <Button
                      type="link"
                      size="small"
