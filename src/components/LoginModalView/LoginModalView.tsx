@@ -1,8 +1,8 @@
-import { Button, Modal, Space } from "antd";
+import { Button, Card, Divider } from "antd";
 import React from "react";
 import "../../nconsoleimg_edge.png";
+import style from "./LoginModalView.module.css";
 import { handleLoad, handleProdLogin, handleTestLogin } from "./LoginModalView.util";
-import "./style.css";
 interface ILoginModalViewProps {
    children?: React.ReactNode;
 }
@@ -18,15 +18,17 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
    }, []);
    return (
       <>
-         <div style={{ backgroundImage: "../../nconsoleimg_edge.png" }}>
-            <Modal
-               className="modalGlass"
-               open={true}
-               footer={null}
-               closable={false}
-               title={<div style={{ textAlign: "center" }}>Login</div>}
-            >
-               <Space direction="vertical" style={{ width: "100%" }} size="large">
+         <div
+            style={{
+               backgroundImage: "../../nconsoleimg_edge.png",
+            }}
+         >
+            <div className={style.logindiv}>
+               <Card
+                  className={style.logincard}
+                  title={<div style={{ textAlign: "center" }}>Login</div>}
+                  style={{ width: "500px" }}
+               >
                   <Button
                      block
                      size="large"
@@ -36,6 +38,7 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
                   >
                      Production
                   </Button>
+                  <Divider />
                   <Button
                      block
                      size="large"
@@ -45,9 +48,11 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
                   >
                      Sandbox
                   </Button>
-               </Space>
-            </Modal>
+               </Card>
+            </div>
+            <div className={style.footerDiv}></div>
          </div>
+         <br />
       </>
    );
 };

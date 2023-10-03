@@ -1,34 +1,4 @@
 import { getChunks, handleApi } from "../../utils/utils";
-
-const getAllMetadata = async (fullList: any[], type: string) => {
-   let profileMetadatas: any[] = [];
-   let mapProfile = fullList.reduce((oMap, current) => {
-      oMap[current.fullName] = current;
-      return oMap;
-   }, {});
-   let chunkedProfiles = getChunks(fullList, 10);
-   console.log("🚀 ~ file: PermissionCheckerView.util.ts:8 ~ getAllMetadata ~ chunkedProfiles:", chunkedProfiles);
-   let promisses = [];
-   for (let i = 0; i < chunkedProfiles.length; i++) {
-      promisses.push(
-         handleApi("metadataRead", {
-            objectName: type,
-            types: chunkedProfiles[i].map((profile: any) => {
-               return profile.fullName;
-            }),
-         })
-      );
-   }
-   let results = await Promise.all(promisses);
-   for (let i = 0; i < results.length; i++) {
-      profileMetadatas = [...profileMetadatas, ...results[i]];
-   }
-   profileMetadatas = profileMetadatas.map((current) => {
-      return { ...current, ...mapProfile[current.fullName] };
-   });
-   return profileMetadatas;
-};
-
 export const handleLoad = async () => {
    var types = [
       { type: "Profile", folder: null },
@@ -42,8 +12,42 @@ export const handleLoad = async () => {
    let listPermissionSets = response.filter((permissionSet: any) => {
       return permissionSet.type === "PermissionSet";
    });
-   let promisesList = [];
+   return { listProfiles, listPermissionSets };
+};
+const getAllMetadata = async (fullList: any[], type: string) => {
+   let profileMetadatas: any[] = [];
+   let mapProfile = fullList.reduce((oMap, current) => {
+      oMap[current.fullName] = current;
+      return oMap;
+   }, {});
+   let chunkedProfiles = getChunks(fullList, 10);
+   let promisses = [];
+   for (let i = 0; i < chunkedProfiles.length; i++) {
+      promisses.push(
+         handleApi("metadataRead", {
+            objectName: type,
+            types: chunkedProfiles[i].map((profile: any) => {
+               return profile.fullName;
+            }),
+         })
+      );
+   }
+   let results = await Promise.all(promisses);
+   for (let i = 0; i < results.length; i++) {
+      if (results[i][0]) {
+         profileMetadatas = [...profileMetadatas, ...results[i]];
+      } else {
+         profileMetadatas = [...profileMetadatas, results[i]];
+      }
+   }
+   profileMetadatas = profileMetadatas.map((current) => {
+      return { ...current, ...mapProfile[current.fullName] };
+   });
+   return profileMetadatas;
+};
 
+export const handleAnalysis = async (listProfiles: any[], listPermissionSets: any[]) => {
+   let promisesList = [];
    let promise1 = getAllMetadata(listProfiles, "Profile");
    let promise2 = getAllMetadata(listPermissionSets, "PermissionSet");
    promisesList.push(promise1);
@@ -203,4 +207,48 @@ const getUserPermissionList = (profile: any, userPermissionList: any[]) => {
       userPermissionList.push(permission.apexPage);
    }
    return Array.from(new Set(userPermissionList));
+};
+
+const getUsersForProfile = async (profiles: any) => {
+   let userMap = {};
+   for (let i = 0; i < profiles.length; i++) {
+      let response = await handleApi("query", {
+         query: "Select id,Name,UserName From User where ProfileId='" + profiles[i].id + "'",
+      });
+      if (response.records) {
+         let tempUsers = response.records.reduce((m: any, user: any) => {
+            m[user.Id] = user;
+            return m;
+         }, {});
+         userMap = { ...userMap, ...tempUsers };
+      }
+   }
+   return userMap;
+};
+const getUserFromPermissionSets = async (permissionSets: any[]) => {
+   let userMap = {};
+   for (let i = 0; i < permissionSets.length; i++) {
+      let response = await handleApi(
+         "query",
+         "SELECT Assignee.Name , Assignee.Username , Assignee.Id ,AssigneeId, PermissionSetId FROM PermissionSetAssignment where PermissionSetId='" +
+            permissionSets[i].id +
+            "'"
+      );
+      if (response.records) {
+         let tempUsers = response.records.reduce((m: any, user: any) => {
+            m[user.AssigneeId] = user.Assignee;
+            return m;
+         }, {});
+         userMap = { ...userMap, ...tempUsers };
+      }
+   }
+   return userMap;
+};
+export const getSelectedUsers = async (selectedData: any) => {
+   let userMap = {};
+
+   userMap = { ...userMap, ...(await getUsersForProfile(selectedData.selectedProfiles)) };
+   userMap = { ...userMap, ...(await getUserFromPermissionSets(selectedData.selectedPermissionSets)) };
+   console.log("🚀 ~ file: PermissionCheckerView.util.ts:231 ~ getSelectedUsers ~ userMap:", userMap);
+   return userMap;
 };

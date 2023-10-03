@@ -55,6 +55,14 @@ const PermissionCheckerDescriptionView: React.FC<IPermissionCheckerDescriptionVi
                         Apex Page Permissions, and User Permissions.
                      </li>
                      <li>
+                        <Link>Profile Selection:</Link> Users can easily select partifular profiles to be analyzed or select all
+                        profiles in a click of a button.
+                     </li>
+                     <li>
+                        <Link>Permission Set Selection:</Link> Users can easily select partifular permission set to be analyzed or
+                        select all permission sets in a click of a button.
+                     </li>
+                     <li>
                         <Link>Permission Selection:</Link> Users can easily select a specific permission from any of the
                         categories listed above. This feature allows users to focus on the exact permission they want to
                         investigate.
