@@ -5,6 +5,7 @@ import AuditTrackingDescriptionView from "./AuditTrackingDescriptionView";
 import CountryPicklistDescriptionView from "./CountryPicklistDescriptionView";
 import CustomMetadataDescriptionView from "./CustomMetadataDescriptionView";
 import DashboardFolderDescriptionView from "./DashboardFolderDescriptionView";
+import DeleteMetadataDescriptionView from "./DeleteMetadataDescriptionView";
 import DiagramDescriptionView from "./DiagramDescriptionView";
 import style from "./HomePageView.module.css";
 import PermissionCheckerDescriptionView from "./PermissionCheckerDescriptionView";
@@ -173,6 +174,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                }}
             >
                <AuditTrackingDescriptionView />
+            </Col>
+            <Col
+               span={24}
+               style={{
+                  alignContent: "center",
+                  borderRadius: "30px",
+                  background: " #212121",
+                  boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+               }}
+            >
+               <DeleteMetadataDescriptionView />
             </Col>
          </Row>
       </Card>

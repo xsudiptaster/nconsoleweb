@@ -169,7 +169,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          key: "metadata",
          children: [
             {
-               label: "Delete Metadata",
+               label: "Metadata Delete Manager",
                key: "deleteMetadata",
             },
             {
