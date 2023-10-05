@@ -1,4 +1,4 @@
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Divider, Row, Typography } from "antd";
 import React from "react";
 import ApexCodeDescriptionView from "./ApexCodeDescriptionView";
 import AuditTrackingDescriptionView from "./AuditTrackingDescriptionView";
@@ -31,160 +31,181 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
          <div className={style.contentDiv}>
             <Title>Features</Title>
          </div>
-         <Row gutter={[16, 16]}>
+         <Row justify="space-evenly">
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <DiagramDescriptionView />
             </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <ReportTypeDescriptionView />
             </Col>
+            <Col span={24}>
+               <Divider></Divider>
+            </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <ReportFolderDescriptionView />
             </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <DashboardFolderDescriptionView />
             </Col>
+            <Col span={24}>
+               <Divider></Divider>
+            </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <ApexCodeDescriptionView />
             </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <QueryDescriptionView />
             </Col>
+            <Col span={24}>
+               <Divider></Divider>
+            </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <CountryPicklistDescriptionView />
             </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <CustomMetadataDescriptionView />
             </Col>
+            <Col span={24}>
+               <Divider></Divider>
+            </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <PermissionsCompareDescriptionView />
             </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <PermissionEditDescriptionView />
             </Col>
+            <Col span={24}>
+               <Divider></Divider>
+            </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <UserPermissionDescriptionView />
             </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <PermissionCheckerDescriptionView />
             </Col>
+            <Col span={24}>
+               <Divider></Divider>
+            </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <AuditTrackingDescriptionView />
             </Col>
             <Col
-               span={24}
+               span={11}
                style={{
                   alignContent: "center",
                   borderRadius: "30px",
-                  background: " #212121",
+                  background: " #211111",
                   boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
                }}
             >
                <DeleteMetadataDescriptionView />
+            </Col>
+            <Col span={24}>
+               <Divider></Divider>
             </Col>
          </Row>
       </Card>
