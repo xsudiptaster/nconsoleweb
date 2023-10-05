@@ -173,7 +173,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                key: "deleteMetadata",
             },
             {
-               label: "Deploy Metadata",
+               label: "Metadata Deploy Manager",
                key: "deployMetadata",
             },
          ],

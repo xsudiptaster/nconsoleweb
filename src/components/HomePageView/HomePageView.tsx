@@ -6,6 +6,7 @@ import CountryPicklistDescriptionView from "./CountryPicklistDescriptionView";
 import CustomMetadataDescriptionView from "./CustomMetadataDescriptionView";
 import DashboardFolderDescriptionView from "./DashboardFolderDescriptionView";
 import DeleteMetadataDescriptionView from "./DeleteMetadataDescriptionView";
+import DeployMetadataDescriptionView from "./DeployMetadataDescriptionView";
 import DiagramDescriptionView from "./DiagramDescriptionView";
 import style from "./HomePageView.module.css";
 import PermissionCheckerDescriptionView from "./PermissionCheckerDescriptionView";
@@ -206,6 +207,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
             </Col>
             <Col span={24}>
                <Divider></Divider>
+            </Col>
+            <Col
+               span={11}
+               style={{
+                  alignContent: "center",
+                  borderRadius: "30px",
+                  background: " #211111",
+                  boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+               }}
+            >
+               <DeployMetadataDescriptionView />
             </Col>
          </Row>
       </Card>
