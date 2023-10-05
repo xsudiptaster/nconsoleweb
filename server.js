@@ -19,6 +19,7 @@ const metadataDeploy = require("./server/MetadataDeploy");
 const metadataDelete = require("./server/MetadataDelete");
 const metadataList = require("./server/MetadataList");
 const toolingQuery = require("./server/ToolingQuery");
+const metadataDescribe = require("./server/MetadataDescribe");
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -82,6 +83,10 @@ app.post("/api/logout", async (req, res) => {
 });
 app.post("/api/fetch", async (req, res) => {
    let response = await fetchCall(req.body);
+   res.json(response);
+});
+app.post("/api/metadataDescribe", async (req, res) => {
+   let response = await metadataDescribe(req.body);
    res.json(response);
 });
 app.post("/api/metadataRead", async (req, res) => {

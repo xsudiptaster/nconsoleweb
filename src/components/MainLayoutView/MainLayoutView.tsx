@@ -10,7 +10,7 @@ import { App, Avatar, Button, Layout, Menu, MenuProps, Popover, Space, Spin } fr
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
-import { BsFillSendFill } from "react-icons/bs";
+import { BsFiletypeXml, BsFillSendFill } from "react-icons/bs";
 import { SiAdobeaudition } from "react-icons/si";
 import { useRecoilState } from "recoil";
 import { loadingAtom, loginInfoAtom, selectedAppAtom } from "../../atoms/atom";
@@ -20,6 +20,8 @@ import AuditTrackingView from "../AuditTrackingView";
 import CountryPicklistView from "../CountryPicklistView";
 import CustomMetadataEditView from "../CustomMetadataEditView";
 import DashBoardFoldersView from "../DashBoardFoldersView";
+import DeleteMetadataView from "../DeleteMetadataView";
+import DeployMetaDataView from "../DeployMetaDataView";
 import DiagramView from "../DiagramView";
 import HomePageView from "../HomePageView";
 import PermissionCheckerView from "../PermissionCheckerView";
@@ -161,6 +163,21 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          label: "Audit Trail Analyzer",
          key: "auditTracker",
       },
+      {
+         icon: <BsFiletypeXml />,
+         label: "Metadata",
+         key: "metadata",
+         children: [
+            {
+               label: "Delete Metadata",
+               key: "deleteMetadata",
+            },
+            {
+               label: "Deploy Metadata",
+               key: "deployMetadata",
+            },
+         ],
+      },
    ];
    return (
       <>
@@ -250,6 +267,12 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "auditTracker"}>
                            <AuditTrackingView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "deleteMetadata"}>
+                           <DeleteMetadataView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "deployMetadata"}>
+                           <DeployMetaDataView />
                         </RenderIf>
                      </Content>
                   </Layout>

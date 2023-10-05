@@ -56,7 +56,6 @@ export const retrievePermissions = async (selectedProfiles: any[], selectedObjec
    let profiles = selectedProfiles.filter((profile) => {
       return profile.type === "Profile";
    });
-   console.log("🚀 ~ file: PermissionEditView.util.ts:59 ~ profiles ~ selectedProfiles:", selectedProfiles);
    let permissionSets = selectedProfiles.filter((permissionSet) => {
       return permissionSet.type === "PermissionSet";
    });
@@ -99,7 +98,6 @@ export const retrievePermissions = async (selectedProfiles: any[], selectedObjec
       let object = await handleApi("objectDescribe", { objectName: selectedObjects[i].fullName });
       responseObjects.push(object);
    }
-   console.log("🚀 ~ file: PermissionEditView.util.ts:97 ~ retrievePermissions ~ responseObjects:", responseObjects);
    let response = await handleApi("metadataRetrieve", { types });
    let proccessedZip = await processZip(response.zipFile);
    console.log("🚀 ~ file: PermissionEditView.util.ts:104 ~ retrievePermissions ~ proccessedZip:", proccessedZip);
