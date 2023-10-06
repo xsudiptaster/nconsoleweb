@@ -18,6 +18,7 @@ import RenderIf from "../../utils/RenderIf";
 import ApexCodeView from "../ApexCodeView";
 import AuditTrackingView from "../AuditTrackingView";
 import CountryPicklistView from "../CountryPicklistView";
+import CreateChangeSetView from "../CreateChangeSetView";
 import CustomMetadataEditView from "../CustomMetadataEditView";
 import DashBoardFoldersView from "../DashBoardFoldersView";
 import DeleteMetadataView from "../DeleteMetadataView";
@@ -273,6 +274,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "deployMetadata"}>
                            <DeployMetaDataView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "createChangeSet"}>
+                           <CreateChangeSetView />
                         </RenderIf>
                      </Content>
                   </Layout>

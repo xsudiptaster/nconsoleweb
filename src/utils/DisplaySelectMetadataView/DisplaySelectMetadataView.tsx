@@ -79,6 +79,7 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
    const handleExecute = async (selectedMetaDatas: any[]) => {
       let response = await execute(selectedMetaDatas);
       if (response) {
+         setMetaDataOptions([]);
          setLoading(true);
          let response = await handleLoad();
          setSelectedMetaDatas([]);

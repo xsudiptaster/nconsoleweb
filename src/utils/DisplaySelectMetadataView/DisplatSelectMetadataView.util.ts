@@ -19,7 +19,10 @@ export const handleLoad = async () => {
 };
 export const getMetaDataTypeList = async (metaDataType: string) => {
    let response = await handleApi("metadataList", { types: [{ type: metaDataType, folder: "" }] });
-   return response.sort((a: any, b: any) => {
-      return new Date(a.lastModifiedDate) > new Date(b.lastModifiedDate) ? -1 : 1;
-   });
+   if (response && response[0]) {
+      return response.sort((a: any, b: any) => {
+         return new Date(a.lastModifiedDate) > new Date(b.lastModifiedDate) ? -1 : 1;
+      });
+   }
+   return [];
 };
