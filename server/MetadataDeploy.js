@@ -20,6 +20,7 @@ const metadataDeploy = async (data) => {
    Options.rollbackOnError = true;
    Options.singlePackage = true;
    Options.allowMissingFiles = true;
+   Options.checkOnly = data?.checkOnly ? data?.checkOnly : false;
    try {
       const deployRequest = await conn.metadata.deploy(data.zipFile, Options);
       const deployStatus = await checkDeployStatus(conn, deployRequest.id);

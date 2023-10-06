@@ -8,20 +8,31 @@ import DisplaySelectedMetadataView from "./DisplaySelectedMetadataView";
 interface IDisplaySelectMetadataViewProps {
    children?: React.ReactNode;
    execute: any;
+   preSelectedMetadatas: any[];
 }
 
 const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (props) => {
-   const { execute } = props;
+   const { execute, preSelectedMetadatas } = props;
    const [, setLoading] = useRecoilState(loadingAtom);
    const [metaDataOptions, setMetaDataOptions] = React.useState<any[]>([]);
    const [metaDataList, setMetaDataList] = React.useState<any[]>([]);
-   const [selectedMetaDatas, setSelectedMetaDatas] = React.useState<any[]>([]);
+   const [selectedMetaDatas, setSelectedMetaDatas] = React.useState<any[]>(preSelectedMetadatas);
    const [searhString, setSearchString] = React.useState("");
-   const columns = [
+   const columns: any[] = [
       {
          title: "Created By",
          dataIndex: "createdByName",
          sorter: (a: any, b: any) => (a.createdByName > b.createdByName ? 1 : -1),
+         onFilter: (value: string, record: any) => record.createdByName === value,
+         filters: Array.from(
+            new Set(
+               metaDataList.map((metaData) => {
+                  return metaData.createdByName;
+               })
+            )
+         ).map((opt) => {
+            return { text: opt, value: opt };
+         }),
       },
       {
          title: "Created Date",
@@ -33,6 +44,16 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
          title: "Last Modified By",
          dataIndex: "lastModifiedByName",
          sorter: (a: any, b: any) => (a.lastModifiedByName > b.lastModifiedByName ? 1 : -1),
+         onFilter: (value: string, record: any) => record.lastModifiedByName === value,
+         filters: Array.from(
+            new Set(
+               metaDataList.map((metaData) => {
+                  return metaData.lastModifiedByName;
+               })
+            )
+         ).map((opt) => {
+            return { text: opt, value: opt };
+         }),
          filterSearch: true,
       },
       {
@@ -63,6 +84,12 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
       };
       onload();
    }, [setLoading]);
+   React.useMemo(() => {
+      const onload = () => {
+         setSelectedMetaDatas(preSelectedMetadatas);
+      };
+      onload();
+   }, [preSelectedMetadatas]);
    const onMetaDataTypeChange = async (value: string) => {
       setLoading(true);
       let response = await getMetaDataTypeList(value);
@@ -105,7 +132,8 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
                   <Input
                      size="small"
                      bordered={false}
-                     placeholder="Search Metadata Element"
+                     style={{ minWidth: "300px" }}
+                     placeholder="Search Metadata Element...."
                      onChange={(event) => {
                         setSearchString(event?.target.value);
                      }}
@@ -139,7 +167,10 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
                         searhString === ""
                            ? metaDataList
                            : metaDataList.filter((metadata) => {
-                                return metadata.fileName.toUpperCase().includes(searhString.toUpperCase());
+                                return (
+                                   metadata.fileName.toUpperCase().includes(searhString.toUpperCase()) ||
+                                   metadata.fullName.toUpperCase().includes(searhString.toUpperCase())
+                                );
                              })
                      }
                      rowSelection={{

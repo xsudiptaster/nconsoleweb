@@ -22,6 +22,11 @@ const metadataRetrieve = async (data) => {
          accessToken: data.accessToken,
          version: versionInt,
       });
+      if (data.packageNames) {
+         const result = await conn.metadata.retrieve({ packageNames: data.packageNames, apiVersion: versionInt });
+         const response = await checkRetrieveStatus(conn, result.id);
+         return response;
+      }
       const result = await conn.metadata.retrieve({
          singlePackage: true,
          unpackaged: {

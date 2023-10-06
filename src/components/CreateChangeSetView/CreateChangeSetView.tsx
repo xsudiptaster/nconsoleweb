@@ -1,7 +1,12 @@
-import { App, Button, Divider, Input, Modal } from "antd";
+import { App, Button, Divider, Input, Modal, Space } from "antd";
+
 import React from "react";
+import { useRecoilState } from "recoil";
+import { loadingAtom, loginInfoAtom } from "../../atoms/atom";
 import DisplaySelectMetadataView from "../../utils/DisplaySelectMetadataView";
-import { handleCreateChangeSet } from "./CreateChangeSetView.util";
+import OrgSwitchView from "../../utils/OrgSwitchView";
+import RenderIf from "../../utils/RenderIf";
+import { getChangeSet, handleCreateChangeSet, handleValidation } from "./CreateChangeSetView.util";
 
 interface ICreateChangeSetViewProps {
    children?: React.ReactNode;
@@ -9,53 +14,112 @@ interface ICreateChangeSetViewProps {
 
 const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
    const { message } = App.useApp();
+   const [, setLoading] = useRecoilState(loadingAtom);
+   const [loginInfo] = useRecoilState(loginInfoAtom);
    const [open, setOpen] = React.useState(false);
-   const [metadataList, setMetadataList] = React.useState<any[]>([]);
+   const [initialMetadataList, setInitialMetadataList] = React.useState<any[]>([]);
    const [changeSetName, setChangeSetName] = React.useState("");
-   const [changeSetDescription, setChangeSetDescription] = React.useState("");
+   const [isConfirmed, setIsConfirmed] = React.useState(false);
+   const [secondLoginInfo, setSetSecondLoginInfo] = React.useState(loginInfo);
+
    const onExecute = async (selectedMetadatas: any[]) => {
-      setMetadataList(selectedMetadatas);
-      setOpen(true);
-   };
-   const onCreateChangeset = async () => {
+      setLoading(true);
       if (changeSetName === undefined || changeSetName === "") {
          message.error("Please Enter a Change Set Name");
          return;
       }
-      let response = await handleCreateChangeSet(metadataList, changeSetName, changeSetDescription);
+      let response = await handleCreateChangeSet(selectedMetadatas, initialMetadataList, changeSetName);
+      if (response.success) {
+         message.success("Change Set Updated!");
+         setInitialMetadataList(selectedMetadatas);
+      } else {
+         message.error("Change Set Update Failed!");
+      }
+      console.log("🚀 ~ file: CreateChangeSetView.tsx:29 ~ onExecute ~ response:", response);
+      setLoading(false);
+   };
+
+   const onGetChangeSet = async () => {
+      if (changeSetName === "") {
+         message.error("Please Enter a Change Set Name!!");
+         return;
+      }
+      setLoading(true);
+      let response = await getChangeSet(changeSetName);
+      if (!response.success) {
+         message.error("Invalid Change Set Name!!");
+         return;
+      } else if (response.selectedMetadatas) {
+         setInitialMetadataList(response.selectedMetadatas);
+         setIsConfirmed(true);
+      }
+      setLoading(false);
+   };
+   const onValidate = async () => {
+      setOpen(false);
+      setLoading(true);
+      let response = await handleValidation(initialMetadataList, secondLoginInfo);
+      console.log("🚀 ~ file: CreateChangeSetView.tsx:60 ~ onValidate ~ response:", response);
+      if (response.success) {
+         message.success("The Validation Was Successfull !!");
+      } else {
+         message.error("The Validation Failed !!");
+      }
+      setLoading(false);
    };
    return (
       <>
-         <Divider>Create Change Set</Divider>
-         <Input
-            placeholder="Change Set Name"
-            size="small"
-            onChange={(event) => {
-               setChangeSetName(event?.target.value.replaceAll(" ", ""));
-            }}
-         ></Input>
-         <Button>Get Change Set</Button>
-         <DisplaySelectMetadataView execute={onExecute} />
+         <Divider>
+            <Space>
+               <Input
+                  placeholder="Enter Change Set Name"
+                  style={{ minWidth: "300px" }}
+                  disabled={isConfirmed}
+                  size="small"
+                  onChange={(event) => {
+                     setChangeSetName(event?.target.value.replaceAll(" ", ""));
+                  }}
+               />
+               <RenderIf renderIf={!isConfirmed}>
+                  <Button size="small" onClick={onGetChangeSet}>
+                     Confirm
+                  </Button>
+               </RenderIf>
+               <RenderIf renderIf={isConfirmed}>
+                  <Space>
+                     <Button
+                        size="small"
+                        onClick={() => {
+                           setIsConfirmed(false);
+                        }}
+                     >
+                        Change
+                     </Button>
+                     <Button
+                        size="small"
+                        onClick={() => {
+                           setOpen(true);
+                        }}
+                     >
+                        Validate
+                     </Button>
+                  </Space>
+               </RenderIf>
+            </Space>
+         </Divider>
+
+         <DisplaySelectMetadataView execute={onExecute} preSelectedMetadatas={initialMetadataList} />
          <Modal
             open={open}
-            title="Deploy Changes"
-            onOk={onCreateChangeset}
+            onOk={onValidate}
             onCancel={() => {
                setOpen(false);
             }}
          >
-            <Input
-               placeholder="Enter Change Set Name"
-               size="small"
-               onChange={(event) => {
-                  setChangeSetName(event?.target.value.replaceAll(" ", ""));
-               }}
-            />
-            <Input
-               placeholder="Enter Change Set Description"
-               size="small"
-               onChange={(event) => {
-                  setChangeSetDescription(event?.target.value);
+            <OrgSwitchView
+               defaultUserName={secondLoginInfo.username}
+               onConfirm={(value: any) => {
+                  setSetSecondLoginInfo(value);
                }}
             />
          </Modal>

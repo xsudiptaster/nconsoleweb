@@ -26,7 +26,7 @@ const DeleteMetadataView: React.FC<IDeleteMetadataViewProps> = (props) => {
    return (
       <>
          <Divider>Delete Metadata</Divider>
-         <DisplaySelectMetadataView execute={execute} />
+         <DisplaySelectMetadataView execute={execute} preSelectedMetadatas={[]} />
       </>
    );
 };

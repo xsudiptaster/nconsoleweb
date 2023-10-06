@@ -1,8 +1,23 @@
 import { XMLBuilder, XMLParser } from "fast-xml-parser";
 import JSZip from "jszip";
-import { handleApi } from "../../utils/utils";
-export const handleCreateChangeSet = async (selectedMetadatas: any[], changeSetName: string, changeSetDescription: string) => {
-   let mapSelectedMetadata = selectedMetadatas.reduce((oMap, metadata) => {
+import { handleApi, handleApiSecond, version } from "../../utils/utils";
+const createDescructiveXML = (selectedMetadatas: any[], initialMetdatas: any[]) => {
+   let selectedIds = selectedMetadatas.map((metaData) => {
+      return metaData.id;
+   });
+   let removeList = initialMetdatas.filter((metaData) => {
+      return !selectedIds.includes(metaData.id);
+   });
+   let types = getTypesFromMetadataList(removeList);
+   return {
+      Package: {
+         types,
+         version: version,
+      },
+   };
+};
+const getTypesFromMetadataList = (metadataList: any[]) => {
+   let mapSelectedMetadata = metadataList.reduce((oMap, metadata) => {
       if (oMap[metadata.type]) {
          oMap[metadata.type].push(metadata);
       } else {
@@ -22,6 +37,10 @@ export const handleCreateChangeSet = async (selectedMetadatas: any[], changeSetN
       });
       types.push(oType);
    }
+   return types;
+};
+export const handleCreateChangeSet = async (selectedMetadatas: any[], initialMetadatas: any[], changeSetName: string) => {
+   let types: any = getTypesFromMetadataList(selectedMetadatas);
    const options = {
       ignoreAttributes: false,
    };
@@ -31,11 +50,10 @@ export const handleCreateChangeSet = async (selectedMetadatas: any[], changeSetN
    const zipFileLoaded = await JSZip.loadAsync(retrieveResponse.zipFile, { base64: true });
    const xmlData = await zipFileLoaded.files["package.xml"].async("text");
    const packageData = parser.parse(xmlData);
-   console.log("🚀 ~ file: CreateChangeSetView.util.ts:29 ~ handleCreateChangeSet ~ packageData:", packageData);
+   const destructiveData: any = createDescructiveXML(selectedMetadatas, initialMetadatas);
    packageData.Package.fullName = changeSetName;
-   packageData.Package.description = changeSetDescription;
+   destructiveData.Package.fullName = changeSetName;
    const xmlDataRevised = builder.build(packageData);
-   /**  let basefile = await createBaseFile(files);*/
    const zip = new JSZip();
    for (const key in zipFileLoaded.files) {
       if (key === "package.xml") {
@@ -45,10 +63,64 @@ export const handleCreateChangeSet = async (selectedMetadatas: any[], changeSetN
          zip.file(key, xmlVal);
       }
    }
+   zip.file("destructiveChanges.xml", builder.build(destructiveData));
    const base64File = await zip.generateAsync({ type: "base64" });
    let response = await handleApi("metadataDeploy", { zipFile: base64File });
-   console.log("🚀 ~ file: CreateChangeSetView.util.ts:34 ~ handleCreateChangeSet ~ response:", response);
-
    return response;
 };
-export const getChangeSet = async () => {};
+const getMetadataList = async (type: string) => {
+   let response = await handleApi("metadataList", { types: [{ type: type, folder: "" }] });
+   if (response && response[0]) {
+      return response.sort((a: any, b: any) => {
+         return new Date(a.lastModifiedDate) > new Date(b.lastModifiedDate) ? -1 : 1;
+      });
+   }
+   return [];
+};
+export const getChangeSet = async (changeSetName: string) => {
+   const options = {
+      ignoreAttributes: false,
+   };
+   let response = await handleApi("metadataRetrieve", { packageNames: [changeSetName] });
+   if (response.success === "false") {
+      return { success: false };
+   }
+   const zipFileLoaded = await JSZip.loadAsync(response.zipFile, { base64: true });
+   const xmlData = await zipFileLoaded.files[changeSetName + "/package.xml"].async("text");
+   const parser = new XMLParser(options);
+   const packageData = parser.parse(xmlData);
+   console.log("🚀 ~ file: CreateChangeSetView.util.ts:58 ~ getChangeSet ~ packageData:", packageData);
+   let selectedMetadatas: any[] = [];
+   if (packageData?.Package?.types) {
+      if (packageData?.Package?.types[0]) {
+         for (let i = 0; i < packageData?.Package?.types.length; i++) {
+            let type = packageData?.Package?.types[i];
+            let response = await getMetadataList(type.name);
+            let filteredMetadata = response.filter((metadata: any) => {
+               return type.members.includes(metadata.fullName);
+            });
+            selectedMetadatas = [...selectedMetadatas, ...filteredMetadata];
+         }
+      } else {
+         let type = packageData?.Package?.types;
+         let response = await getMetadataList(type.name);
+         let filteredMetadata = response.filter((metadata: any) => {
+            return type.members.includes(metadata.fullName);
+         });
+         selectedMetadatas = [...selectedMetadatas, ...filteredMetadata];
+      }
+   }
+   return {
+      selectedMetadatas,
+      success: true,
+   };
+};
+export const handleValidation = async (selectedMetadatas: any[], currentLoginInfo: any) => {
+   let types: any = getTypesFromMetadataList(selectedMetadatas);
+   let retrieveResponse = await handleApi("metadataRetrieve", { types });
+   let deployResponse = await handleApiSecond("metadataDeploy", currentLoginInfo, {
+      zipFile: retrieveResponse.zipFile,
+      checkOnly: true,
+   });
+   return deployResponse;
+};

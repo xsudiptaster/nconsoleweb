@@ -36,7 +36,7 @@ const DeployMetaDataView: React.FC<IDeployMetaDataViewProps> = (props) => {
    return (
       <>
          <Divider>Deploy Metadata</Divider>
-         <DisplaySelectMetadataView execute={execute} />
+         <DisplaySelectMetadataView execute={execute} preSelectedMetadatas={[]} />
          <Modal
             open={open}
             title="Deploy Changes"

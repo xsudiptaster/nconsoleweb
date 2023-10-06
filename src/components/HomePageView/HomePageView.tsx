@@ -3,6 +3,7 @@ import React from "react";
 import ApexCodeDescriptionView from "./ApexCodeDescriptionView";
 import AuditTrackingDescriptionView from "./AuditTrackingDescriptionView";
 import CountryPicklistDescriptionView from "./CountryPicklistDescriptionView";
+import CreateChangeSetDescriptionView from "./CreateChangeSetDescriptionView";
 import CustomMetadataDescriptionView from "./CustomMetadataDescriptionView";
 import DashboardFolderDescriptionView from "./DashboardFolderDescriptionView";
 import DeleteMetadataDescriptionView from "./DeleteMetadataDescriptionView";
@@ -218,6 +219,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                }}
             >
                <DeployMetadataDescriptionView />
+            </Col>
+            <Col
+               span={11}
+               style={{
+                  alignContent: "center",
+                  borderRadius: "30px",
+                  background: " #211111",
+                  boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+               }}
+            >
+               <CreateChangeSetDescriptionView />
             </Col>
          </Row>
       </Card>

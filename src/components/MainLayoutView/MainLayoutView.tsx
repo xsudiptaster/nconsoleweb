@@ -177,6 +177,10 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                label: "Metadata Deploy Manager",
                key: "deployMetadata",
             },
+            {
+               label: "Change Set Manager Pro",
+               key: "createChangeSet",
+            },
          ],
       },
    ];
