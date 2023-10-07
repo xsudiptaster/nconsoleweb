@@ -70,7 +70,7 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
                         setShowContactUs(true);
                      }}
                   >
-                     Contact Us
+                     Report Problem
                   </Button>
                }
             >

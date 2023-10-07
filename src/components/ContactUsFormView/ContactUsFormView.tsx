@@ -21,7 +21,7 @@ const ContactUsFormView: React.FC<IContactUsFormViewProps> = (props) => {
    };
    return (
       <>
-         <Divider>Contact Us</Divider>
+         <Divider>Report Problem</Divider>
          <RenderIf renderIf={!sentEmail}>
             <Form
                labelCol={{ span: 4 }}
