@@ -12,10 +12,9 @@ const sendEmail = async (data) => {
       from: data.email,
       to: "xsudiptaster@gmail.com",
       subject: "NCONSOLE ERROR",
-      text: data.body,
+      text: "From :" + data.email + " ISSUE: " + data.body,
    };
    let response = await transporter.sendMail(mailOptions);
-   console.log("🚀 ~ file: SendEmail.js:18 ~ sendEmail ~ response:", response);
    return response;
 };
 
