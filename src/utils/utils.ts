@@ -133,7 +133,7 @@ export const flattenJson = (data: any) => {
    return result;
 };
 export const getBase64 = (file: any) => {
-   new Promise((resolve) => {
+   return new Promise((resolve) => {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function () {
