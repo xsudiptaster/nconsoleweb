@@ -6,7 +6,7 @@ import {
    HomeOutlined,
    SettingOutlined,
 } from "@ant-design/icons";
-import { App, Avatar, Button, Layout, Menu, MenuProps, Popover, Space, Spin } from "antd";
+import { App, Avatar, Button, Layout, Menu, MenuProps, Modal, Popover, Space, Spin } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
@@ -17,6 +17,7 @@ import { loadingAtom, loginInfoAtom, selectedAppAtom } from "../../atoms/atom";
 import RenderIf from "../../utils/RenderIf";
 import ApexCodeView from "../ApexCodeView";
 import AuditTrackingView from "../AuditTrackingView";
+import ContactUsFormView from "../ContactUsFormView";
 import CountryPicklistView from "../CountryPicklistView";
 import CreateChangeSetView from "../CreateChangeSetView";
 import CustomMetadataEditView from "../CustomMetadataEditView";
@@ -42,6 +43,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
    const [loading, setLoading] = useRecoilState(loadingAtom);
    const [current, setCurrent] = useRecoilState(selectedAppAtom);
    const [loginInfo, setLoginInfo] = useRecoilState(loginInfoAtom);
+   const [showContactUs, setShowContactUs] = React.useState(false);
    const [load, setLoad] = React.useState(true);
    React.useEffect(() => {
       const onload = async () => {
@@ -200,6 +202,15 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                                     {loginInfo?.username}
                                     <Space>
                                        <Button
+                                          type="link"
+                                          size="small"
+                                          onClick={() => {
+                                             setShowContactUs(true);
+                                          }}
+                                       >
+                                          Report Problem
+                                       </Button>
+                                       <Button
                                           icon={<BsFillSendFill />}
                                           size="small"
                                           type="text"
@@ -287,6 +298,17 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                   <Footer style={{ textAlign: "center", maxHeight: "20px" }}>NConsole ©2023 Created by Sudipta Karmakar</Footer>
                </Layout>
             </Spin>
+            <Modal
+               destroyOnClose
+               width={600}
+               open={showContactUs}
+               footer={null}
+               onCancel={() => {
+                  setShowContactUs(false);
+               }}
+            >
+               <ContactUsFormView />
+            </Modal>
          </App>
       </>
    );

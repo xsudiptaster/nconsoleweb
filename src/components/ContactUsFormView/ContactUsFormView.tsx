@@ -45,7 +45,7 @@ const ContactUsFormView: React.FC<IContactUsFormViewProps> = (props) => {
             </Form>
          </RenderIf>
          <RenderIf renderIf={sentEmail}>
-            <Result status="success" title="Successfully Sent Contact Request!" />
+            <Result status="success" title="Successfully Reported Issue!!" />
          </RenderIf>
       </>
    );
