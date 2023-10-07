@@ -20,6 +20,7 @@ const metadataDelete = require("./server/MetadataDelete");
 const metadataList = require("./server/MetadataList");
 const toolingQuery = require("./server/ToolingQuery");
 const metadataDescribe = require("./server/MetadataDescribe");
+const sendEmail = require("./server/SendEmail");
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -119,6 +120,10 @@ app.post("/api/apexCode", async (req, res) => {
 });
 app.post("/api/apexCode", async (req, res) => {
    let response = await apexCode(req.body);
+   res.json(response);
+});
+app.post("/api/sendEmail", async (req, res) => {
+   let response = await sendEmail(req.body);
    res.json(response);
 });
 app.get("*", (req, res) => {
