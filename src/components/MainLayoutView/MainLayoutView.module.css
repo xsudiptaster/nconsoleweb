@@ -1,0 +1,10 @@
+.textIco {
+    font-family: verdana;
+    font-weight: bold;
+    text-align: center;
+    font-size: 5px;
+    border-radius: 5px;
+    border: '20px solid white';
+    color: rgba(44, 50, 73, 0.42);
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+}

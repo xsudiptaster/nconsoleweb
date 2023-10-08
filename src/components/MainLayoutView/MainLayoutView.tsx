@@ -35,6 +35,7 @@ import ReportTypeView from "../ReportTypeView";
 import StatusModalView from "../StatusModalView";
 import UserPermissionAnalysisView from "../UserPermissionAnalysisView";
 import { checkLogin, handleLogout } from "./MainLayoutView.util";
+import TagLogoView from "./TagLogoView";
 interface IMainLayoutViewProps {
    children?: React.ReactNode;
 }
@@ -89,22 +90,16 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          icon: <SettingOutlined />,
          children: [
             {
-               type: "group",
-               label: "Salesforce",
-               children: [
-                  {
-                     label: "Custom Report Editor Pro",
-                     key: "reportType",
-                  },
-                  {
-                     label: "Report Tree View",
-                     key: "reportFolders",
-                  },
-                  {
-                     label: "Dashboard Tree View",
-                     key: "dashboardFolders",
-                  },
-               ],
+               label: <TagLogoView tagName="CRE" labelName="Custom Report Editor Pro" />,
+               key: "reportType",
+            },
+            {
+               label: <TagLogoView tagName="RTV" labelName="Report Tree View" />,
+               key: "reportFolders",
+            },
+            {
+               label: <TagLogoView tagName="DTV" labelName="Dashboard Tree View" />,
+               key: "dashboardFolders",
             },
          ],
       },
@@ -114,11 +109,11 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          icon: <BoxPlotOutlined />,
          children: [
             {
-               label: "ApexLogic Runner",
+               label: <TagLogoView tagName="AR" labelName="ApexLogic Runner" />,
                key: "apexCode",
             },
             {
-               label: "ExcelQuery Pro",
+               label: <TagLogoView tagName="EQ" labelName="ExcelQuery Pro" />,
                key: "query",
             },
          ],
@@ -129,11 +124,11 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          icon: <DeploymentUnitOutlined />,
          children: [
             {
-               label: "MetaModify Pro",
+               label: <TagLogoView tagName="MM" labelName="MetaModify Pro" />,
                key: "customMetadata",
             },
             {
-               label: "GeoData Manager",
+               label: <TagLogoView tagName="GDM" labelName="GeoData Manager" />,
                key: "addressUpdate",
             },
          ],
@@ -144,19 +139,19 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          icon: <ExperimentOutlined />,
          children: [
             {
-               label: "ProfilePro Bulk Editor",
+               label: <TagLogoView tagName="PBE" labelName="ProfilePro Bulk Editor" />,
                key: "permissionEdit",
             },
             {
-               label: "Profile & Permission Set Comparator",
+               label: <TagLogoView tagName="P&PSC" labelName="Profile & Permission Set Comparator" />,
                key: "permisionCompare",
             },
             {
-               label: "UserPermissions Insight",
+               label: <TagLogoView tagName="UPI" labelName="UserPermissions Insight" />,
                key: "userPermission",
             },
             {
-               label: "Permission Detective Pro",
+               label: <TagLogoView tagName="PDP" labelName="Permission Detective Pro" />,
                key: "permissionChecker",
             },
          ],
@@ -172,15 +167,15 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          key: "metadata",
          children: [
             {
-               label: "Metadata Delete Manager",
+               label: <TagLogoView tagName="MDLM" labelName="Metadata Delete Manager" />,
                key: "deleteMetadata",
             },
             {
-               label: "Metadata Deploy Manager",
+               label: <TagLogoView tagName="MDM" labelName="Metadata Deploy Manager" />,
                key: "deployMetadata",
             },
             {
-               label: "Change Set Manager Pro",
+               label: <TagLogoView tagName="CSM" labelName="Change Set Manager Pro" />,
                key: "createChangeSet",
             },
          ],
