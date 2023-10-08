@@ -24,6 +24,7 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
    return (
       <>
          <div
+            className={style.loginFadeIn}
             style={{
                backgroundImage: "../../nconsoleimg_edge.png",
             }}
