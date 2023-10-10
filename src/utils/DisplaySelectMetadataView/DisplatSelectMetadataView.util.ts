@@ -2,7 +2,6 @@ import { handleApi } from "../../utils/utils";
 
 export const handleLoad = async () => {
    let response = await handleApi("metadataDescribe", {});
-   console.log("🚀 ~ file: DeleteMetadataView.util.ts:5 ~ handleLoad ~ response:", response);
    let options: any[] = [];
    for (let i = 0; i < response?.metadataObjects.length; i++) {
       let metaData = response.metadataObjects[i];

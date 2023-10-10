@@ -119,7 +119,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
          ],
       },
       {
-         label: "Metadata Edit",
+         label: "Custom Metadata and Address",
          key: "metadataEdit",
          icon: <DeploymentUnitOutlined />,
          children: [
