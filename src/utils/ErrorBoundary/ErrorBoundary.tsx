@@ -1,5 +1,6 @@
 import { Button, Result } from "antd";
 import React, { useEffect, useState } from "react";
+import { handleApi } from "../utils";
 
 interface IErrorBoundaryProps {
    children?: React.ReactNode;
@@ -12,6 +13,7 @@ const ErrorBoundary: React.FC<IErrorBoundaryProps> = (props) => {
    useEffect(() => {
       const errorHandler = (event: any) => {
          // You can log the error here or send it to a logging service
+         handleApi("sendEmail", { email: "capture@nconsole.com", body: JSON.stringify(event) });
          console.error("Error caught by ErrorBoundary:", JSON.stringify(event));
          setHasError(true);
       };
