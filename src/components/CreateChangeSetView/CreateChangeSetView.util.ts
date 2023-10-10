@@ -89,7 +89,6 @@ export const getChangeSet = async (changeSetName: string) => {
    const xmlData = await zipFileLoaded.files[changeSetName + "/package.xml"].async("text");
    const parser = new XMLParser(options);
    const packageData = parser.parse(xmlData);
-   console.log("🚀 ~ file: CreateChangeSetView.util.ts:58 ~ getChangeSet ~ packageData:", packageData);
    let selectedMetadatas: any[] = [];
    if (packageData?.Package?.types) {
       if (packageData?.Package?.types[0]) {

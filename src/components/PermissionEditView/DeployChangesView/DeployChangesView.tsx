@@ -37,7 +37,6 @@ const DeployChangesView: React.FC<IDeployChangesViewProps> = (props) => {
       } else {
          message.error(response.message);
       }
-      console.log("🚀 ~ file: DeployChangesView.tsx:29 ~ onOk ~ response:", response);
    };
    const onCancel = async () => {
       setDeploy(false);

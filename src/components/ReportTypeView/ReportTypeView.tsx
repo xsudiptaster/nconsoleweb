@@ -34,7 +34,6 @@ const ReportTypeView: React.FC<IReportTypeViewProps> = (props) => {
    const onSave = async () => {
       setLoading(true);
       let response = await handleSave(selectedReportType);
-      console.log("🚀 ~ file: ReportTypeView.tsx:36 ~ onSave ~ response:", response);
       if (response.success) {
          message.success("Saved Successfully!");
       } else {

@@ -42,7 +42,6 @@ const ApexCodeView: React.FC<IApexCodeViewProps> = (props) => {
       }
       let response: any = await handleExecute(code, runType, jsonData, loopCount);
       if (response.success) {
-         console.log("🚀 ~ file: ApexCodeView.tsx:46 ~ executeCode ~ response:", response.data);
          message.success("Process Completed!!");
          setJsonData(response.data);
       }

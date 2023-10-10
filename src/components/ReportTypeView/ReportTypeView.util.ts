@@ -44,7 +44,6 @@ export const loadReportType = async (reportType: string) => {
    let response = await handleApi("metadataRead", { objectName: "ReportType", types: [reportType.replace("__c", "")] });
    let objectFields = await getFieldsFromObjects(response);
    let reportDescribe = cleanSectionsAndColumns(response);
-   console.log("🚀 ~ file: ReportTypeView.util.ts:47 ~ loadReportType ~ reportDescribe:", reportDescribe);
    return {
       objectFields,
       reportDescribe,

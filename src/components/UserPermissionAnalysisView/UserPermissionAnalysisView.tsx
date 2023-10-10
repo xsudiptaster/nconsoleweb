@@ -35,7 +35,6 @@ const UserPermissionAnalysisView: React.FC<IUserPermissionAnalysisViewProps> = (
       setLoading(true);
       setSelectedUser(option);
       let response = await handleUserSelection(option);
-      console.log("🚀 ~ file: UserPermissionAnalysisView.tsx:29 ~ onUserChange ~ response:", response);
       setPermissionMap(response.permissionMap);
       setPermissionList(response.permissionList);
       setProfileMap(response.profileMap);

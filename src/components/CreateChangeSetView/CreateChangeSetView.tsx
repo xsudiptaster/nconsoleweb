@@ -35,7 +35,6 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
       } else {
          message.error("Change Set Update Failed!");
       }
-      console.log("🚀 ~ file: CreateChangeSetView.tsx:29 ~ onExecute ~ response:", response);
       setLoading(false);
    };
 
@@ -59,7 +58,6 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
       setOpen(false);
       setLoading(true);
       let response = await handleValidation(initialMetadataList, secondLoginInfo);
-      console.log("🚀 ~ file: CreateChangeSetView.tsx:60 ~ onValidate ~ response:", response);
       if (response.success) {
          message.success("The Validation Was Successfull !!");
       } else {

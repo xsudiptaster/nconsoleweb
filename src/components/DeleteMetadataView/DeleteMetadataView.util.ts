@@ -36,6 +36,5 @@ export const hadleExecute = async (selectedMetadatas: any[]) => {
    };
    let basefile = await createBaseFile(files);
    let response = await handleApi("metadataDeploy", { zipFile: basefile });
-   console.log("🚀 ~ file: DeleteMetadataView.util.ts:37 ~ hadleExecute ~ response:", response);
    return response;
 };

@@ -19,7 +19,6 @@ const ObjectPermissionChecker: React.FC<IObjectPermissionCheckerProps> = (props)
    const onFind = () => {
       setLoading(true);
       let response = handleFiltering(objectName, permissionName, analysisData);
-      console.log("🚀 ~ file: ObjectPermissionChecker.tsx:17 ~ onFind ~ response:", response);
       setSelected(response);
       setLoading(false);
    };

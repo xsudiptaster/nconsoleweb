@@ -4,7 +4,6 @@ export const handleLoad = async () => {
    let userQuery =
       "SELECT Id , Username , Profile.Name , ProfileId ,Name, (SELECT Id,PermissionSetId,PermissionSetGroupId FROM PermissionSetAssignments) FROM User where IsActive =true And ProfileId!=''";
    let response = await handleApi("query", { query: userQuery });
-   console.log("🚀 ~ file: UserPermissionAnalysisView.util.ts:7 ~ handleLoad ~ response:", response);
    let options = response.records
       .sort((a: any, b: any) => {
          return a.Name > b.Name ? 1 : -1;
@@ -32,7 +31,6 @@ export const handleUserSelection = async (user: any) => {
       apexClassPermissionMap: getApexClassPermissionMap(profileResponse),
       recordTypePermissionMap: getRecordTypePermissionsMap(profileResponse),
    };
-   console.log("🚀 ~ file: UserPermissionAnalysisView.util.ts:53 ~ handleUserSelection ~ permissionMap:PROFILE", permissionMap);
    if (user.PermissionSetAssignments.records) {
       for (let i = 0; i < user.PermissionSetAssignments.records.length; i++) {
          let record = user.PermissionSetAssignments.records[i];
@@ -214,7 +212,6 @@ const getRecordTypePermissionsMap = (profile: any) => {
       permissionMap[object] = {};
       permissionMap[object][recordType] = permission;
    }
-   console.log("🚀 ~ file: UserPermissionAnalysisView.util.ts:221 ~ getRecordTypePermissionsMap ~ permissionMap:", permissionMap);
    return permissionMap;
 };
 const getRecordTypePermissionList = (recordTypePermissionMap: any, recordTypePermissionList: any) => {

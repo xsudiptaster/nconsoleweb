@@ -100,7 +100,6 @@ export const retrievePermissions = async (selectedProfiles: any[], selectedObjec
    }
    let response = await handleApi("metadataRetrieve", { types });
    let proccessedZip = await processZip(response.zipFile);
-   console.log("🚀 ~ file: PermissionEditView.util.ts:104 ~ retrievePermissions ~ proccessedZip:", proccessedZip);
    let responseProfiles = [];
    for (let i = 0; i < selectedProfiles.length; i++) {
       let metadata = proccessedZip[selectedProfiles[i].fileName][selectedProfiles[i].type];

@@ -16,7 +16,6 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
    React.useEffect(() => {
       const onload = () => {
          let response = handleLoad();
-         console.log("🚀 ~ file: LoginModalView.tsx:18 ~ onload ~ response:", response);
          setState(response);
       };
       onload();

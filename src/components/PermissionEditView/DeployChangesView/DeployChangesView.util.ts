@@ -1,7 +1,6 @@
 import { handleApiSecond, sendMessage } from "../../../utils/utils";
 
 const createProfile = (currentProfile: any, trackChanges: any) => {
-   console.log("🚀 ~ file: DeployChangesView.util.ts:4 ~ createProfile ~ currentProfile:", currentProfile);
    let profile: any = {
       fullName: currentProfile.fullName,
    };
