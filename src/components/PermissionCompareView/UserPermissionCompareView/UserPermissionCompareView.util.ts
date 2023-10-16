@@ -14,7 +14,7 @@ export const handleLoad = (permissions: any) => {
 export const handleComparision = (permissions: any, permissionName: string) => {
    let permissionA = getPermission(permissions.A, permissionName);
    let permissionB = getPermission(permissions.B, permissionName);
-   if (permissionA[permissionName]?.enabled === permissionB[permissionName]?.enabled) {
+   if (permissionA[permissionName].enabled === permissionB[permissionName].enabled) {
       return true;
    }
    return false;
