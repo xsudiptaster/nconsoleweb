@@ -14,7 +14,7 @@ export const handleLoad = (permissions: any) => {
 export const handleComparision = (permissions: any, permissionName: string) => {
    let permissionA = getPermission(permissions.A, permissionName);
    let permissionB = getPermission(permissions.B, permissionName);
-   if (permissionA[permissionName].enabled === permissionB[permissionName].enabled) {
+   if (permissionA.enabled === permissionB.enabled) {
       return true;
    }
    return false;
@@ -51,10 +51,9 @@ export const moveUserPermissions = (permissions: any, direction: string, listPer
 const getPermission = (permissionMap: any, permission: string) => {
    if (permissionMap[permission]) {
       return permissionMap[permission];
-   } else {
-      return {
-         name: permission,
-         enabled: "false",
-      };
    }
+   return {
+      name: permission,
+      enabled: "false",
+   };
 };
