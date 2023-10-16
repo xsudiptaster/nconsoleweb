@@ -44,7 +44,6 @@ export const handleCompare = async (firstLoginInfo: any, secondLoginInfo: any, f
 
 const getXmlProfile = async (currentLogin: any, option: any) => {
    let jsonBody = await handleApiSecond("metadataRead", currentLogin, { objectName: option.type, types: [option.fullName] });
-
    let objectPermissions = getObjectPermissionMap(jsonBody);
    let fieldPermissions = getFieldPermissionMap(jsonBody);
    let apexPermissions = getApexClassPermissionMap(jsonBody);

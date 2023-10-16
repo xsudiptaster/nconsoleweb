@@ -64,6 +64,13 @@ const PermissionCompareView: React.FC<IPermissionCompareViewProps> = (props) => 
    }, [secondLoginInfo]);
    const onCompareClick = async () => {
       setLoading(true);
+      setApexPermissions({ A: {}, B: {} });
+      setFieldPermissions({ A: {}, B: {} });
+      setObjectPermissions({ A: {}, B: {} });
+      setRecordTypePermissions({ A: {}, B: {} });
+      setUserPermissions({ A: {}, B: {} });
+      setFlowPermissions({ A: {}, B: {} });
+      setPageLayoutPermissions({ A: {}, B: {} });
       let response = await handleCompare(loginInfo, secondLoginInfo, selectedFirstOption, selectedSecondOption);
 
       setApexPermissions({

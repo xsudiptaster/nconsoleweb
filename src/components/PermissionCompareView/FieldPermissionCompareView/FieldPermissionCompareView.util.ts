@@ -28,6 +28,7 @@ export const handleLoad = (permissions: any) => {
    });
    return tempKey;
 };
+export const createCompareMap = (permissions: any, keys: any) => {};
 export const handleComparisionFieldLevel = (permissions: any, objectName: string, fieldName: string) => {
    if (
       permissions.A[objectName] &&
@@ -69,4 +70,42 @@ export const setChangeFieldPermissions = (
       tempPermissions[option][objectName][fieldName][permissionName] = value.toString();
    }
    return tempPermissions;
+};
+export const moveFieldPermissions = (permissions: any, direction: string, selectedObjects: any[], fieldName: any) => {
+   let tempPermissions = JSON.parse(JSON.stringify(permissions));
+   console.log("🚀 ~ file: FieldPermissionCompareView.util.ts:75 ~ moveFieldPermissions ~ tempPermissions:", tempPermissions);
+   if (fieldName) {
+      tempPermissions = moveOneFieldPermissions(tempPermissions, direction, selectedObjects, fieldName);
+   } else {
+      tempPermissions = moveAllFieldsPermisssons(tempPermissions, direction, selectedObjects);
+   }
+   return tempPermissions;
+};
+const moveAllFieldsPermisssons = (permissions: any, direction: string, selectedObjects: any[]) => {
+   if (direction === "left") {
+      selectedObjects.forEach((object) => {
+         permissions.A[object] = JSON.parse(JSON.stringify(permissions.B[object]));
+      });
+   } else {
+      selectedObjects.forEach((object) => {
+         permissions.B[object] = JSON.parse(JSON.stringify(permissions.A[object]));
+      });
+   }
+   return permissions;
+};
+const moveOneFieldPermissions = (permissions: any, direction: string, selectedObjects: any[], fieldName: string) => {
+   if (direction === "left") {
+      selectedObjects.forEach((object) => {
+         if (permissions.B[object][fieldName] !== undefined) {
+            permissions.A[object][fieldName] = JSON.parse(JSON.stringify(permissions.B[object][fieldName]));
+         }
+      });
+   } else {
+      selectedObjects.forEach((object) => {
+         if (permissions.A[object][fieldName] !== undefined) {
+            permissions.B[object][fieldName] = JSON.parse(JSON.stringify(permissions.A[object][fieldName]));
+         }
+      });
+   }
+   return permissions;
 };

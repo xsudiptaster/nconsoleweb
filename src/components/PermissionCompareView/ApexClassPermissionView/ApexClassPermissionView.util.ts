@@ -30,3 +30,13 @@ export const setApexClassPermissions = (permissions: any, option: string, apexCl
    }
    return tempPermissions;
 };
+export const moverApexClassPermissions = (permissions: any, direction: string) => {
+   let tempPermissions = JSON.parse(JSON.stringify(permissions));
+   console.log("🚀 ~ file: ApexClassPermissionView.util.ts:35 ~ moverApexClassPermissions ~ tempPermissions:", tempPermissions);
+   if (direction === "left") {
+      tempPermissions.A = JSON.parse(JSON.stringify(tempPermissions.B));
+   } else {
+      tempPermissions.B = JSON.parse(JSON.stringify(tempPermissions.A));
+   }
+   return tempPermissions;
+};

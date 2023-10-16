@@ -33,7 +33,7 @@ const CountryPicklistView: React.FC<ICountryPicklistViewProps> = (props) => {
    };
    const onUpdate = async () => {
       setLoading(true);
-      let response = await deployCountries(countries);
+      await deployCountries(countries);
       setLoading(false);
    };
    return (

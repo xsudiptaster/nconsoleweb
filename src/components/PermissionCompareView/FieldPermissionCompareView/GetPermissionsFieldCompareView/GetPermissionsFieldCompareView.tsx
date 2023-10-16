@@ -26,6 +26,8 @@ const GetPermissionsFieldCompareView: React.FC<IGetPermissionsFieldCompareViewPr
             fieldPermissions[prof][obj][field][perm] === "true"
          ) {
             setValue(true);
+         } else {
+            setValue(false);
          }
       };
       onload();
@@ -37,7 +39,7 @@ const GetPermissionsFieldCompareView: React.FC<IGetPermissionsFieldCompareViewPr
    };
    return (
       <>
-         <Checkbox defaultChecked={value} onChange={handleChange} />
+         <Checkbox checked={value} onChange={handleChange} />
       </>
    );
 });
