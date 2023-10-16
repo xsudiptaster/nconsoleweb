@@ -23,7 +23,7 @@ const UserPermissionDescriptionView: React.FC<IUserPermissionDescriptionViewProp
                      setCurrent("userPermission");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

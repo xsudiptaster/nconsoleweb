@@ -24,7 +24,7 @@ const ReportFolderDescriptionView: React.FC<IReportFolderDescriptionViewProps> =
                      setCurrent("reportFolders");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

@@ -23,7 +23,7 @@ const CreateChangeSetDescriptionView: React.FC<ICreateChangeSetDescriptionViewPr
                      setCurrent("createChangeSet");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

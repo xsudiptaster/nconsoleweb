@@ -23,7 +23,7 @@ const DeployMetadataDescriptionView: React.FC<IDeployMetadataDescriptionViewProp
                      setCurrent("deployMetadata");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

@@ -23,7 +23,7 @@ const AuditTrackingDescriptionView: React.FC<IAuditTrackingDescriptionViewProps>
                      setCurrent("auditTracker");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

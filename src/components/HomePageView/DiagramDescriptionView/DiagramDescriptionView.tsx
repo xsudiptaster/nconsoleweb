@@ -24,7 +24,7 @@ const DiagramDescriptionView: React.FC<IDiagramDescriptionViewProps> = (props) =
                         setCurrent("diagram");
                      }}
                   >
-                     Goto App
+                     Go to App
                   </Button>
                </Title>
                <Paragraph>

@@ -23,7 +23,7 @@ const ReportTypeDescriptionView: React.FC<IReportTypeDescriptionViewProps> = (pr
                      setCurrent("reportType");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

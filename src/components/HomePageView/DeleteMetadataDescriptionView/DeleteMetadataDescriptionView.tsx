@@ -23,7 +23,7 @@ const DeleteMetadataDescriptionView: React.FC<IDeleteMetadataDescriptionViewProp
                      setCurrent("deleteMetadata");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

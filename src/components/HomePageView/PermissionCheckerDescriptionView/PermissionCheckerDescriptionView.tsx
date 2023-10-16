@@ -23,7 +23,7 @@ const PermissionCheckerDescriptionView: React.FC<IPermissionCheckerDescriptionVi
                      setCurrent("permissionChecker");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

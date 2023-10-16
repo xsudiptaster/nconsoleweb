@@ -24,7 +24,7 @@ const PermissionEditDescriptionView: React.FC<IPermissionEditDescriptionViewProp
                      setCurrent("permissionEdit");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>

@@ -25,7 +25,7 @@ const CountryPicklistDescriptionView: React.FC<ICountryPicklistDescriptionViewPr
                      setCurrent("apexCode");
                   }}
                >
-                  Goto App
+                  Go to App
                </Button>
             </Title>
             <Paragraph>
