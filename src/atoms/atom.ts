@@ -97,3 +97,10 @@ export const trackChangesPermissionEditAtom = atom({
    key: "trackChangesPermissionEditAtom",
    default: {} as any,
 });
+export const takeATourAtom = atom({
+   key: "takeATourAtom",
+   default: {
+      appName: "",
+      state: false,
+   },
+});
