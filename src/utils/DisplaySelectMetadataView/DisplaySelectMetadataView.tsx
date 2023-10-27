@@ -84,6 +84,14 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
       };
       onload();
    }, [setLoading]);
+   React.useEffect(() => {
+      const onload = () => {
+         if (preSelectedMetadatas.length > 0) {
+            setSelectedMetaDatas(preSelectedMetadatas);
+         }
+      };
+      onload();
+   }, [preSelectedMetadatas]);
    const onMetaDataTypeChange = async (value: string) => {
       setLoading(true);
       let response = await getMetaDataTypeList(value);

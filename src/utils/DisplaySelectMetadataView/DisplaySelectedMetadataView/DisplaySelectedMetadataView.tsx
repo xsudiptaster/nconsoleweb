@@ -1,4 +1,4 @@
-import { Button, Divider } from "antd";
+import { Button, Collapse } from "antd";
 import React from "react";
 import styles from "./DisplaySelectedMetadataView.module.css";
 import { handleLoad } from "./DisplaySelectedMetadataView.util";
@@ -75,18 +75,25 @@ const DisplaySelectedMetadataView: React.FC<IDisplaySelectedMetadataViewProps> =
    }, [selectedMetaDatas]);
    return (
       <div style={{ maxHeight: "75vh", overflow: "auto" }}>
-         {Object.keys(displayMetadata).map((type) => {
-            return (
-               <React.Fragment key={type}>
-                  <Divider>{type.toUpperCase()}</Divider>
-                  <DisplayChildren
-                     childrens={displayMetadata[type]}
-                     setSelectedMetaDatas={setSelectedMetaDatas}
-                     selectedMetaDatas={selectedMetaDatas}
-                  />
-               </React.Fragment>
-            );
-         })}
+         <Collapse
+            size="small"
+            accordion
+            style={{ overflow: "auto" }}
+            items={Object.keys(displayMetadata).map((type) => {
+               return {
+                  key: type,
+                  label: type.toUpperCase(),
+                  defaultActiveKey: Object.keys(displayMetadata),
+                  children: (
+                     <DisplayChildren
+                        childrens={displayMetadata[type]}
+                        setSelectedMetaDatas={setSelectedMetaDatas}
+                        selectedMetaDatas={selectedMetaDatas}
+                     />
+                  ),
+               };
+            })}
+         />
       </div>
    );
 };

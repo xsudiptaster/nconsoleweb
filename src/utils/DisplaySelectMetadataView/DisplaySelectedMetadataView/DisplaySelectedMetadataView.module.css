@@ -1,3 +1,13 @@
 .tablecss {
     width: 100%;
+    overflow: auto;
+}
+
+.tablecss tbody {
+    max-width: fit-content;
+    overflow: auto;
+}
+
+.tablecss td {
+    word-wrap: break-all;
 }
