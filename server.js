@@ -28,7 +28,7 @@ const buildPath = path.join(__dirname, "build");
 
 const app = express();
 app.use(express.static(buildPath));
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json({ limit: "100mb" }));
 app.use(cors());
 app.post("/api", async (req, res) => {
    let response = await identity(req.body);
@@ -98,13 +98,15 @@ app.post("/api/metadataUpsert", async (req, res) => {
    let response = await metadataUpsert(req.body);
    res.json(response);
 });
-app.post("/api/metadataRetrieve", async (req, res) => {
+app.post("/api/metadataRetrieve", async (req, res, next) => {
    let response = await metadataRetrieve(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/metadataDeploy", async (req, res) => {
+app.post("/api/metadataDeploy", async (req, res, next) => {
    let response = await metadataDeploy(req.body);
    res.json(response);
+   next();
 });
 app.post("/api/metadataDelete", async (req, res) => {
    let response = await metadataDelete(req.body);

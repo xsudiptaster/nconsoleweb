@@ -99,6 +99,7 @@ export const retrievePermissions = async (selectedProfiles: any[], selectedObjec
       responseObjects.push(object);
    }
    let response = await handleApi("metadataRetrieve", { types });
+   console.log("🚀 ~ file: PermissionEditView.util.ts:102 ~ retrievePermissions ~ response:", response);
    let proccessedZip = await processZip(response.zipFile);
    let responseProfiles = [];
    for (let i = 0; i < selectedProfiles.length; i++) {
