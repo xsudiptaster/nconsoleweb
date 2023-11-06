@@ -42,45 +42,55 @@ app.post("/api/login", async (req, res) => {
    };
    res.json(response);
 });
-app.post("/api/identity", async (req, res) => {
+app.post("/api/identity", async (req, res, next) => {
    let response = await identity(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/logOut", async (req, res) => {
+app.post("/api/logOut", async (req, res, next) => {
    let response = await logout(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/query", async (req, res) => {
+app.post("/api/query", async (req, res, next) => {
    let response = await query(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/toolingQuery", async (req, res) => {
+app.post("/api/toolingQuery", async (req, res, next) => {
    let response = await toolingQuery(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/insert", async (req, res) => {
+app.post("/api/insert", async (req, res, next) => {
    let response = await insert(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/delete", async (req, res) => {
+app.post("/api/delete", async (req, res, next) => {
    let response = await deleteMethod(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/update", async (req, res) => {
+app.post("/api/update", async (req, res, next) => {
    let response = await update(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/describeGlobal", async (req, res) => {
+app.post("/api/describeGlobal", async (req, res, next) => {
    let response = await describeGlobal(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/objectDescribe", async (req, res) => {
+app.post("/api/objectDescribe", async (req, res, next) => {
    let response = await objectDescribe(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/logout", async (req, res) => {
+app.post("/api/logout", async (req, res, next) => {
    let response = await logout(req.body);
    res.json(response);
+   next();
 });
 app.post("/api/fetch", async (req, res) => {
    let response = await fetchCall(req.body);
@@ -90,13 +100,15 @@ app.post("/api/metadataDescribe", async (req, res) => {
    let response = await metadataDescribe(req.body);
    res.json(response);
 });
-app.post("/api/metadataRead", async (req, res) => {
+app.post("/api/metadataRead", async (req, res, next) => {
    let response = await metadataRead(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/metadataUpsert", async (req, res) => {
+app.post("/api/metadataUpsert", async (req, res, next) => {
    let response = await metadataUpsert(req.body);
    res.json(response);
+   next();
 });
 app.post("/api/metadataRetrieve", async (req, res, next) => {
    let response = await metadataRetrieve(req.body);
@@ -108,25 +120,30 @@ app.post("/api/metadataDeploy", async (req, res, next) => {
    res.json(response);
    next();
 });
-app.post("/api/metadataDelete", async (req, res) => {
+app.post("/api/metadataDelete", async (req, res, next) => {
    let response = await metadataDelete(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/metadataList", async (req, res) => {
+app.post("/api/metadataList", async (req, res, next) => {
    let response = await metadataList(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/apexCode", async (req, res) => {
+app.post("/api/apexCode", async (req, res, next) => {
    let response = await apexCode(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/apexCode", async (req, res) => {
+app.post("/api/apexCode", async (req, res, next) => {
    let response = await apexCode(req.body);
    res.json(response);
+   next();
 });
-app.post("/api/sendEmail", async (req, res) => {
+app.post("/api/sendEmail", async (req, res, next) => {
    let response = await sendEmail(req.body);
    res.json(response);
+   next();
 });
 app.get("*", (req, res) => {
    res.sendFile(path.join(buildPath, "index.html"));
