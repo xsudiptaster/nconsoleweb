@@ -98,9 +98,20 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
       setMetaDataList(response);
       setLoading(false);
    };
+
    const onSelection = (selections: any, selectionMetadatas: any) => {
       let tempSelected = [...selectedMetaDatas];
       tempSelected = [...tempSelected, ...selectionMetadatas];
+      tempSelected = tempSelected.reduce((acc: any, current: any) => {
+         if (
+            !acc.find((item: any) => {
+               return item.id === current.id;
+            })
+         ) {
+            acc.push(current);
+         }
+         return acc;
+      }, []);
       setSelectedMetaDatas(tempSelected);
    };
    const handleExecute = async (selectedMetaDatas: any[]) => {
