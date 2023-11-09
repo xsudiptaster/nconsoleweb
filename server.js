@@ -148,7 +148,6 @@ app.post("/api/sendEmail", async (req, res, next) => {
 app.get("*", (req, res) => {
    res.sendFile(path.join(buildPath, "index.html"));
 });
-
 // Showing that the server is online and running and listening for changes
 app.listen(port, () => {
    console.log(`Server is online on port: ${port}`);

@@ -99,9 +99,7 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
       setLoading(false);
    };
    const onSelection = (selections: any, selectionMetadatas: any) => {
-      let tempSelected = selectedMetaDatas.filter((metadata) => {
-         return metadata.type !== metaDataList[0].type;
-      });
+      let tempSelected = [...selectedMetaDatas];
       tempSelected = [...tempSelected, ...selectionMetadatas];
       setSelectedMetaDatas(tempSelected);
    };
