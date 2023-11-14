@@ -64,7 +64,7 @@ const DisplayObjectPermissionView: React.FC<IDisplayObjectPermissionViewProps> =
                         return a.label > b.label ? 1 : -1;
                      })
                      .filter((field: any) => {
-                        return field.permissionable && field.compoundFieldName === null;
+                        return field.compoundFieldName === null && field.permissionable;
                      })
                      .filter((field: any) => {
                         return searchString === ""

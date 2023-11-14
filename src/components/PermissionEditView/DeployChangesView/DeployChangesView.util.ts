@@ -39,12 +39,15 @@ export const deployChanges = async (fetchedProfiles: any[], trackChanges: any, c
             metadataType: currentProfile.type,
             records: [response.profile],
          });
+         console.log("🚀 ~ file: DeployChangesView.util.ts:42 ~ deployChanges ~ result:", result);
          if (!result?.success) {
             errors.push(result.error);
          }
       }
       sendMessage({ current: i, total: fetchedProfiles.length });
    }
+   console.log("🚀 ~ file: DeployChangesView.util.ts:34 ~ deployChanges ~ errors:", errors);
+
    if (errors.length > 0) {
       return { success: false, message: errors.join(",") };
    }
