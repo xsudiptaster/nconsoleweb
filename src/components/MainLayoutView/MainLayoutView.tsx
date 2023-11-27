@@ -25,6 +25,7 @@ import DashBoardFoldersView from "../DashBoardFoldersView";
 import DeleteMetadataView from "../DeleteMetadataView";
 import DeployMetaDataView from "../DeployMetaDataView";
 import DiagramView from "../DiagramView";
+import FileReaderView from "../FileReaderView";
 import HomePageView from "../HomePageView";
 import PermissionCheckerView from "../PermissionCheckerView";
 import PermissionCompareView from "../PermissionCompareView";
@@ -180,6 +181,11 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
             },
          ],
       },
+      {
+         icon: <SiAdobeaudition />,
+         label: "File Reader",
+         key: "fileReader",
+      },
    ];
    return (
       <>
@@ -288,6 +294,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         <RenderIf renderIf={current === "createChangeSet"}>
                            <CreateChangeSetView />
                         </RenderIf>
+
                      </Content>
                   </Layout>
                   <Footer style={{ textAlign: "center", maxHeight: "20px" }}>NConsole ©2023 Created by Sudipta Karmakar</Footer>
