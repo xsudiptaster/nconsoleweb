@@ -105,7 +105,6 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
                </RenderIf>
             </Space>
          </Divider>
-
          <DisplaySelectMetadataView execute={onExecute} preSelectedMetadatas={initialMetadataList} />
          <Modal
             open={open}
