@@ -12,7 +12,10 @@ export const countField = (section: any, searchString: string) => {
    let count = 0;
    if (searchString !== "") {
       section.columns.forEach((column: any) => {
-         if (column.field.toLowerCase().includes(searchString.toLowerCase())) {
+         if (
+            column.field.toLowerCase().includes(searchString.toLowerCase()) ||
+            (column.displayNameOverride && column.displayNameOverride.toLowerCase().includes(searchString.toLowerCase()))
+         ) {
             count++;
          }
       });
