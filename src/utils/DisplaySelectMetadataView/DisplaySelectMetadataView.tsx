@@ -1,5 +1,5 @@
 import { PlusCircleOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Input, Row, Select, Space, Table } from "antd";
+import { Button, Card, Checkbox, Col, Input, Row, Select, Space, Table } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loadingAtom } from "../../atoms/atom";
@@ -19,6 +19,7 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
    const [metaDataList, setMetaDataList] = React.useState<any[]>([]);
    const [selectedMetaDatas, setSelectedMetaDatas] = React.useState<any[]>(preSelectedMetadatas);
    const [searhString, setSearchString] = React.useState("");
+   const [removeInstalled, setRemoveInstalled] = React.useState(false);
    const columns: any[] = [
       {
          title: "Action",
@@ -139,6 +140,11 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
       tempMedataList = tempMedataList.filter((metadata) => {
          return !selectedIds.has(metadata.id);
       });
+      if (removeInstalled) {
+         tempMedataList = tempMedataList.filter((metadata) => {
+            return metadata.manageableState !== "installedEditable";
+         });
+      }
       return searhString === ""
          ? tempMedataList
          : tempMedataList.filter((metadata) => {
@@ -172,6 +178,14 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
                         setSearchString(event?.target.value);
                      }}
                   />
+                  <Checkbox
+                     onChange={(e) => {
+                        setRemoveInstalled(e.target.checked);
+                     }}
+                     checked={removeInstalled}
+                  >
+                     Remove Installed Editable
+                  </Checkbox>
                </Space>
             }
             extra={
