@@ -75,6 +75,7 @@ const DisplaySelectedMetadataView: React.FC<IDisplaySelectedMetadataViewProps> =
    }, [selectedMetaDatas]);
    return (
       <div style={{ maxHeight: "75vh", overflow: "auto" }}>
+         <div className={styles.displayHeader}> Selected Metadata</div>
          <Collapse
             size="small"
             accordion
@@ -83,7 +84,6 @@ const DisplaySelectedMetadataView: React.FC<IDisplaySelectedMetadataViewProps> =
                return {
                   key: type,
                   label: type.toUpperCase(),
-                  defaultActiveKey: Object.keys(displayMetadata),
                   children: (
                      <DisplayChildren
                         childrens={displayMetadata[type]}

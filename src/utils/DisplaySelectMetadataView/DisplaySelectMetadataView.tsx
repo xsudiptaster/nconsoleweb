@@ -1,3 +1,4 @@
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Input, Row, Select, Space, Table } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
@@ -19,6 +20,20 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
    const [selectedMetaDatas, setSelectedMetaDatas] = React.useState<any[]>(preSelectedMetadatas);
    const [searhString, setSearchString] = React.useState("");
    const columns: any[] = [
+      {
+         title: "Action",
+         key: "action",
+         render: (_: any, record: any) => (
+            <Button
+               type="link"
+               shape="circle"
+               icon={<PlusCircleOutlined />}
+               onClick={(e: any) => {
+                  onAdd(record);
+               }}
+            />
+         ),
+      },
       {
          title: "Created By",
          dataIndex: "createdByName",
@@ -98,22 +113,6 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
       setMetaDataList(response);
       setLoading(false);
    };
-
-   const onSelection = (selections: any, selectionMetadatas: any) => {
-      let tempSelected = [...selectedMetaDatas];
-      tempSelected = [...tempSelected, ...selectionMetadatas];
-      tempSelected = tempSelected.reduce((acc: any, current: any) => {
-         if (
-            !acc.find((item: any) => {
-               return item.id === current.id;
-            })
-         ) {
-            acc.push(current);
-         }
-         return acc;
-      }, []);
-      setSelectedMetaDatas(tempSelected);
-   };
    const handleExecute = async (selectedMetaDatas: any[]) => {
       let response = await execute(selectedMetaDatas);
       if (response) {
@@ -124,6 +123,30 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
          setMetaDataOptions(response);
          setLoading(false);
       }
+   };
+   const onAdd = (record: any) => {
+      let tempSelected = [...selectedMetaDatas];
+      tempSelected = [record, ...tempSelected];
+      setSelectedMetaDatas(tempSelected);
+   };
+   const filterMetadata = () => {
+      let tempMedataList = [...metaDataList];
+      let selectedIds = new Set(
+         selectedMetaDatas.map((metadata: any) => {
+            return metadata.id;
+         })
+      );
+      tempMedataList = tempMedataList.filter((metadata) => {
+         return !selectedIds.has(metadata.id);
+      });
+      return searhString === ""
+         ? tempMedataList
+         : tempMedataList.filter((metadata) => {
+              return (
+                 metadata.fileName.toUpperCase().includes(searhString.toUpperCase()) ||
+                 metadata.fullName.toUpperCase().includes(searhString.toUpperCase())
+              );
+           });
    };
    return (
       <>
@@ -174,22 +197,7 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
                      showHeader
                      size="small"
                      columns={columns}
-                     dataSource={
-                        searhString === ""
-                           ? metaDataList
-                           : metaDataList.filter((metadata) => {
-                                return (
-                                   metadata.fileName.toUpperCase().includes(searhString.toUpperCase()) ||
-                                   metadata.fullName.toUpperCase().includes(searhString.toUpperCase())
-                                );
-                             })
-                     }
-                     rowSelection={{
-                        onChange: onSelection,
-                        selectedRowKeys: selectedMetaDatas.map((metadata: any) => {
-                           return metadata.id;
-                        }),
-                     }}
+                     dataSource={filterMetadata()}
                      rowKey="id"
                   />
                </Col>
