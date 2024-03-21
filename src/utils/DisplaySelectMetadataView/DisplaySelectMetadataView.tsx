@@ -24,6 +24,7 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
       {
          title: "Action",
          key: "action",
+         width: "60px",
          render: (_: any, record: any) => (
             <Button
                type="link"
@@ -208,6 +209,7 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
                      sticky
                      tableLayout="fixed"
                      scroll={{ y: "75vh" }}
+                     pagination={{ pageSize: 20 }}
                      showHeader
                      size="small"
                      columns={columns}
