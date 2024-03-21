@@ -4,6 +4,7 @@ import { BsFillGearFill } from "react-icons/bs";
 import { useRecoilState } from "recoil";
 import { trackChangesPermissionEditAtom } from "../../../atoms/atom";
 import DisplayFieldPermissionView from "../DisplayFieldPermissionView";
+import { updateTrackChanges } from "../DisplayFieldPermissionView/DisplayFieldPermissionView.util";
 import ObjectConfigView from "../ObjectConfigView";
 import style from "./DisplayObjectPermissionView.module.css";
 import { handleTrackChanges } from "./DisplayObjectPermissionView.util";
@@ -34,6 +35,30 @@ const DisplayObjectPermissionView: React.FC<IDisplayObjectPermissionViewProps> =
       let tempChanges = handleTrackChanges(trackChanges, fetchedProfiles, tempPermisson);
       setTrackChanges(tempChanges);
    };
+   const onProfileReadAll = (event: any, profile: any) => {
+      let tempTrackChanges = { ...JSON.parse(JSON.stringify(trackChanges)) };
+      object.fields.forEach((field: any) => {
+         let tempPermisson = { field: object.name + "." + field.name, readable: event.target.checked, editable: false };
+         if (event.target.checked === false) {
+            tempPermisson.editable = false;
+         }
+         tempTrackChanges = updateTrackChanges(tempTrackChanges, profile, tempPermisson);
+      });
+      setTrackChanges(tempTrackChanges);
+   };
+   const onProfileEditAll = (event: any, profile: any) => {
+      let tempTrackChanges = { ...JSON.parse(JSON.stringify(trackChanges)) };
+      object.fields.forEach((field: any) => {
+         if (!field.calculated) {
+            let tempPermisson = { field: object.name + "." + field.name, readable: false, editable: event.target.checked };
+            if (event.target.checked === true) {
+               tempPermisson.readable = true;
+            }
+            tempTrackChanges = updateTrackChanges(tempTrackChanges, profile, tempPermisson);
+         }
+      });
+      setTrackChanges(tempTrackChanges);
+   };
    return (
       <>
          <div className={style.contextTable}>
@@ -53,6 +78,31 @@ const DisplayObjectPermissionView: React.FC<IDisplayObjectPermissionViewProps> =
                               >
                                  <Button size="small" type="text" icon={<BsFillGearFill />}></Button>
                               </Popover>
+                           </th>
+                        );
+                     })}
+                  </tr>
+                  <tr>
+                     <th></th>
+                     {fetchedProfiles.map((profile) => {
+                        return (
+                           <th key={profile.fileName}>
+                              <Space>
+                                 <Checkbox
+                                    onChange={(e) => {
+                                       onProfileReadAll(e, profile);
+                                    }}
+                                 >
+                                    Read All
+                                 </Checkbox>
+                                 <Checkbox
+                                    onChange={(e) => {
+                                       onProfileEditAll(e, profile);
+                                    }}
+                                 >
+                                    Edit All
+                                 </Checkbox>
+                              </Space>
                            </th>
                         );
                      })}
