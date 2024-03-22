@@ -64,9 +64,10 @@ export const hasChange = (profile: any, newPermission: any) => {
    };
 };
 export const updateTrackChanges = (trackChanges: any, profile: any, newPermission: any) => {
+   console.log("🚀 ~ updateTrackChanges ~ trackChanges:", trackChanges);
    let tempTrackChanges = JSON.parse(JSON.stringify(trackChanges));
-   if (tempTrackChanges[profile.fileName]?.objectPermissions) {
-      let tempFilteredPermissions = tempTrackChanges[profile.fileName]?.objectPermissions.filter((permission: any) => {
+   if (tempTrackChanges[profile.fileName] && tempTrackChanges[profile.fileName].objectPermissions) {
+      let tempFilteredPermissions = tempTrackChanges[profile.fileName].objectPermissions.filter((permission: any) => {
          return permission.object !== newPermission.object;
       });
       let change = hasChange(profile, newPermission);

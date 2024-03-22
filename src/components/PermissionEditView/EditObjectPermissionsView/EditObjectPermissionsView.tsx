@@ -28,6 +28,7 @@ const EditObjectPermissionsView: React.FC<IEditObjectPermissionsViewProps> = (pr
    const onReadChange = (event: any) => {
       let newPermission = { ...permission, allowRead: event?.target.checked };
       let response = updateTrackChanges(trackChanges, profile, newPermission);
+      console.log("🚀 ~ onReadChange ~ response:", trackChanges, response);
       setTrackChanges(response);
    };
    const onCreateChange = (event: any) => {
