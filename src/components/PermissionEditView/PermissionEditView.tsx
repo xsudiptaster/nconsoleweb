@@ -91,7 +91,6 @@ const PermissionEditView: React.FC<IPermissionEditViewProps> = (props) => {
          >
             <RenderIf renderIf={fetchedObjects.length > 0 && fetchedProfiles.length > 0}>
                <Tabs
-                  destroyInactiveTabPane
                   size="small"
                   items={fetchedObjects.map((object) => {
                      return {

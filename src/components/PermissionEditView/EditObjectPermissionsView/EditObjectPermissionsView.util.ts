@@ -84,7 +84,12 @@ export const updateTrackChanges = (trackChanges: any, profile: any, newPermissio
    } else if (tempTrackChanges[profile.fileName]) {
       tempTrackChanges[profile.fileName].objectPermissions = [];
       tempTrackChanges[profile.fileName].objectPermissions.push(newPermission);
+   } else if (tempTrackChanges) {
+      tempTrackChanges[profile.fileName] = {};
+      tempTrackChanges[profile.fileName].objectPermissions = [];
+      tempTrackChanges[profile.fileName].objectPermissions.push(newPermission);
    } else {
+      tempTrackChanges = {};
       tempTrackChanges[profile.fileName] = {};
       tempTrackChanges[profile.fileName].objectPermissions = [];
       tempTrackChanges[profile.fileName].objectPermissions.push(newPermission);
