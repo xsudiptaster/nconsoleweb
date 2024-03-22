@@ -50,14 +50,13 @@ export const handleCreateChangeSet = async (selectedMetadatas: any[], initialMet
    const zipFileLoaded = await JSZip.loadAsync(retrieveResponse.zipFile, { base64: true });
    const xmlData = await zipFileLoaded.files["package.xml"].async("text");
    const packageData = parser.parse(xmlData);
-   console.log("🚀 ~ handleCreateChangeSet ~ packageData:", packageData);
    const destructiveData: any = createDescructiveXML(selectedMetadatas, initialMetadatas);
-   console.log("🚀 ~ handleCreateChangeSet ~ destructiveData:", destructiveData);
    packageData.Package.fullName = changeSetName;
    destructiveData.Package.fullName = changeSetName;
    const xmlDataRevised = builder.build(packageData);
    const zip = new JSZip();
    for (const key in zipFileLoaded.files) {
+      console.log("🚀 ~ handleCreateChangeSet ~ key:", key);
       if (key === "package.xml") {
          zip.file(key, xmlDataRevised);
       } else {
@@ -91,7 +90,6 @@ export const getChangeSet = async (changeSetName: string) => {
    const xmlData = await zipFileLoaded.files[changeSetName + "/package.xml"].async("text");
    const parser = new XMLParser(options);
    const packageData = parser.parse(xmlData);
-   console.log("🚀 ~ getChangeSet ~ packageData:", packageData);
    let selectedMetadatas: any[] = [];
    if (packageData?.Package?.types) {
       if (packageData?.Package?.types[0]) {

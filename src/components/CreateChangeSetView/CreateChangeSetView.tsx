@@ -35,6 +35,7 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
       } else {
          message.error("Change Set Update Failed!");
       }
+      await onGetChangeSet();
       setLoading(false);
    };
 
