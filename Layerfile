@@ -1,10 +1,6 @@
 FROM vm/ubuntu:18.04
-RUN cd /etc/apt/sources.list.d
-RUN sudo rm nodesource.list
-RUN sudo apt --fix-broken install
+
 RUN sudo apt update
-RUN sudo apt remove nodejs
-RUN sudo apt remove nodejs-doc
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN sudo apt install nodejs
 
