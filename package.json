@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@tensorflow-models/qna": "^1.0.2",
     "@tensorflow/tfjs": "^4.13.0",
     "@testing-library/jest-dom": "^5.17.0",
