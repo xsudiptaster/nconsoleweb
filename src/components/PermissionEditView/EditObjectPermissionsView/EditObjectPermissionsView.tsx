@@ -16,19 +16,23 @@ const EditObjectPermissionsView: React.FC<IEditObjectPermissionsViewProps> = (pr
    const [trackChanges, setTrackChanges] = useRecoilState(trackChangesPermissionEditAtom);
    const [permission, setPermission] = React.useState<any>({});
    const [change, setChange] = React.useState<any>({});
-   React.useMemo(() => {
+   React.useEffect(() => {
       const onload = () => {
          let response = getObjectPermission(trackChanges, object, profile);
          setPermission(response);
-         let tempChange = hasChange(profile, response);
-         setChange(tempChange);
       };
       onload();
    }, [object, profile, trackChanges]);
+   React.useMemo(() => {
+      const onload = () => {
+         let tempChange = hasChange(profile, permission);
+         setChange(tempChange);
+      };
+      onload();
+   }, [permission, profile]);
    const onReadChange = (event: any) => {
       let newPermission = { ...permission, allowRead: event?.target.checked };
       let response = updateTrackChanges(trackChanges, profile, newPermission);
-      console.log("🚀 ~ onReadChange ~ response:", trackChanges, response);
       setTrackChanges(response);
    };
    const onCreateChange = (event: any) => {
