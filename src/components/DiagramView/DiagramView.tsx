@@ -13,12 +13,11 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import { useRecoilState } from "recoil";
-import { draggedObjectAtom, edgesAtom, loadingAtom, nodesAtom, selectedEdgeAtom, selectedNodeAtom } from "../../atoms/atom";
+import { draggedObjectAtom, edgesAtom, loadingAtom, nodesAtom, selectedEdgeAtom } from "../../atoms/atom";
 import { download, readFileAsText } from "../../utils/utils";
 import { createEdges, handleAddNode, handleLoad, onImageDownload } from "./DiagramView.util";
 import EdgeConfigView from "./EdgeConfigView";
 import NodeView from "./NodeView";
-import ObjectConfigView from "./ObjectConfigView";
 import ObjectView from "./ObjectView";
 
 interface IDiagramViewProps {
@@ -32,7 +31,6 @@ const DiagramView: React.FC<IDiagramViewProps> = (props) => {
    const [edges, setEdges] = useRecoilState(edgesAtom);
    const [dragObject, setDragObject] = useRecoilState(draggedObjectAtom);
    const [, setLoading] = useRecoilState(loadingAtom);
-   const [, setSelectedNode] = useRecoilState(selectedNodeAtom);
    const [, setSelectedEdge] = useRecoilState(selectedEdgeAtom);
    const [objectList, setObjectList] = React.useState([]);
    const [reactFlowInstance, setReactFlowInstance] = React.useState<any | null>(null);
@@ -98,18 +96,11 @@ const DiagramView: React.FC<IDiagramViewProps> = (props) => {
                onDrop={onDrop}
                onDragOver={onDragOver}
                onNodeDragStop={onDrag}
-               onNodeClick={(e, node) => {
-                  setSelectedNode(node);
-                  setSelectedEdge({});
-                  e.stopPropagation();
-               }}
                onEdgeClick={(e, edge) => {
                   setSelectedEdge(edge);
-                  setSelectedNode({});
                   e.stopPropagation();
                }}
                onClick={() => {
-                  setSelectedNode({});
                   setSelectedEdge({});
                }}
                nodeTypes={nodeTypes}
@@ -140,7 +131,6 @@ const DiagramView: React.FC<IDiagramViewProps> = (props) => {
                         Image
                      </Button>
                   </Space>
-                  <ObjectConfigView />
                   <EdgeConfigView />
                </Panel>
             </ReactFlow>

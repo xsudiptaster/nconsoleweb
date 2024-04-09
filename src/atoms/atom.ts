@@ -24,10 +24,6 @@ export const draggedObjectAtom = atom({
    key: "draggedObjectAtom",
    default: {} as any,
 });
-export const selectedNodeAtom = atom({
-   key: "selectedNodeAtom",
-   default: {} as any,
-});
 export const selectedEdgeAtom = atom({
    key: "selectedEdgeAtom",
    default: {} as any,
