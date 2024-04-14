@@ -21,8 +21,6 @@ const metadataList = require("./server/MetadataList");
 const toolingQuery = require("./server/ToolingQuery");
 const metadataDescribe = require("./server/MetadataDescribe");
 const sendEmail = require("./server/SendEmail");
-const http = require("http");
-const { Server } = require("socket.io");
 
 dotenv.config();
 
@@ -31,24 +29,6 @@ const buildPath = path.join(__dirname, "build");
 const app = express();
 
 const sockets = {};
-const server = http.createServer(app);
-const io = new Server(server, {
-   cors: { origin: "http://localhost:3000", methods: ["GET", "POST"] },
-});
-io.on("connection", (socket) => {
-   console.log("🚀 ~ io.on ~ socket:", socket.handshake.auth.accessToken);
-   sockets[socket.handshake.auth.accessToken] = socket;
-   socket.emit("receive_message", socket.id);
-   socket.on("send_message", (data) => {
-      // socket.emit("receive_message", socket.id);
-   });
-   socket.on("disconnect", () => {
-      console.log(socket.id); // undefined
-   });
-});
-server.listen(4000, () => {
-   console.log("listening on *:4000");
-});
 
 app.use(express.static(buildPath));
 app.use(express.json({ limit: "100mb" }));
