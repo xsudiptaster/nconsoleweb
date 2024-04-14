@@ -28,8 +28,6 @@ const port = process.env.PORT || 5000;
 const buildPath = path.join(__dirname, "build");
 const app = express();
 
-const sockets = {};
-
 app.use(express.static(buildPath));
 app.use(express.json({ limit: "100mb" }));
 app.use(cors());
@@ -156,5 +154,3 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
    console.log(`Server is online on port: ${port}`);
 });
-
-module.exports = sockets;
