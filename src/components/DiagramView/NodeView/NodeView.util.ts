@@ -83,3 +83,13 @@ export const moveFieldDown = (nodes: any[], oNode: any, fieldName: string) => {
    });
    return tempNodes;
 };
+export const handleDeleteField = (nodes: any[], oNode: any, fieldName: string) => {
+   let tempNodes = JSON.parse(JSON.stringify(nodes));
+   tempNodes = tempNodes.map((node: any) => {
+      if (node.id === oNode.id) {
+         node.data.selectedFields = node.data.selectedFields.filter((field: any) => field.name !== fieldName);
+      }
+      return node;
+   });
+   return tempNodes;
+};

@@ -1,21 +1,22 @@
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
-import { Button, Col, List, Modal, Row, Space, TreeSelect } from "antd";
+import { Button, Card, Modal, Space, TreeSelect } from "antd";
 import React from "react";
-import { AiFillPlusCircle } from "react-icons/ai";
+import { AiFillDelete, AiFillPlusCircle } from "react-icons/ai";
 import { Handle, Position } from "reactflow";
 import { useRecoilState } from "recoil";
 import { edgesAtom, nodesAtom } from "../../../atoms/atom";
 import RenderIf from "../../../utils/RenderIf";
 import { createEdges } from "../DiagramView.util";
-import { createDisplayFields, moveFieldDown, moveFieldUp, selectField } from "./NodeView.util";
+import { createDisplayFields, handleDeleteField, moveFieldDown, moveFieldUp, selectField } from "./NodeView.util";
 
 interface INodeViewProps {
    children?: React.ReactNode;
    data: any;
+   id: string;
 }
 
 const NodeView: React.FC<INodeViewProps> = (props) => {
-   const { data } = props;
+   const { data, id } = props;
    const [nodes, setNodes] = useRecoilState(nodesAtom);
    const [edges, setEdges] = useRecoilState(edgesAtom);
    const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -31,80 +32,46 @@ const NodeView: React.FC<INodeViewProps> = (props) => {
    const goUp = (fieldName: string) => {
       let tempNodes = moveFieldUp(nodes, props, fieldName);
       setNodes(tempNodes);
+      let tempEdges = createEdges(tempNodes, edges);
+      setEdges(tempEdges);
    };
    const goDown = (fieldName: string) => {
       let tempNodes = moveFieldDown(nodes, props, fieldName);
       setNodes(tempNodes);
+      let tempEdges = createEdges(tempNodes, edges);
+      setEdges(tempEdges);
+   };
+   const onDelete = () => {
+      let tempNodes = nodes.filter((node) => node.id !== id);
+      setNodes(tempNodes);
+   };
+   const onFieldDelete = (fieldName: string) => {
+      let tempNodes = handleDeleteField(nodes, props, fieldName);
+      setNodes(tempNodes);
+      let tempEdges = createEdges(tempNodes, edges);
+      setEdges(tempEdges);
    };
    return (
       <>
-         <List
-            style={{ backgroundColor: "black" }}
-            bordered
-            dataSource={data.selectedFields}
+         <Card
+            hoverable
             size="small"
-            header={
+            title={
                <>
                   <Handle type="target" id={"top-" + data.name} position={Position.Top} />
                   <Handle type="target" id={"bottom-" + data.name} position={Position.Bottom} />
                   {data.label}
+                  <div style={{ float: "right", paddingLeft: "10px" }}>
+                     <sub>{data.name}</sub>
+                  </div>
                </>
             }
-            renderItem={(field: any, index: number) => {
-               return (
-                  <>
-                     <Row gutter={[8, 8]} style={{ textAlign: "left", justifyContent: "baseline" }}>
-                        <Col span={1}>
-                           <Handle
-                              type="source"
-                              id={"left-" + data.name + field.name}
-                              position={Position.Left}
-                              style={{ position: "absolute", left: 0 }}
-                           />
-                        </Col>
-                        <Col span={2}>
-                           <Space size="small">
-                              <RenderIf renderIf={index > 0}>
-                                 <Button
-                                    type="text"
-                                    size="small"
-                                    onClick={() => {
-                                       goUp(field.name);
-                                    }}
-                                    style={{ height: "5px", width: "5px", padding: "0", margin: "0" }}
-                                    icon={<CaretUpOutlined />}
-                                 ></Button>
-                              </RenderIf>
-                              <RenderIf renderIf={index < data.selectedFields.length - 1}>
-                                 <Button
-                                    type="text"
-                                    onClick={() => {
-                                       goDown(field.name);
-                                    }}
-                                    style={{ height: "5px", width: "5px", padding: "0", margin: "0" }}
-                                    size="small"
-                                    icon={<CaretDownOutlined />}
-                                 ></Button>
-                              </RenderIf>
-                           </Space>
-                        </Col>
-                        <Col span={10}>{field.label}</Col>
-                        <Col span={10}>
-                           <sub>{field.name}</sub>
-                        </Col>
-                        <Col span={1} style={{ float: "right", textAlign: "right" }}>
-                           <Handle
-                              type="source"
-                              id={"right-" + data.name + field.name}
-                              position={Position.Right}
-                              style={{ position: "absolute", right: "0" }}
-                           />
-                        </Col>
-                     </Row>
-                  </>
-               );
-            }}
-            footer={
+            extra={
+               <sup>
+                  <Button size="small" icon={<AiFillDelete />} type="link" onClick={onDelete}></Button>
+               </sup>
+            }
+            actions={[
                <div style={{ textAlign: "center" }}>
                   <Button
                      icon={<AiFillPlusCircle />}
@@ -116,9 +83,76 @@ const NodeView: React.FC<INodeViewProps> = (props) => {
                   >
                      Add Fields
                   </Button>
-               </div>
-            }
-         />
+               </div>,
+            ]}
+         >
+            <table style={{ width: "100%" }}>
+               <tbody style={{ position: "relative" }}>
+                  {data.selectedFields.map((field: any, index: number) => {
+                     return (
+                        <tr key={field.name} style={{ position: "relative" }}>
+                           <td>
+                              <Handle
+                                 type="source"
+                                 id={"left-" + data.name + field.name}
+                                 position={Position.Left}
+                                 style={{ position: "absolute", left: "-5%" }}
+                              />
+                           </td>
+                           <td style={{ display: "none" }}>
+                              <Space size="small">
+                                 <RenderIf renderIf={index > 0}>
+                                    <Button
+                                       type="text"
+                                       size="small"
+                                       onClick={() => {
+                                          goUp(field.name);
+                                       }}
+                                       style={{ height: "5px", width: "5px", padding: "0", margin: "0" }}
+                                       icon={<CaretUpOutlined />}
+                                    ></Button>
+                                 </RenderIf>
+                                 <RenderIf renderIf={index < data.selectedFields.length - 1}>
+                                    <Button
+                                       type="text"
+                                       onClick={() => {
+                                          goDown(field.name);
+                                       }}
+                                       style={{ height: "5px", width: "5px", padding: "0", margin: "0" }}
+                                       size="small"
+                                       icon={<CaretDownOutlined />}
+                                    ></Button>
+                                 </RenderIf>
+                              </Space>
+                           </td>
+                           <td>{field.label}</td>
+                           <td>
+                              <sub>{field.name}</sub>
+                           </td>
+                           <td>
+                              <Button
+                                 size="small"
+                                 icon={<AiFillDelete />}
+                                 type="link"
+                                 onClick={() => {
+                                    onFieldDelete(field.name);
+                                 }}
+                              ></Button>
+                           </td>
+                           <td>
+                              <Handle
+                                 type="source"
+                                 id={"right-" + data.name + field.name}
+                                 position={Position.Right}
+                                 style={{ position: "absolute", right: "-5%" }}
+                              />
+                           </td>
+                        </tr>
+                     );
+                  })}
+               </tbody>
+            </table>
+         </Card>
          <Modal
             title={data.label}
             open={isModalOpen}
