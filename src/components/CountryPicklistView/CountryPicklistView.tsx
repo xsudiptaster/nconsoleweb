@@ -57,7 +57,7 @@ const CountryPicklistView: React.FC<ICountryPicklistViewProps> = (props) => {
                <Button size="small" onClick={onDownload}>
                   Download
                </Button>
-               <Upload beforeUpload={onUpload} accept=".xlsx,.xls,.xlsb">
+               <Upload hasControlInside={false} beforeUpload={onUpload} accept=".xlsx,.xls,.xlsb">
                   <Button icon={<UploadOutlined />} size="small">
                      Upload
                   </Button>

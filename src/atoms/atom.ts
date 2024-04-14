@@ -100,3 +100,7 @@ export const takeATourAtom = atom({
       state: false,
    },
 });
+export const deploymentIdsAtom = atom({
+   key: "deploymentIdsAtom",
+   default: [] as any[],
+});

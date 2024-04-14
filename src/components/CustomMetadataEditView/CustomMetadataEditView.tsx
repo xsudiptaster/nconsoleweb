@@ -79,7 +79,7 @@ const CustomMetadataEditView: React.FC<ICustomMetadataEditViewProps> = (props) =
                   showSearch
                   placeholder="Select Custom Metadata"
                   size="small"
-                  bordered={false}
+                  variant="borderless"
                   aria-placeholder="Select Custom metadata"
                   onChange={onChange}
                   value={selectedObject}

@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-import { handleApi } from "../../utils/utils";
+import { connectSocket, handleApi } from "../../utils/utils";
 
 export const checkLogin = async () => {
    const oAuth_Token = Cookies.get("access_token");
@@ -14,6 +14,7 @@ export const checkLogin = async () => {
       if (response?.success === false) {
          return {};
       }
+      connectSocket();
       return { ...response, instance_url: Cookies.get("instance_url"), access_token: Cookies.get("access_token") };
    }
    return {};

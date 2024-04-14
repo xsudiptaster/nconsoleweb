@@ -1,8 +1,9 @@
-import { CopyOutlined, UploadOutlined } from "@ant-design/icons";
+import { CopyOutlined } from "@ant-design/icons";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import CodeMirror from "@uiw/react-codemirror";
 import { App, Button, Card, Col, InputNumber, Radio, Row, Space, Upload } from "antd";
 import React from "react";
+import { AiOutlineUpload } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { loadingAtom } from "../../atoms/atom";
 import DisplayExcelSheetView from "../../utils/DisplayExcelSheetView";
@@ -21,7 +22,7 @@ const ApexCodeView: React.FC<IApexCodeViewProps> = (props) => {
    const [loopCount, setLoopCount] = React.useState<number>(1);
    const [jsonData, setJsonData] = React.useState<any[]>([]);
    const [code, setCode] = React.useState("");
-   const onUpload = async (file: any) => {
+   const onUpload = async (file: any, fileList: any) => {
       let response = await readFileData(file);
       setJsonData(response);
       return false;
@@ -79,11 +80,16 @@ const ApexCodeView: React.FC<IApexCodeViewProps> = (props) => {
                   />
                </RenderIf>
                <RenderIf renderIf={runType === "sheet"}>
-                  <Upload beforeUpload={onUpload} accept=".xlsx,.xls,.xlsb">
-                     <Button icon={<UploadOutlined />} size="small">
-                        Upload Sheet
-                     </Button>
-                  </Upload>
+                  <Upload
+                     beforeUpload={onUpload}
+                     accept=".xlsx,.xls,.xlsb"
+                     hasControlInside={true}
+                     children={
+                        <Button icon={<AiOutlineUpload />} size="small">
+                           Upload Sheet
+                        </Button>
+                     }
+                  ></Upload>
                </RenderIf>
             </Space>
          }

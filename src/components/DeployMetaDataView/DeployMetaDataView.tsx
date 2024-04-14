@@ -2,6 +2,7 @@ import { App, Divider, Modal } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loadingAtom, loginInfoAtom } from "../../atoms/atom";
+import DeploymentStatusView from "../../utils/DeploymentStatusView";
 import DisplaySelectMetadataView from "../../utils/DisplaySelectMetadataView";
 import OrgSwitchView from "../../utils/OrgSwitchView";
 import { handleDeploy } from "./DeployMetaDataView.util";
@@ -17,6 +18,8 @@ const DeployMetaDataView: React.FC<IDeployMetaDataViewProps> = (props) => {
    const [secondLoginInfo, setSetSecondLoginInfo] = React.useState(loginInfo);
    const [open, setOpen] = React.useState(false);
    const [metadataList, setMetadataList] = React.useState<any[]>([]);
+   const [deploymentResult, setDeploymentResult] = React.useState({});
+   const [openResult, setOpenResult] = React.useState(false);
    const execute = async (selectedMetadata: any[]) => {
       setMetadataList(selectedMetadata);
       setOpen(true);
@@ -25,6 +28,8 @@ const DeployMetaDataView: React.FC<IDeployMetaDataViewProps> = (props) => {
       setOpen(false);
       setLoading(true);
       let response = await handleDeploy(metadataList, secondLoginInfo);
+      setDeploymentResult(response);
+      setOpenResult(true);
       if (response.success) {
          message.success("Deployment Successfull");
       } else {
@@ -52,6 +57,7 @@ const DeployMetaDataView: React.FC<IDeployMetaDataViewProps> = (props) => {
                }}
             />
          </Modal>
+         <DeploymentStatusView displayResult={deploymentResult} open={openResult} setOpen={setOpenResult} />
       </>
    );
 };

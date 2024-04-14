@@ -64,7 +64,7 @@ const ContactUsFormView: React.FC<IContactUsFormViewProps> = (props) => {
                   </Form.Item>
                   <Form.Item label="Error Img" valuePropName="fileList" getValueFromEvent={normFile}>
                      <Upload
-                        action="/"
+                        hasControlInside={false}
                         listType="picture-card"
                         accept=".jpg,.png,.jpeg"
                         beforeUpload={() => {

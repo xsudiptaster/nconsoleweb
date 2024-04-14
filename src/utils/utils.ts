@@ -5,7 +5,19 @@ import * as XLSX from "xlsx";
 
 import { XMLBuilder, XMLParser } from "fast-xml-parser";
 
-export const version = "57.0";
+import { io } from "socket.io-client";
+
+// "undefined" means the URL will be computed from the `window.location` object
+const URL: any = process.env.NODE_ENV === "production" ? undefined : "http://localhost:4000";
+
+export const socket = io(URL, { autoConnect: false });
+export const connectSocket = () => {
+   let instanceUrl = Cookies.get("instance_url");
+   let accessToken = Cookies.get("access_token");
+   socket.auth = { accessToken, instanceUrl };
+   socket.connect();
+};
+export const version = "60.0";
 export const handleApi = async (api: string, data: any) => {
    let instanceUrl = Cookies.get("instance_url");
    let accessToken = Cookies.get("access_token");

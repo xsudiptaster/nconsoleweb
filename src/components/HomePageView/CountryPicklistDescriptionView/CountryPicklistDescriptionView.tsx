@@ -78,11 +78,6 @@ const CountryPicklistDescriptionView: React.FC<ICountryPicklistDescriptionViewPr
                         checks before updating Salesforce. This includes checking for duplicates, ensuring data consistency, and
                         validating entries against Salesforce rules.
                      </li>
-                     <li>
-                        <Link>Role-Based Access:</Link> The app offers role-based access control, allowing administrators to
-                        define who can view, modify, and upload picklist data. This ensures data security and compliance with
-                        organizational policies.
-                     </li>
                   </ul>
                   Streamline Your GeoData Management: GeoData Manager is your go-to solution for maintaining accurate and
                   up-to-date geographic data in Salesforce. Whether it's making bulk modifications, ensuring data accuracy, or

@@ -53,9 +53,9 @@ const DashboardFolderDescriptionView: React.FC<IDashboardFolderDescriptionViewPr
                         data landscape and allows you to quickly access and manipulate your dashboards.
                      </li>
                      <li>
-                        Flexible Naming and Editing: Tired of standardized dashboard names? Customize dashboard and folder names
-                        according to your preferences. Edit and fine-tune titles effortlessly to match your evolving business
-                        requirements.
+                        <Link>Flexible Naming and Editing:</Link> Tired of standardized dashboard names? Customize dashboard and
+                        folder names according to your preferences. Edit and fine-tune titles effortlessly to match your evolving
+                        business requirements.
                      </li>
                      <li>
                         <Link>Seamless Folder Creation:</Link> Create new Dashboard folders on the fly to categorize and classify

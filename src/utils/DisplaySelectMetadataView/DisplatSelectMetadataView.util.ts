@@ -18,6 +18,10 @@ export const handleLoad = async () => {
 };
 export const getMetaDataTypeList = async (metaDataType: string) => {
    let response = await handleApi("metadataList", { types: [{ type: metaDataType, folder: "" }] });
+   console.log("🚀 ~ getMetaDataTypeList ~ response:", typeof response == "string");
+   if (typeof response == "string") {
+      return [];
+   }
    if (response && response[0]) {
       let managedFiltered = response.filter((metadata: any) => {
          return metadata.manageableState !== "installed";

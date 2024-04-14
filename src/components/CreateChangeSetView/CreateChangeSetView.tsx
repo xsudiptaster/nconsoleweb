@@ -3,6 +3,7 @@ import { App, Button, Divider, Input, Modal, Space } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loadingAtom, loginInfoAtom } from "../../atoms/atom";
+import DeploymentStatusView from "../../utils/DeploymentStatusView";
 import DisplaySelectMetadataView from "../../utils/DisplaySelectMetadataView";
 import OrgSwitchView from "../../utils/OrgSwitchView";
 import RenderIf from "../../utils/RenderIf";
@@ -21,6 +22,8 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
    const [changeSetName, setChangeSetName] = React.useState("");
    const [isConfirmed, setIsConfirmed] = React.useState(false);
    const [secondLoginInfo, setSetSecondLoginInfo] = React.useState(loginInfo);
+   const [deploymentResult, setDeploymentResult] = React.useState({});
+   const [openResult, setOpenResult] = React.useState(false);
 
    const onExecute = async (selectedMetadatas: any[]) => {
       setLoading(true);
@@ -59,6 +62,8 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
       setOpen(false);
       setLoading(true);
       let response = await handleValidation(initialMetadataList, secondLoginInfo);
+      setDeploymentResult(response);
+      setOpenResult(true);
       if (response.success) {
          message.success("The Validation Was Successfull !!");
       } else {
@@ -106,7 +111,9 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
                </RenderIf>
             </Space>
          </Divider>
-         <DisplaySelectMetadataView execute={onExecute} preSelectedMetadatas={initialMetadataList} />
+         <RenderIf renderIf={isConfirmed}>
+            <DisplaySelectMetadataView execute={onExecute} preSelectedMetadatas={initialMetadataList} />
+         </RenderIf>
          <Modal
             open={open}
             onOk={onValidate}
@@ -121,6 +128,7 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
                }}
             />
          </Modal>
+         <DeploymentStatusView displayResult={deploymentResult} open={openResult} setOpen={setOpenResult} />
       </>
    );
 };

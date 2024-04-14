@@ -2,7 +2,7 @@ const versionInt = require("./config.js");
 const jsforce = require("jsforce");
 
 async function checkDeployStatus(conn, id) {
-   let status = await conn.metadata.checkDeployStatus(id);
+   let status = await conn.metadata.checkDeployStatus(id, true);
    if (!status.done) {
       status = await checkDeployStatus(conn, id);
    } else {
@@ -34,4 +34,5 @@ const metadataDeploy = async (data) => {
       return response;
    }
 };
+
 module.exports = metadataDeploy;

@@ -11,12 +11,13 @@ interface IAccordinViewProps {
 
 const AccordinView: React.FC<IAccordinViewProps> = (props) => {
    const { title, children, style } = props;
-   const [open, setOpen] = React.useState(true);
+   const [open, setOpen] = React.useState(false);
    return (
       <>
          <Card
             size="small"
             title={title}
+            bordered={false}
             extra={
                <Button
                   type="text"
