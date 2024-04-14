@@ -100,9 +100,7 @@ const UserDetailsView: React.FC<IUserDetailsViewProps> = (props) => {
                   return (
                      <Row gutter={10} key={item.key} style={{ paddingLeft: "20px" }}>
                         <Col className="gutter-row" span={12}>
-                           <div style={{ minWidth: "200px", textWrap: "wrap", overflowWrap: "break-word", maxWidth: "200px" }}>
-                              {item.label}
-                           </div>
+                           <div>{item.label}</div>
                         </Col>
                         <Col className="gutter-row" span={12}>
                            <div style={{ minWidth: "200px", maxWidth: "200px" }}>
