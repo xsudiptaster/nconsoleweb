@@ -12,22 +12,7 @@ interface IDeploymentStatusViewProps {
 
 const DeploymentStatusView: React.FC<IDeploymentStatusViewProps> = (props) => {
    const { displayResult, open, setOpen } = props;
-   const diplayItems = React.useMemo(() => {
-      if (displayResult?.details) {
-         console.log("🚀 ~ diplayItems ~ displayResult:", displayResult);
-         let tabs = Object.keys(displayResult.details);
-         let items = tabs.map((tab) => {
-            return {
-               key: tab,
-               label: tab.toUpperCase(),
-               children: <DisplayExcelSheetView data={displayResult.details[tab]} showDownload />,
-            };
-         });
 
-         return items;
-      }
-      return [];
-   }, [displayResult.details]);
    return (
       <>
          <Modal
@@ -41,6 +26,7 @@ const DeploymentStatusView: React.FC<IDeploymentStatusViewProps> = (props) => {
             }}
          >
             <Tabs
+               size="small"
                items={[
                   {
                      key: "componentFailures",
@@ -98,6 +84,89 @@ const DeploymentStatusView: React.FC<IDeploymentStatusViewProps> = (props) => {
                                              : 0
                                        }
                                     />
+                                 </Col>
+                                 <Col span={24}>
+                                    <RenderIf renderIf={displayResult?.details?.runTestResult?.codeCoverage !== undefined}>
+                                       <Tabs
+                                          items={[
+                                             {
+                                                key: "codeCoverage",
+                                                label: "Code Coverage",
+                                                children: (
+                                                   <DisplayExcelSheetView
+                                                      data={
+                                                         displayResult?.details?.runTestResult?.codeCoverage
+                                                            ? displayResult?.details?.runTestResult?.codeCoverage.map(
+                                                                 (cov: any) => {
+                                                                    delete cov.locationsNotCovered;
+                                                                    delete cov.namespace;
+                                                                    return cov;
+                                                                 }
+                                                              )
+                                                            : []
+                                                      }
+                                                      showDownload
+                                                   />
+                                                ),
+                                             },
+                                             {
+                                                key: "flowCoverage",
+                                                label: "Flow Coverage",
+                                                children: (
+                                                   <DisplayExcelSheetView
+                                                      data={
+                                                         displayResult?.details?.runTestResult?.flowCoverage
+                                                            ? displayResult?.details?.runTestResult?.flowCoverage.map(
+                                                                 (cov: any) => {
+                                                                    delete cov.flowNamespace;
+                                                                    return cov;
+                                                                 }
+                                                              )
+                                                            : []
+                                                      }
+                                                      showDownload
+                                                   />
+                                                ),
+                                             },
+                                             {
+                                                key: "failures",
+                                                label: "Failures",
+                                                children: (
+                                                   <DisplayExcelSheetView
+                                                      data={
+                                                         displayResult?.details?.runTestResult?.failures
+                                                            ? displayResult?.details?.runTestResult?.failures.map((cov: any) => {
+                                                                 delete cov.namespace;
+                                                                 return cov;
+                                                              })
+                                                            : []
+                                                      }
+                                                      showDownload
+                                                   />
+                                                ),
+                                             },
+
+                                             {
+                                                key: "successes",
+                                                label: "Successes",
+                                                children: (
+                                                   <DisplayExcelSheetView
+                                                      data={
+                                                         displayResult?.details?.runTestResult?.successes
+                                                            ? displayResult?.details?.runTestResult?.successes.map((cov: any) => {
+                                                                 delete cov.namespace;
+                                                                 return cov;
+                                                              })
+                                                            : []
+                                                      }
+                                                      showDownload
+                                                   />
+                                                ),
+                                             },
+                                          ]}
+                                          size="small"
+                                       />
+                                    </RenderIf>
                                  </Col>
                               </Row>
                            </RenderIf>

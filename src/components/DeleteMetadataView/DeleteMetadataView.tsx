@@ -1,9 +1,10 @@
-import { App, Divider } from "antd";
+import { App, Button, Divider } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loadingAtom } from "../../atoms/atom";
 import DeploymentStatusView from "../../utils/DeploymentStatusView";
 import DisplaySelectMetadataView from "../../utils/DisplaySelectMetadataView";
+import RenderIf from "../../utils/RenderIf";
 import { hadleExecute } from "./DeleteMetadataView.util";
 
 interface IDeleteMetadataViewProps {
@@ -13,7 +14,7 @@ interface IDeleteMetadataViewProps {
 const DeleteMetadataView: React.FC<IDeleteMetadataViewProps> = (props) => {
    const { message } = App.useApp();
    const [, setLoading] = useRecoilState(loadingAtom);
-   const [deploymentResult, setDeploymentResult] = React.useState({});
+   const [deploymentResult, setDeploymentResult] = React.useState<any>({});
    const [openResult, setOpenResult] = React.useState(false);
    const execute = async (selectedmetadatas: any[]) => {
       setLoading(true);
@@ -30,7 +31,19 @@ const DeleteMetadataView: React.FC<IDeleteMetadataViewProps> = (props) => {
    };
    return (
       <>
-         <Divider>Delete Metadata</Divider>
+         <Divider>
+            Delete Metadata
+            <RenderIf renderIf={deploymentResult?.status !== undefined}>
+               <Button
+                  size="small"
+                  onClick={() => {
+                     setOpenResult(true);
+                  }}
+               >
+                  Show Previous Result
+               </Button>
+            </RenderIf>
+         </Divider>
          <DisplaySelectMetadataView execute={execute} preSelectedMetadatas={[]} />
          <DeploymentStatusView displayResult={deploymentResult} open={openResult} setOpen={setOpenResult} />
       </>

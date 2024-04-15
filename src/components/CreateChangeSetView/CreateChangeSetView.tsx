@@ -22,7 +22,7 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
    const [changeSetName, setChangeSetName] = React.useState("");
    const [isConfirmed, setIsConfirmed] = React.useState(false);
    const [secondLoginInfo, setSetSecondLoginInfo] = React.useState(loginInfo);
-   const [deploymentResult, setDeploymentResult] = React.useState({});
+   const [deploymentResult, setDeploymentResult] = React.useState<any>({});
    const [openResult, setOpenResult] = React.useState(false);
 
    const onExecute = async (selectedMetadatas: any[]) => {
@@ -108,6 +108,16 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
                         Validate
                      </Button>
                   </Space>
+               </RenderIf>
+               <RenderIf renderIf={deploymentResult?.status !== undefined}>
+                  <Button
+                     size="small"
+                     onClick={() => {
+                        setOpenResult(true);
+                     }}
+                  >
+                     Show Previous Result
+                  </Button>
                </RenderIf>
             </Space>
          </Divider>

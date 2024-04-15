@@ -1,10 +1,11 @@
-import { App, Divider, Modal } from "antd";
+import { App, Button, Divider, Modal } from "antd";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loadingAtom, loginInfoAtom } from "../../atoms/atom";
 import DeploymentStatusView from "../../utils/DeploymentStatusView";
 import DisplaySelectMetadataView from "../../utils/DisplaySelectMetadataView";
 import OrgSwitchView from "../../utils/OrgSwitchView";
+import RenderIf from "../../utils/RenderIf";
 import { handleDeploy } from "./DeployMetaDataView.util";
 
 interface IDeployMetaDataViewProps {
@@ -18,7 +19,7 @@ const DeployMetaDataView: React.FC<IDeployMetaDataViewProps> = (props) => {
    const [secondLoginInfo, setSetSecondLoginInfo] = React.useState(loginInfo);
    const [open, setOpen] = React.useState(false);
    const [metadataList, setMetadataList] = React.useState<any[]>([]);
-   const [deploymentResult, setDeploymentResult] = React.useState({});
+   const [deploymentResult, setDeploymentResult] = React.useState<any>({});
    const [openResult, setOpenResult] = React.useState(false);
    const execute = async (selectedMetadata: any[]) => {
       setMetadataList(selectedMetadata);
@@ -40,7 +41,19 @@ const DeployMetaDataView: React.FC<IDeployMetaDataViewProps> = (props) => {
    };
    return (
       <>
-         <Divider>Deploy Metadata</Divider>
+         <Divider>
+            Deploy Metadata
+            <RenderIf renderIf={deploymentResult?.status !== undefined}>
+               <Button
+                  size="small"
+                  onClick={() => {
+                     setOpenResult(true);
+                  }}
+               >
+                  Show Previous Result
+               </Button>
+            </RenderIf>
+         </Divider>
          <DisplaySelectMetadataView execute={execute} preSelectedMetadatas={[]} />
          <Modal
             open={open}
