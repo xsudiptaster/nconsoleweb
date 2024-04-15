@@ -1,7 +1,7 @@
 import { XMLBuilder, XMLParser } from "fast-xml-parser";
 import JSZip from "jszip";
 import { handleApi, handleApiSecond, version } from "../../utils/utils";
-const createDescructiveXML = (selectedMetadatas: any[], initialMetdatas: any[]) => {
+const createDescructiveXML = (selectedMetadatas: any[], initialMetdatas: any[], changeSetName: string) => {
    let selectedIds = selectedMetadatas.map((metaData) => {
       return metaData.id;
    });
@@ -11,6 +11,7 @@ const createDescructiveXML = (selectedMetadatas: any[], initialMetdatas: any[]) 
    let types = getTypesFromMetadataList(removeList);
    return {
       Package: {
+         fullName: changeSetName,
          types,
          version: version,
       },
@@ -50,13 +51,12 @@ export const handleCreateChangeSet = async (selectedMetadatas: any[], initialMet
    const zipFileLoaded = await JSZip.loadAsync(retrieveResponse.zipFile, { base64: true });
    const xmlData = await zipFileLoaded.files["package.xml"].async("text");
    const packageData = parser.parse(xmlData);
-   const destructiveData: any = createDescructiveXML(selectedMetadatas, initialMetadatas);
+   // const destructiveData: any = createDescructiveXML(selectedMetadatas, initialMetadatas, changeSetName);
    packageData.Package.fullName = changeSetName;
-   destructiveData.Package.fullName = changeSetName;
+   // destructiveData.Package.fullName = changeSetName;
    const xmlDataRevised = builder.build(packageData);
    const zip = new JSZip();
    for (const key in zipFileLoaded.files) {
-      console.log("🚀 ~ handleCreateChangeSet ~ key:", key);
       if (key === "package.xml") {
          zip.file(key, xmlDataRevised);
       } else {
@@ -64,7 +64,7 @@ export const handleCreateChangeSet = async (selectedMetadatas: any[], initialMet
          zip.file(key, xmlVal);
       }
    }
-   zip.file("destructiveChanges.xml", builder.build(destructiveData));
+   //zip.file("destructiveChanges.xml", builder.build(destructiveData));
    const base64File = await zip.generateAsync({ type: "base64" });
    let response = await handleApi("metadataDeploy", { zipFile: base64File });
    return response;
