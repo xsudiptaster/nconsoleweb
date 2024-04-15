@@ -27,6 +27,7 @@ const getTypesFromMetadataList = (metadataList: any[]) => {
 };
 export const handleCreateChangeSet = async (selectedMetadatas: any[], initialMetadatas: any[], changeSetName: string) => {
    let types: any = getTypesFromMetadataList(selectedMetadatas);
+   console.log("🚀 ~ handleCreateChangeSet ~ types:", types);
    const options = {
       ignoreAttributes: false,
    };
@@ -40,6 +41,7 @@ export const handleCreateChangeSet = async (selectedMetadatas: any[], initialMet
    const xmlDataRevised = builder.build(packageData);
    const zip = new JSZip();
    for (const key in zipFileLoaded.files) {
+      console.log("🚀 ~ handleCreateChangeSet ~ key:", key);
       if (key === "package.xml") {
          zip.file(key, xmlDataRevised);
       } else {

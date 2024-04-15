@@ -16,8 +16,14 @@ export const handleLoad = async () => {
       return a.label > b.label ? 1 : -1;
    });
 };
+const changeReportTypeName = (metaDataType: string) => {
+   if (metaDataType === "Report") {
+      return "ReportFolder";
+   }
+   return metaDataType;
+};
 export const getMetaDataTypeList = async (metaDataType: string) => {
-   let response = await handleApi("metadataList", { types: [{ type: metaDataType, folder: "" }] });
+   let response = await handleApi("metadataList", { types: [{ type: changeReportTypeName(metaDataType), folder: "" }] });
    console.log("🚀 ~ getMetaDataTypeList ~ response:", typeof response == "string");
    if (typeof response == "string") {
       return [];
