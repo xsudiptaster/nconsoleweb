@@ -33,7 +33,7 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
          <div className={style.contentDiv}>
             <Title>Features</Title>
          </div>
-         <Row justify="space-evenly">
+         <Row justify="space-evenly" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             <Col
                span={11}
                style={{

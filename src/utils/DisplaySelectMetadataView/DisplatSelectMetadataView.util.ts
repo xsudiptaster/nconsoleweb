@@ -23,8 +23,24 @@ const changeReportTypeName = (metaDataType: string) => {
    return metaDataType;
 };
 export const getMetaDataTypeList = async (metaDataType: string) => {
-   let response = await handleApi("metadataList", { types: [{ type: changeReportTypeName(metaDataType), folder: "" }] });
-   console.log("🚀 ~ getMetaDataTypeList ~ response:", typeof response == "string");
+   let response: any[] = [];
+   if (metaDataType === "Report") {
+      let reponseReportFolders = await handleApi("metadataList", { types: [{ type: "ReportFolder", folder: "" }] });
+      console.log("🚀 ~ getMetaDataTypeList ~ reponseReportFolders:", reponseReportFolders);
+      for (let i = 0; i < reponseReportFolders.length; i++) {
+         let tempResponse = await handleApi("metadataList", {
+            types: [{ type: "Report", folder: reponseReportFolders[i].fullName }],
+         });
+         if (tempResponse[0]) {
+            response = [...response, ...tempResponse];
+         } else {
+            response.push(tempResponse);
+         }
+      }
+   } else {
+      response = await handleApi("metadataList", { types: [{ type: metaDataType, folder: "" }] });
+   }
+   console.log(response);
    if (typeof response == "string") {
       return [];
    }
@@ -35,5 +51,7 @@ export const getMetaDataTypeList = async (metaDataType: string) => {
       return managedFiltered.sort((a: any, b: any) => {
          return new Date(a.lastModifiedDate) > new Date(b.lastModifiedDate) ? -1 : 1;
       });
+   } else {
+      return [];
    }
 };

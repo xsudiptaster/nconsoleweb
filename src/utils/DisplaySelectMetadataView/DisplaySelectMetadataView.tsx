@@ -150,8 +150,8 @@ const DisplaySelectMetadataView: React.FC<IDisplaySelectMetadataViewProps> = (pr
          ? tempMedataList
          : tempMedataList.filter((metadata) => {
               return (
-                 metadata.fileName.toUpperCase().includes(searhString.toUpperCase()) ||
-                 metadata.fullName.toUpperCase().includes(searhString.toUpperCase())
+                 (metadata?.fileName && metadata.fileName.toUpperCase().includes(searhString.toUpperCase())) ||
+                 (metadata?.fullName && metadata.fullName.toUpperCase().includes(searhString.toUpperCase()))
               );
            });
    };

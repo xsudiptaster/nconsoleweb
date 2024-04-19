@@ -27,29 +27,20 @@ const getTypesFromMetadataList = (metadataList: any[]) => {
 };
 export const handleCreateChangeSet = async (selectedMetadatas: any[], initialMetadatas: any[], changeSetName: string) => {
    let types: any = getTypesFromMetadataList(selectedMetadatas);
-   console.log("🚀 ~ handleCreateChangeSet ~ types:", types);
+
    const options = {
       ignoreAttributes: false,
    };
    const parser = new XMLParser(options);
    const builder = new XMLBuilder(options);
    let retrieveResponse = await handleApi("metadataRetrieve", { types });
-   const zipFileLoaded = await JSZip.loadAsync(retrieveResponse.zipFile, { base64: true });
+   const zipFileLoaded: any = await JSZip.loadAsync(retrieveResponse.zipFile, { base64: true });
    const xmlData = await zipFileLoaded.files["package.xml"].async("text");
    const packageData = parser.parse(xmlData);
    packageData.Package.fullName = changeSetName;
    const xmlDataRevised = builder.build(packageData);
-   const zip = new JSZip();
-   for (const key in zipFileLoaded.files) {
-      console.log("🚀 ~ handleCreateChangeSet ~ key:", key);
-      if (key === "package.xml") {
-         zip.file(key, xmlDataRevised);
-      } else {
-         let xmlVal = await zipFileLoaded.files[key].async("text");
-         zip.file(key, xmlVal);
-      }
-   }
-   const base64File = await zip.generateAsync({ type: "base64" });
+   zipFileLoaded.file("package.xml", xmlDataRevised);
+   const base64File = await zipFileLoaded.generateAsync({ type: "base64" });
    let response = await handleApi("metadataDeploy", { zipFile: base64File });
    return response;
 };

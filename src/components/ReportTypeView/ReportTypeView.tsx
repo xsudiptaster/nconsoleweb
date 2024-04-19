@@ -47,7 +47,7 @@ const ReportTypeView: React.FC<IReportTypeViewProps> = (props) => {
             size="small"
             bodyStyle={{ minHeight: "87vh", overflow: "auto" }}
             title={
-               <Row>
+               <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                   <Col span={6}>
                      <Select
                         showSearch
@@ -64,10 +64,10 @@ const ReportTypeView: React.FC<IReportTypeViewProps> = (props) => {
                      />
                   </Col>
                   <Col span={18}>
-                     <Row>
+                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                         <Col span={24}>
                            <RenderIf renderIf={selectedReportType.label}>
-                              <Space style={{ paddingLeft: "20px" }} size="large">
+                              <Space style={{ paddingLeft: "20px" }} size="small">
                                  <div>
                                     <u>Name:</u>&nbsp; {selectedReportType?.label}
                                  </div>
