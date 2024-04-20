@@ -42,7 +42,6 @@ const cleanSectionsAndColumns = (reportDescribe: any) => {
 
 export const loadReportType = async (reportType: string) => {
    let response = await handleApi("metadataRead", { objectName: "ReportType", types: [reportType.replace("__c", "")] });
-   console.log("🚀 ~ loadReportType ~ response:", response);
    let objectFields = await getFieldsFromObjects(response);
    let reportDescribe = cleanSectionsAndColumns(response);
    return {

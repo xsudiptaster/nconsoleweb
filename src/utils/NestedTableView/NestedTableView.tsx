@@ -24,7 +24,7 @@ const NestedTableView: React.FC<INestedTableViewProps> = (props) => {
    }, [data]);
    return (
       <>
-         <Table dataSource={data} columns={columns} size="small" sticky style={{ height: "60vh", overflow: "scroll" }} />
+         <Table dataSource={data} columns={columns} size="small" sticky bordered />
       </>
    );
 };

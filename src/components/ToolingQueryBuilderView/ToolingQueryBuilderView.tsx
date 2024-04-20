@@ -112,52 +112,53 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
                </Button>
             }
          >
-            <Row>
-               <Col span={8}>
-                  <Input
-                     placeholder="Search...."
-                     size="small"
-                     variant="borderless"
-                     onChange={(e) => {
-                        setSearchString(e.target.value);
-                     }}
-                  />
-                  <Tree
-                     checkable
-                     showLine
-                     treeData={filteredTreeNodes}
-                     style={{ height: "90vh", overflow: "scroll" }}
-                     titleRender={(node) => {
-                        return (
-                           <Flex gap="middle" align="flex-start" style={{ width: "100%" }}>
-                              {node.title}
-                              <div style={{ float: "right", right: "0" }}>
-                                 <sub>({node?.data?.name})</sub>
-                              </div>
-                           </Flex>
-                        );
-                     }}
-                     onCheck={onCheck}
-                     loadData={onLoad}
-                  />
-               </Col>
-               <Col span={16}>
-                  <Input.TextArea
-                     rows={10}
-                     value={query}
-                     onChange={(e) => {
-                        setQuery(e.target.value);
-                     }}
-                  />
-                  <div>
-                     {queryError}
-                     <RenderIf renderIf={result.success === false}>{result?.error}</RenderIf>
-                  </div>
-                  <RenderIf renderIf={result.success === true}>
-                     <NestedTableView data={result.records} />
-                  </RenderIf>
-               </Col>
-            </Row>
+            <div style={{ height: "80vh" }}>
+               <Row>
+                  <Col span={8}>
+                     <Input
+                        placeholder="Search...."
+                        size="small"
+                        variant="borderless"
+                        onChange={(e) => {
+                           setSearchString(e.target.value);
+                        }}
+                     />
+                     <Tree
+                        checkable
+                        showLine
+                        treeData={filteredTreeNodes}
+                        titleRender={(node) => {
+                           return (
+                              <Flex gap="middle" align="flex-start" style={{ width: "100%" }}>
+                                 {node.title}
+                                 <div style={{ float: "right", right: "0" }}>
+                                    <sub>({node?.data?.name})</sub>
+                                 </div>
+                              </Flex>
+                           );
+                        }}
+                        onCheck={onCheck}
+                        loadData={onLoad}
+                     />
+                  </Col>
+                  <Col span={16}>
+                     <Input.TextArea
+                        rows={10}
+                        value={query}
+                        onChange={(e) => {
+                           setQuery(e.target.value);
+                        }}
+                     />
+                     <div>
+                        {queryError}
+                        <RenderIf renderIf={result.success === false}>{result?.error}</RenderIf>
+                     </div>
+                     <RenderIf renderIf={result.success === true}>
+                        <NestedTableView data={result.records} />
+                     </RenderIf>
+                  </Col>
+               </Row>
+            </div>
          </Card>
       </>
    );

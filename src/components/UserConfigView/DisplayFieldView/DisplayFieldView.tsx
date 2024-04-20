@@ -24,7 +24,6 @@ const DisplayFieldView: React.FC<IDisplayFieldViewProps> = (props) => {
             setRefrenceValues(response);
          }
          if (field.type === "datetime") {
-            console.log("🚀 ~ DisplayFieldView ~ onload ~ value:", value);
          }
       };
       onload();

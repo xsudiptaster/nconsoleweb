@@ -79,7 +79,6 @@ export const moveObjectPermissions = (
    listObjectNames: any[] | undefined,
    objectName: string
 ) => {
-   console.log("🚀 ~ file: ObjectPermissionsCompareView.util.ts:60 ~ listObjectNames:", listObjectNames);
    let tempPermissions = JSON.parse(JSON.stringify(permissions));
    if (objectName) {
       tempPermissions = moveObjectPermission(tempPermissions, direction, objectName);
@@ -106,7 +105,6 @@ const moveObjectPermission = (permissions: any, direction: string, objectName: s
    return permissions;
 };
 const loopAllObjects = (permissionMap: any, listObjectNames: string[]) => {
-   console.log("🚀 ~ file: ObjectPermissionsCompareView.util.ts:87 ~ loopAllObjects ~ listObjectNames:", listObjectNames);
    let newPermissionMap: any = {};
    listObjectNames.forEach((object) => {
       newPermissionMap[object] = getObjectPermissions(permissionMap, object);

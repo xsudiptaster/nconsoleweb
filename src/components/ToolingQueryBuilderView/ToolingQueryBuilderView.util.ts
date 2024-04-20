@@ -102,7 +102,6 @@ export const handleExpandTree = async (treeData: any[], node: any) => {
       children = [...children, childRelationships];
    }
    let tempTreeData = updateTreeData(treeData, node, children);
-   console.log("🚀 ~ handleExpandTree ~ tempTreeData:", tempTreeData);
    return tempTreeData;
 };
 export const handleFilter = (treeNodes: any, searchString: string) => {
@@ -174,6 +173,5 @@ export const handleExecute = async (query: string) => {
    let response = await handleApi("toolingQuery", {
       query: query,
    });
-   console.log("🚀 ~ handleExecute ~ response:", response);
    return response;
 };

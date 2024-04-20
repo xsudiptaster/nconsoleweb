@@ -97,6 +97,6 @@ export const handleValidation = async (selectedMetadatas: any[], currentLoginInf
       zipFile: retrieveResponse.zipFile,
       checkOnly: true,
    });
-   console.log(deployResponse);
+
    return deployResponse;
 };

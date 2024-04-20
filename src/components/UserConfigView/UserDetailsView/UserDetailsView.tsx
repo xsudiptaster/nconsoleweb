@@ -13,7 +13,6 @@ interface IUserDetailsViewProps {
 
 const UserDetailsView: React.FC<IUserDetailsViewProps> = (props) => {
    const { id, userDescribe } = props;
-   console.log("🚀 ~ userDescribe:", userDescribe);
    const [displayDetails, setDisplayDetails] = React.useState<any>({});
    const [edit, setEdit] = React.useState(false);
    React.useEffect(() => {

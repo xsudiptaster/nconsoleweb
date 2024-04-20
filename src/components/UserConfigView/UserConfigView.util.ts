@@ -29,7 +29,6 @@ const getUserDescribe = async () => {
       acc[field.name] = field;
       return acc;
    }, {});
-   console.log("🚀 ~ response.fieldsMap=response.fields.reduce ~ response:", response);
 
    return response;
 };

@@ -73,7 +73,6 @@ export const setChangeFieldPermissions = (
 };
 export const moveFieldPermissions = (permissions: any, direction: string, selectedObjects: any[], fieldName: any) => {
    let tempPermissions = JSON.parse(JSON.stringify(permissions));
-   console.log("🚀 ~ file: FieldPermissionCompareView.util.ts:75 ~ moveFieldPermissions ~ tempPermissions:", tempPermissions);
    if (fieldName) {
       tempPermissions = moveOneFieldPermissions(tempPermissions, direction, selectedObjects, fieldName);
    } else {

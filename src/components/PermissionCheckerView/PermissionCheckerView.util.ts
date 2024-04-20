@@ -249,6 +249,5 @@ export const getSelectedUsers = async (selectedData: any) => {
 
    userMap = { ...userMap, ...(await getUsersForProfile(selectedData.selectedProfiles)) };
    userMap = { ...userMap, ...(await getUserFromPermissionSets(selectedData.selectedPermissionSets)) };
-   console.log("🚀 ~ file: PermissionCheckerView.util.ts:231 ~ getSelectedUsers ~ userMap:", userMap);
    return userMap;
 };

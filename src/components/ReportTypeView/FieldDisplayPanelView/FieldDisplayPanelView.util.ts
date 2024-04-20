@@ -18,7 +18,6 @@ const checkField = (field: any, fieldPrefix: string, tableName: string, columns:
    return selected;
 };
 export const seggrateFields = (recodTypeDescribe: any, fields: any, tableName: string, fieldPrefix: any) => {
-   console.log("🚀 ~ seggrateFields ~ fields:", fields);
    let columns = getAllColumns(recodTypeDescribe);
    let displayFields: any = [];
    if (fields) {
