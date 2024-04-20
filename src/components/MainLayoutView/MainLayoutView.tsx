@@ -9,7 +9,7 @@ import {
 import { App, Avatar, Button, Layout, Menu, MenuProps, Modal, Popover, Space, Spin } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React from "react";
-import { AiOutlineLogout } from "react-icons/ai";
+import { AiFillTool, AiOutlineLogout } from "react-icons/ai";
 import { BsFiletypeXml, BsFillSendFill } from "react-icons/bs";
 import { SiAdobeaudition } from "react-icons/si";
 import { useRecoilState } from "recoil";
@@ -33,6 +33,7 @@ import QuerySheetView from "../QuerySheetView";
 import ReportFoldersView from "../ReportFoldersView";
 import ReportTypeView from "../ReportTypeView";
 import StatusModalView from "../StatusModalView";
+import ToolingQueryBuilderView from "../ToolingQueryBuilderView";
 import UserPermissionAnalysisView from "../UserPermissionAnalysisView";
 import { checkLogin, handleLogout } from "./MainLayoutView.util";
 import TagLogoView from "./TagLogoView";
@@ -180,6 +181,11 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
             },
          ],
       },
+      {
+         icon: <AiFillTool />,
+         label: "Tooling Query Builder",
+         key: "toolingQuery",
+      },
    ];
    return (
       <>
@@ -287,6 +293,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "createChangeSet"}>
                            <CreateChangeSetView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "toolingQuery"}>
+                           <ToolingQueryBuilderView />
                         </RenderIf>
                      </Content>
                   </Layout>

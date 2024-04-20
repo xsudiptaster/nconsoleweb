@@ -16,6 +16,7 @@ import metadataRetrieve from "./MetadataRetrieve";
 import metadataUpsert from "./MetadataUpsert";
 import objectDescribe from "./ObjectDescribe";
 import query from "./Query";
+import toolingGlobalDescribe from "./ToolingGlobalDescribe";
 import toolingQuery from "./ToolingQuery";
 import update from "./Update";
 import upsert from "./Upsert";
@@ -64,6 +65,8 @@ const IntegrationCallouts = async (payload) => {
          return toolingQuery(payload.payloadData);
       case "bulkToolingQuery":
          return bulkToolingQuery(payload.payloadData);
+      case "toolingGlobalDescribe":
+         return toolingGlobalDescribe(payload.payloadData);
       default:
          return null;
    }

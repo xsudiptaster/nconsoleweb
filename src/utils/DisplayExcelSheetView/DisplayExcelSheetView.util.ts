@@ -17,6 +17,7 @@ export const createDisplayColumns = (tempColumns: any[], data: any[]) => {
          return {
             title: col.toUpperCase(),
             dataIndex: col,
+            key: col,
             ellipsis: true,
             filters: getFilteredValues(data, col),
             onFilter: (value: string, record: any) => {

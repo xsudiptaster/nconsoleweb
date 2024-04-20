@@ -21,7 +21,8 @@ const metadataList = require("./server/MetadataList");
 const toolingQuery = require("./server/ToolingQuery");
 const metadataDescribe = require("./server/MetadataDescribe");
 const sendEmail = require("./server/SendEmail");
-
+const toolingGlobalDescribe = require("./server/ToolingGlobalDescribe");
+const toolingObjectDescribe = require("./server/ToolingObjectDescribe");
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -146,7 +147,16 @@ app.post("/api/sendEmail", async (req, res, next) => {
    res.json(response);
    next();
 });
-
+app.post("/api/toolingGlobalDescribe", async (req, res, next) => {
+   let response = await toolingGlobalDescribe(req.body);
+   res.json(response);
+   next();
+});
+app.post("/api/toolingObjectDescribe", async (req, res, next) => {
+   let response = await toolingObjectDescribe(req.body);
+   res.json(response);
+   next();
+});
 app.get("*", (req, res) => {
    res.sendFile(path.join(buildPath, "index.html"));
 });

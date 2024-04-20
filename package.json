@@ -39,7 +39,7 @@
     "recoil": "^0.7.7",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
-    "soql-parser-js": "^4.9.2",
+    "soql-parser-js": "^4.10.1",
     "typescript": "^4.9.5",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
