@@ -13,14 +13,14 @@ interface IDisplayTableDataViewProps {
 }
 
 const DisplayTableDataView: React.FC<IDisplayTableDataViewProps> = (props) => {
-   const { data, record, index } = props;
+   const { data, index } = props;
    const [nestedTableOpen, setNestedTableOpen] = React.useState(false);
    const [nestedObjectOpen, setNestedObjectOpen] = React.useState(false);
 
    return (
       <div style={{ textAlign: "center" }}>
          <RenderIf renderIf={typeof data !== "object"}>
-            <Tooltip title={data.toString()}>{data.toString()}</Tooltip>
+            <Tooltip title={data ? data.toString() : ""}>{data ? data.toString() : ""}</Tooltip>
          </RenderIf>
          <RenderIf renderIf={typeof data === "object" && Array.isArray(data)}>
             <Button
@@ -48,9 +48,9 @@ const DisplayTableDataView: React.FC<IDisplayTableDataViewProps> = (props) => {
                <table>
                   <tbody>
                      {data ? (
-                        Object.keys(data).map((key) => {
+                        Object.keys(data).map((key, i) => {
                            return (
-                              <tr key={key}>
+                              <tr key={key + index + i}>
                                  <td>{key}</td>
                                  <td>
                                     <DisplayTableDataView data={data[key]} />

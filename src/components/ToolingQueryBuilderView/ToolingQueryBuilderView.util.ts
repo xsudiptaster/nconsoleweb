@@ -49,7 +49,7 @@ export const handleTreeCreate = async (objectName: any) => {
             key: field.name,
             type: "field",
             data: field,
-            isLeaf: field.type !== "reference",
+            isLeaf: field.type !== "reference" || (field.type === "reference" && field.relationshipName === null),
          };
       })
       .sort((a: any, b: any) => {
@@ -72,7 +72,7 @@ export const handleExpandTree = async (treeData: any[], node: any) => {
             key: `${node.key}-${field.name}`,
             type: "field",
             data: field,
-            isLeaf: field.type !== "reference",
+            isLeaf: field.type !== "reference" || (field.type === "reference" && field.relationshipName === null),
          };
       })
       .sort((a: any, b: any) => {
@@ -127,6 +127,7 @@ export const handleFilter = (treeNodes: any, searchString: string) => {
 export const handleCheck = (treeNodes: any[], keys: any[], selectedObject: string) => {
    let keyset = new Set(keys);
    let oQuery = createQuery(treeNodes, keyset, selectedObject);
+   console.log("🚀 ~ handleCheck ~ oQuery:", oQuery);
    return composeQuery(parseQuery(oQuery), { format: true });
 };
 const createQuery = (nodes: any[], keyset: any, objectName: string) => {
@@ -148,8 +149,9 @@ const getFields = (treeNodes: any[], keyset: any, relations: string[]) => {
             fields.push(makeField({ field: node.data.name, relationships: relations }));
          }
          if (node.children) {
-            relations = [...relations, node.data.relationshipName];
-            fields = [...fields, ...getFields(node.children, keyset, relations)];
+            console.log("🚀 ~ treeNodes.forEach ~ node:", node);
+            console.log("🚀 ~ treeNodes.forEach ~ relations:", [...relations, node.data.relationshipName]);
+            fields = [...fields, ...getFields(node.children, keyset, [...relations, node.data.relationshipName])];
          }
       }
       if (node.type === "dummy" && keyset.has(node.key)) {

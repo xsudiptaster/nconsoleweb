@@ -16,12 +16,6 @@ export const handleLoad = async () => {
       return a.label > b.label ? 1 : -1;
    });
 };
-const changeReportTypeName = (metaDataType: string) => {
-   if (metaDataType === "Report") {
-      return "ReportFolder";
-   }
-   return metaDataType;
-};
 export const getMetaDataTypeList = async (metaDataType: string) => {
    let response: any[] = [];
    if (metaDataType === "Report") {

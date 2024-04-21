@@ -16,6 +16,7 @@ import PermissionsCompareDescriptionView from "./PermissionsCompareDescriptionVi
 import QueryDescriptionView from "./QueryDescriptionView";
 import ReportFolderDescriptionView from "./ReportFolderDescriptionView";
 import ReportTypeDescriptionView from "./ReportTypeDescriptionView";
+import ToolingQueryDescriptionView from "./ToolingQueryDescriptionView";
 import UserPermissionDescriptionView from "./UserPermissionDescriptionView";
 interface IHomePageViewProps {
    children?: React.ReactNode;
@@ -230,6 +231,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                }}
             >
                <CreateChangeSetDescriptionView />
+            </Col>
+            <Col
+               span={11}
+               style={{
+                  alignContent: "center",
+                  borderRadius: "30px",
+                  background: " #211111",
+                  boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+               }}
+            >
+               <ToolingQueryDescriptionView />
             </Col>
          </Row>
       </Card>

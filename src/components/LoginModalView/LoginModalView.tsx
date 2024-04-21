@@ -18,6 +18,7 @@ import PermissionsCompareDescriptionView from "../HomePageView/PermissionsCompar
 import QueryDescriptionView from "../HomePageView/QueryDescriptionView";
 import ReportFolderDescriptionView from "../HomePageView/ReportFolderDescriptionView";
 import ReportTypeDescriptionView from "../HomePageView/ReportTypeDescriptionView";
+import ToolingQueryDescriptionView from "../HomePageView/ToolingQueryDescriptionView";
 import UserPermissionDescriptionView from "../HomePageView/UserPermissionDescriptionView";
 import style from "./LoginModalView.module.css";
 import { handleLoad, handleProdLogin, handleTestLogin } from "./LoginModalView.util";
@@ -210,6 +211,16 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
                         appName="Change Set Manager Pro"
                         title="Your Ultimate Salesforce Change Set Management Solution!"
                         fullDescription={<CreateChangeSetDescriptionView />}
+                     />
+                  </Col>
+               </Row>
+               <Divider></Divider>
+               <Row justify="space-evenly" className="gutter-row">
+                  <Col span={4} xs={24} md={6} xl={4}>
+                     <MiniInfoCardView
+                        appName="Salesforce Tooling Explorer"
+                        title="Your Ultimate Companion for Navigating Tooling Objects with Ease!"
+                        fullDescription={<ToolingQueryDescriptionView />}
                      />
                   </Col>
                </Row>

@@ -61,9 +61,9 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
       }
    }, [query]);
    const onCheck = async (checkedKeys: any, data: any) => {
-      const { checked, checkedNodes, node, event, halfCheckedKeys } = data;
+      const { halfCheckedKeys } = data;
       let selectedKeys = [...checkedKeys, ...halfCheckedKeys];
-      let response = await handleCheck(treeData, selectedKeys, selectedObject);
+      let response = handleCheck(treeData, selectedKeys, selectedObject);
       setQuery(response);
    };
    const onExecute = async () => {
