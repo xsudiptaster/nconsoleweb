@@ -84,12 +84,6 @@ const DiagramDescriptionView: React.FC<IDiagramDescriptionViewProps> = (props) =
                   </Paragraph>
                   Experience the future of data visualization today.
                   <br />
-                  <iframe
-                     src="https://scribehow.com/embed/How_to_Use_Diagram__PPfwm8ULRr6EIO84MqTjbg"
-                     width="100%"
-                     height="640"
-                     title="Diagram"
-                  ></iframe>
                   <Button
                      type="link"
                      size="small"
