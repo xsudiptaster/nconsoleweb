@@ -2,6 +2,8 @@ import { Button, Card, Col, Flex, Input, Row, Select, Tree } from "antd";
 import React, { useDeferredValue } from "react";
 import { isQueryValid } from "soql-parser-js";
 
+import { useRecoilState } from "recoil";
+import { loadingAtom } from "../../atoms/atom";
 import NestedTableView from "../../utils/NestedTableView";
 import RenderIf from "../../utils/RenderIf";
 import {
@@ -18,6 +20,7 @@ interface IToolingQueryBuilderViewProps {
 }
 
 const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props) => {
+   const [, setLoading] = useRecoilState(loadingAtom);
    const [objectList, setObjectList] = React.useState<any[]>([]);
    const [selectedObject, setSelectedObject] = React.useState("");
    const [treeData, setTreeData] = React.useState<any[]>([]);
@@ -33,11 +36,13 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
       onload();
    }, []);
    const onObjectSelect = async (value: string) => {
+      setLoading(true);
       setTreeData([]);
       setQuery("");
       setSelectedObject(value);
       let response = await handleTreeCreate(value);
       setTreeData(response);
+      setLoading(false);
    };
    const onLoad = async (node: any) => {
       let tempTreeNode = await handleExpandTree(treeData, node);
@@ -61,14 +66,18 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
       }
    }, [query]);
    const onCheck = async (checkedKeys: any, data: any) => {
+      setLoading(true);
       const { halfCheckedKeys } = data;
       let selectedKeys = [...checkedKeys, ...halfCheckedKeys];
       let response = handleCheck(treeData, selectedKeys, selectedObject);
       setQuery(response);
+      setLoading(false);
    };
    const onExecute = async () => {
+      setLoading(true);
       let response = await handleExecute(query);
       setResult(response);
+      setLoading(false);
    };
    return (
       <>
@@ -82,7 +91,7 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
                   style={{ width: "50%" }}
                   showSearch
                   options={objectList}
-                  placeholder="Select Object"
+                  placeholder="Select Tooling Object"
                   onSelect={onObjectSelect}
                   filterOption={(input: any, option: any) => {
                      return (
@@ -127,6 +136,7 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
                         checkable
                         showLine
                         treeData={filteredTreeNodes}
+                        style={{ height: "75vh", overflow: "auto" }}
                         titleRender={(node) => {
                            return (
                               <Flex gap="middle" align="flex-start" style={{ width: "100%" }}>
@@ -143,6 +153,7 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
                   </Col>
                   <Col span={16}>
                      <Input.TextArea
+                        variant="borderless"
                         rows={10}
                         value={query}
                         onChange={(e) => {

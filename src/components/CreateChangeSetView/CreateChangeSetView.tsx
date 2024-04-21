@@ -51,7 +51,6 @@ const CreateChangeSetView: React.FC<ICreateChangeSetViewProps> = (props) => {
       let response = await getChangeSet(changeSetName);
       if (!response.success) {
          message.error("Invalid Change Set Name!!");
-         return;
       } else if (response.selectedMetadatas) {
          setInitialMetadataList(response.selectedMetadatas);
          setIsConfirmed(true);
