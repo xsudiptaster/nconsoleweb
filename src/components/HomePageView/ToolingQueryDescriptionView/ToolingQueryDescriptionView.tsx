@@ -80,25 +80,10 @@ const ToolingQueryDescriptionView: React.FC<IToolingQueryDescriptionViewProps> =
                         insights with ease.
                      </li>
                      <li>
-                        <Link>Real-time Data Interaction:</Link> Interact with your queried data in real time. View, edit, and
-                        manipulate records directly within the app, empowering you to take immediate action based on your query
-                        results.
-                     </li>
-                     <li>
-                        <Link>Secure Access:</Link> Rest assured that your data is handled with the utmost security. Salesforce
-                        Tooling Explorer leverages Salesforce's robust security measures, ensuring that only authorized users can
-                        access and interact with sensitive data.
-                     </li>
-                     <li>
                         <Link>User-Friendly Interface:</Link> Designed with usability in mind, Salesforce Tooling Explorer
                         features an intuitive interface that caters to users of all skill levels. Whether you're a Salesforce
                         novice or an experienced developer, the app provides a seamless experience from exploration to query
                         execution.
-                     </li>
-                     <li>
-                        <Link>Comprehensive Documentation and Support:</Link> Access comprehensive documentation and expert
-                        support to maximize your utilization of Salesforce Tooling Explorer. From basic navigation to advanced
-                        query techniques, our resources are here to support your development journey.
                      </li>
                   </ul>
                   <Text>
