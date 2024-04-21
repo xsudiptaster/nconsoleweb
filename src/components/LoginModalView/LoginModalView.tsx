@@ -1,4 +1,4 @@
-import { Button, Card, Col, Divider, Modal, Row } from "antd";
+import { Button, Card, Col, Divider, Modal, Row, Typography } from "antd";
 import React from "react";
 import "../../nconsoleimg_edge.png";
 import RenderIf from "../../utils/RenderIf";
@@ -26,7 +26,7 @@ import MiniInfoCardView from "./MiniInfoCardView";
 interface ILoginModalViewProps {
    children?: React.ReactNode;
 }
-
+const { Title } = Typography;
 const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
    const [state, setState] = React.useState<any>("");
    const [showContactUs, setShowContactUs] = React.useState(false);
@@ -79,6 +79,7 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
             <Card
                bordered={false}
                size="small"
+               title={<Title level={3}>Features:</Title>}
                extra={
                   <Button
                      size="small"
