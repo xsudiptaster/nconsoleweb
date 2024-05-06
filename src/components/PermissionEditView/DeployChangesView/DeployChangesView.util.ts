@@ -39,8 +39,9 @@ export const deployChanges = async (fetchedProfiles: any[], trackChanges: any, c
             metadataType: currentProfile.type,
             records: [response.profile],
          });
-         if (!result?.success) {
-            errors.push(result.error);
+         console.log("RESULTS", result);
+         if (result?.success === false) {
+            errors.push(result.errors.message);
          }
       }
       sendMessage({ current: i, total: fetchedProfiles.length });
