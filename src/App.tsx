@@ -8,7 +8,7 @@ import LoginModalView from "./components/LoginModalView";
 import MainLayoutView from "./components/MainLayoutView";
 import SaveTokenView from "./components/SaveTokenView";
 import TermsAndConditionsView from "./components/TermsAndConditionsView";
-import ErrorBoundary from "./utils/ErrorBoundary";
+import ErrorBoundaryCustomView from "./utils/ErrorBoundaryCustomView";
 const router = createBrowserRouter([
    {
       path: "/",
@@ -60,10 +60,10 @@ function App() {
             }}
          >
             <RecoilRoot>
-               <ErrorBoundary>
+               <ErrorBoundaryCustomView>
                   <RouterProvider router={router} />
                   <TermsAndConditionsView />
-               </ErrorBoundary>
+               </ErrorBoundaryCustomView>
             </RecoilRoot>
          </ConfigProvider>
       </React.StrictMode>
