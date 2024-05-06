@@ -107,10 +107,10 @@ const DeployChangesView: React.FC<IDeployChangesViewProps> = (props) => {
                                                 <tr key={permission.object}>
                                                    <td>{permission.object}</td>
                                                    <td>
-                                                      <Checkbox checked={permission.allowCreate} disabled />
+                                                      <Checkbox checked={permission.allowRead} disabled />
                                                    </td>
                                                    <td>
-                                                      <Checkbox checked={permission.allowRead} disabled />
+                                                      <Checkbox checked={permission.allowCreate} disabled />
                                                    </td>
                                                    <td>
                                                       <Checkbox checked={permission.allowEdit} disabled />
