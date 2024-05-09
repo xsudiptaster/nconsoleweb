@@ -1,11 +1,8 @@
-FROM node:18
+FROM node:18.16.0
 
 WORKDIR ./
 COPY package.json ./
 RUN npm install
-# Build the app
-RUN npm run build
-
 # Copy the app into the image
 COPY . .
 
