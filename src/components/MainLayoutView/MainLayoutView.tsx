@@ -29,6 +29,7 @@ import HomePageView from "../HomePageView";
 import PermissionCheckerView from "../PermissionCheckerView";
 import PermissionCompareView from "../PermissionCompareView";
 import PermissionEditView from "../PermissionEditView";
+import QueryBuilderView from "../QueryBuilderView";
 import QuerySheetView from "../QuerySheetView";
 import ReportFoldersView from "../ReportFoldersView";
 import ReportTypeView from "../ReportTypeView";
@@ -183,8 +184,18 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
       },
       {
          icon: <AiFillTool />,
-         label: "Tooling Query Builder",
-         key: "toolingQuery",
+         label: "Query",
+         key: "query",
+         children: [
+            {
+               label: <TagLogoView tagName="TQB" labelName="Tooling Query Builder" />,
+               key: "toolingQuery",
+            },
+            {
+               label: <TagLogoView tagName="SQB" labelName="Salesforce Query Builder" />,
+               key: "salesforceQuery",
+            },
+         ],
       },
    ];
    return (
@@ -296,6 +307,9 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                         </RenderIf>
                         <RenderIf renderIf={current === "toolingQuery"}>
                            <ToolingQueryBuilderView />
+                        </RenderIf>
+                        <RenderIf renderIf={current === "salesforceQuery"}>
+                           <QueryBuilderView />
                         </RenderIf>
                      </Content>
                   </Layout>

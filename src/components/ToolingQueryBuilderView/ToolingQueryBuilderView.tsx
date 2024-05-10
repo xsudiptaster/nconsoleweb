@@ -18,7 +18,7 @@ import {
 interface IToolingQueryBuilderViewProps {
    children?: React.ReactNode;
 }
-
+const { Search } = Input;
 const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props) => {
    const [, setLoading] = useRecoilState(loadingAtom);
    const [objectList, setObjectList] = React.useState<any[]>([]);
@@ -124,7 +124,7 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
             <div style={{ height: "80vh" }}>
                <Row>
                   <Col span={8}>
-                     <Input
+                     <Search
                         placeholder="Search...."
                         size="small"
                         variant="borderless"
@@ -154,6 +154,8 @@ const ToolingQueryBuilderView: React.FC<IToolingQueryBuilderViewProps> = (props)
                   <Col span={16}>
                      <Input.TextArea
                         variant="borderless"
+                        autoSize
+                        style={{ backgroundColor: "#464749" }}
                         rows={10}
                         value={query}
                         onChange={(e) => {
