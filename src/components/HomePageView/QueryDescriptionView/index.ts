@@ -1,1 +1,1 @@
-export { default } from './QueryDescriptionView';
+export { default } from "./QueryDescriptionView";

@@ -14,6 +14,7 @@ import PermissionCheckerDescriptionView from "./PermissionCheckerDescriptionView
 import PermissionEditDescriptionView from "./PermissionEditDescriptionView";
 import PermissionsCompareDescriptionView from "./PermissionsCompareDescriptionView";
 import QueryDescriptionView from "./QueryDescriptionView";
+import QueryExplorerDescriptionView from "./QueryExplorerDescriptionView";
 import ReportFolderDescriptionView from "./ReportFolderDescriptionView";
 import ReportTypeDescriptionView from "./ReportTypeDescriptionView";
 import ToolingQueryDescriptionView from "./ToolingQueryDescriptionView";
@@ -242,6 +243,17 @@ const HomePageView: React.FC<IHomePageViewProps> = (props) => {
                }}
             >
                <ToolingQueryDescriptionView />
+            </Col>
+            <Col
+               span={11}
+               style={{
+                  alignContent: "center",
+                  borderRadius: "30px",
+                  background: " #211111",
+                  boxShadow: "15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60)",
+               }}
+            >
+               <QueryExplorerDescriptionView />
             </Col>
          </Row>
       </Card>

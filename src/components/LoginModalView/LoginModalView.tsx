@@ -16,6 +16,7 @@ import PermissionCheckerDescriptionView from "../HomePageView/PermissionCheckerD
 import PermissionEditDescriptionView from "../HomePageView/PermissionEditDescriptionView";
 import PermissionsCompareDescriptionView from "../HomePageView/PermissionsCompareDescriptionView";
 import QueryDescriptionView from "../HomePageView/QueryDescriptionView";
+import QueryExplorerDescriptionView from "../HomePageView/QueryExplorerDescriptionView";
 import ReportFolderDescriptionView from "../HomePageView/ReportFolderDescriptionView";
 import ReportTypeDescriptionView from "../HomePageView/ReportTypeDescriptionView";
 import ToolingQueryDescriptionView from "../HomePageView/ToolingQueryDescriptionView";
@@ -222,6 +223,13 @@ const LoginModalView: React.FC<ILoginModalViewProps> = (props) => {
                         appName="Salesforce Tooling Explorer"
                         title="Your Ultimate Companion for Navigating Tooling Objects with Ease!"
                         fullDescription={<ToolingQueryDescriptionView />}
+                     />
+                  </Col>
+                  <Col span={4} xs={24} md={6} xl={4}>
+                     <MiniInfoCardView
+                        appName="Salesforce Object Explorer Plus"
+                        title="Your Ultimate Salesforce Data Navigation and Query Tool!"
+                        fullDescription={<QueryExplorerDescriptionView />}
                      />
                   </Col>
                </Row>
