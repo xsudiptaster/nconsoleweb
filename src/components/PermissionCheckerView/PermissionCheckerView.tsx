@@ -10,6 +10,7 @@ import FieldPermissionChecker from "./FieldPermissionChecker";
 import ObjectPermissionChecker from "./ObjectPermissionChecker";
 import style from "./PermissionCheckerView.module.css";
 import { getSelectedUsers, handleAnalysis, handleLoad } from "./PermissionCheckerView.util";
+
 import RecordTypePermissionChecker from "./RecordTypePermissionChecker";
 import UserPermissionChecker from "./UserPermissionChecker";
 

@@ -1,4 +1,5 @@
 import { getChunks, handleApi } from "../../utils/utils";
+
 export const handleLoad = async () => {
    var types = [
       { type: "Profile", folder: null },
@@ -47,12 +48,14 @@ const getAllMetadata = async (fullList: any[], type: string) => {
 };
 
 export const handleAnalysis = async (listProfiles: any[], listPermissionSets: any[]) => {
+   console.log("CURRENT TIME", new Date());
    let promisesList = [];
    let promise1 = getAllMetadata(listProfiles, "Profile");
    let promise2 = getAllMetadata(listPermissionSets, "PermissionSet");
    promisesList.push(promise1);
    promisesList.push(promise2);
    let allResults = await Promise.all(promisesList);
+   console.log("CURRENT TIME", new Date());
    let profileMetadatas = allResults[0];
    let permissionSetMetadatas = allResults[1];
    let permissionList: any = {};
@@ -104,6 +107,7 @@ export const handleAnalysis = async (listProfiles: any[], listPermissionSets: an
       profileMetadatas,
       permissionSetMetadatas,
    };
+   console.log("CURRENT TIME", new Date());
    return result;
 };
 const getFieldPermissionList = (profile: any, fieldPermissionList: any) => {
