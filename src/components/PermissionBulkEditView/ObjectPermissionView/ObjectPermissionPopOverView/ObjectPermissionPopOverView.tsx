@@ -106,7 +106,6 @@ const ObjectPermissionPopOverView: React.FC<IObjectPermissionPopOverViewProps> =
             Modify All
           </CustomCheckBox>
         </Space>
-
         <RenderIf renderIf={object.recordTypeInfos}>
           <Divider>Record Types</Divider>
           <Space size="small">
