@@ -4,7 +4,6 @@ import { useRecoilState } from 'recoil';
 import { trackChangesPermissionEditAtom } from '../../../../atoms/atom';
 import CustomCheckBox from '../../../../utils/CustomCheckBox';
 import RenderIf from '../../../../utils/RenderIf';
-import style from '../../../PermissionEditView/DisplayObjectPermissionView/DisplayObjectPermissionView.module.css';
 import { updateChanges } from '../../PermissionBulkEditView.util';
 import { getCurrentObjectPermission, hasObjectChanges } from './ObjectPermissionPopOverView.util';
 import ObjectRecordTypePermissionView from './ObjectRecordTypePermissionView';
@@ -63,68 +62,65 @@ const ObjectPermissionPopOverView: React.FC<IObjectPermissionPopOverViewProps> =
   return (
     <>
       <Card title="Object Permissions" size="small">
-        <div className={style.objectpermissionDiv}>
-          <Space size="small">
-            <CustomCheckBox
-              checked={permission.allowRead}
-              onChange={onReadChange}
-              style={{ backgroundColor: anyChanges.allowRead ? 'red' : '' }}
-            >
-              Read
-            </CustomCheckBox>
-            <CustomCheckBox
-              checked={permission.allowCreate}
-              onChange={onCreateChange}
-              style={{ backgroundColor: anyChanges.allowCreate ? 'red' : '' }}
-            >
-              Create
-            </CustomCheckBox>
-            <CustomCheckBox
-              checked={permission.allowEdit}
-              onChange={onEditChange}
-              style={{ backgroundColor: anyChanges.allowEdit ? 'red' : '' }}
-            >
-              Edit
-            </CustomCheckBox>
-            <CustomCheckBox
-              checked={permission.allowDelete}
-              onChange={onDeleteChange}
-              style={{ backgroundColor: anyChanges.allowDelete ? 'red' : '' }}
-            >
-              Delete
-            </CustomCheckBox>
-            <CustomCheckBox
-              checked={permission.viewAllRecords}
-              onChange={onViewAllChange}
-              style={{ backgroundColor: anyChanges.viewAllRecords ? 'red' : '' }}
-            >
-              View All
-            </CustomCheckBox>
-            <CustomCheckBox
-              checked={permission.modifyAllRecords}
-              onChange={onModifyAllChange}
-              style={{ backgroundColor: anyChanges.modifyAllRecords ? 'red' : '' }}
-            >
-              Modify All
-            </CustomCheckBox>
-          </Space>
-        </div>
+        <Space size="small">
+          <CustomCheckBox
+            checked={permission.allowRead}
+            onChange={onReadChange}
+            style={{ backgroundColor: anyChanges.allowRead ? 'red' : '' }}
+          >
+            Read
+          </CustomCheckBox>
+          <CustomCheckBox
+            checked={permission.allowCreate}
+            onChange={onCreateChange}
+            style={{ backgroundColor: anyChanges.allowCreate ? 'red' : '' }}
+          >
+            Create
+          </CustomCheckBox>
+          <CustomCheckBox
+            checked={permission.allowEdit}
+            onChange={onEditChange}
+            style={{ backgroundColor: anyChanges.allowEdit ? 'red' : '' }}
+          >
+            Edit
+          </CustomCheckBox>
+          <CustomCheckBox
+            checked={permission.allowDelete}
+            onChange={onDeleteChange}
+            style={{ backgroundColor: anyChanges.allowDelete ? 'red' : '' }}
+          >
+            Delete
+          </CustomCheckBox>
+          <CustomCheckBox
+            checked={permission.viewAllRecords}
+            onChange={onViewAllChange}
+            style={{ backgroundColor: anyChanges.viewAllRecords ? 'red' : '' }}
+          >
+            View All
+          </CustomCheckBox>
+          <CustomCheckBox
+            checked={permission.modifyAllRecords}
+            onChange={onModifyAllChange}
+            style={{ backgroundColor: anyChanges.modifyAllRecords ? 'red' : '' }}
+          >
+            Modify All
+          </CustomCheckBox>
+        </Space>
+
         <RenderIf renderIf={object.recordTypeInfos}>
           <Divider>Record Types</Divider>
-          <div className={style.objectpermissionDiv}>
-            <Space size="small">
-              {object.recordTypeInfos.map((recordType: any) => {
-                return (
-                  <ObjectRecordTypePermissionView
-                    recordType={recordType}
-                    object={object}
-                    p={p}
-                    key={recordType.developerName}
-                  />
-                );
-              })}
-            </Space>
-          </div>
+          <Space size="small">
+            {object.recordTypeInfos.map((recordType: any) => {
+              return (
+                <ObjectRecordTypePermissionView
+                  recordType={recordType}
+                  object={object}
+                  p={p}
+                  key={recordType.developerName}
+                />
+              );
+            })}
+          </Space>
         </RenderIf>
       </Card>
     </>
