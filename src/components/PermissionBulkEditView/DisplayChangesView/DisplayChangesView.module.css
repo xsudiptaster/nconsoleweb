@@ -1,0 +1,14 @@
+.objectTable {
+    width: 100%;
+    text-align: center;
+}
+
+.objectTable td:first-child {
+    text-align: left;
+}
+
+.displayHeader {
+    max-height: 60dvh;
+    overflow: auto;
+
+}

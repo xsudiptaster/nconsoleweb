@@ -26,9 +26,9 @@ import DeleteMetadataView from "../DeleteMetadataView";
 import DeployMetaDataView from "../DeployMetaDataView";
 import DiagramView from "../DiagramView";
 import HomePageView from "../HomePageView";
+import PermissionBulkEditView from "../PermissionBulkEditView";
 import PermissionCheckerView from "../PermissionCheckerView";
 import PermissionCompareView from "../PermissionCompareView";
-import PermissionEditView from "../PermissionEditView";
 import QueryBuilderView from "../QueryBuilderView";
 import QuerySheetView from "../QuerySheetView";
 import ReportFoldersView from "../ReportFoldersView";
@@ -285,7 +285,7 @@ const MainLayoutView: React.FC<IMainLayoutViewProps> = (props) => {
                            <PermissionCompareView />
                         </RenderIf>
                         <RenderIf renderIf={current === "permissionEdit"}>
-                           <PermissionEditView />
+                           <PermissionBulkEditView />
                         </RenderIf>
                         <RenderIf renderIf={current === "userPermission"}>
                            <UserPermissionAnalysisView />
