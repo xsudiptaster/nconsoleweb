@@ -18,6 +18,7 @@ const FlowPermissionView: React.FC<IFlowPermissionViewProps> = (props) => {
   const { profiles, permissionSets } = props;
   const [trackChanges, setTrackChanges] = useRecoilState(trackChangesPermissionEditAtom);
   const [flowList, setFlowList] = React.useState([]);
+  const [searchString, setSearchString] = React.useState('');
   React.useEffect(() => {
     const onload = async () => {
       let response = await getFlowNames();
@@ -49,7 +50,15 @@ const FlowPermissionView: React.FC<IFlowPermissionViewProps> = (props) => {
     <>
       <Card
         size="small"
-        title={<Input size="small" placeholder="Search Flow" variant="borderless" addonAfter={<AiOutlineSearch />} />}
+        title={
+          <Input
+            size="small"
+            placeholder="Search Flow"
+            variant="borderless"
+            addonAfter={<AiOutlineSearch />}
+            onChange={(e) => setSearchString(e.target.value)}
+          />
+        }
       >
         <div className={style.contextTable}>
           <table className={style.permissionedittable}>
@@ -79,32 +88,38 @@ const FlowPermissionView: React.FC<IFlowPermissionViewProps> = (props) => {
               </tr>
             </thead>
             <tbody>
-              {flowList.map((flow: any) => {
-                return (
-                  <tr key={flow.Id}>
-                    <td>
-                      {flow.DeveloperName}
-                      <div style={{ float: 'right' }}>
-                        <CustomCheckBox onChange={(e: any) => onChangeFlowAll(e, flow.DeveloperName)} />
-                      </div>
-                    </td>
-                    {profiles.map((p: any) => {
-                      return (
-                        <td key={p.fullName}>
-                          <FlowPermissionEditView p={p} flowName={flow.DeveloperName} />
-                        </td>
-                      );
-                    })}
-                    {permissionSets.map((p: any) => {
-                      return (
-                        <td key={p.fullName}>
-                          <FlowPermissionEditView p={p} flowName={flow.DeveloperName} />
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
+              {flowList
+                .filter((flow: any) => {
+                  return searchString !== ''
+                    ? flow.DeveloperName.toLowerCase().includes(searchString.toLowerCase())
+                    : true;
+                })
+                .map((flow: any) => {
+                  return (
+                    <tr key={flow.Id}>
+                      <td>
+                        {flow.DeveloperName}
+                        <div style={{ float: 'right' }}>
+                          <CustomCheckBox onChange={(e: any) => onChangeFlowAll(e, flow.DeveloperName)} />
+                        </div>
+                      </td>
+                      {profiles.map((p: any) => {
+                        return (
+                          <td key={p.fullName}>
+                            <FlowPermissionEditView p={p} flowName={flow.DeveloperName} />
+                          </td>
+                        );
+                      })}
+                      {permissionSets.map((p: any) => {
+                        return (
+                          <td key={p.fullName}>
+                            <FlowPermissionEditView p={p} flowName={flow.DeveloperName} />
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
