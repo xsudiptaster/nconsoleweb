@@ -127,7 +127,6 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
       };
     });
   }
-
   return p;
 };
 const getUserPermissions = (pList: any[]) => {

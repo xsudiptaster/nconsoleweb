@@ -36,7 +36,7 @@ export const getFlowPermission = (flowName: string, p: any, changes: any) => {
 };
 export const hasAnyFlowPermissionChanges = (p: any, currentPermission: any) => {
   if (p.flowAccesses) {
-    let foundPermission = p.flowAccesses.map((perm: any) => {
+    let foundPermission = p.flowAccesses.find((perm: any) => {
       return perm.flow === currentPermission.flow;
     });
     if (foundPermission) {
