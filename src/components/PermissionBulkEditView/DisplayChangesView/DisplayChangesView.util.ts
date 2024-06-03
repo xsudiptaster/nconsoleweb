@@ -26,5 +26,5 @@ export const deployChanges = async (
   let total = profilePermissions.length + permissionSetPermissions.length;
   let profileResults = makeUpdate(profilePermissions, trackChanges, currentLoginInfo, 'Profile', total);
   let permissionResults = makeUpdate(permissionSetPermissions, trackChanges, currentLoginInfo, 'PermissionSet', total);
-  return { success: true, message: JSON.stringify(profileResults) + JSON.stringify(permissionResults) };
+  return { success: true, message: 'Saved Successfully !!' };
 };

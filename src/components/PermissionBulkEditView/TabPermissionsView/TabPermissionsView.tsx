@@ -30,7 +30,7 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
   let displayList = React.useMemo(() => {
     return tablist
       .filter((dl: any) => {
-        return dvSearchString !== '' ? dl.tab.toUpperCase().includes(dvSearchString.toUpperCase()) : true;
+        return dvSearchString !== '' ? dl.Label.toUpperCase().includes(dvSearchString.toUpperCase()) : true;
       })
       .sort((a: any, b: any) => {
         return a.tab > b.tab ? 1 : -1;
