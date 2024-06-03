@@ -27,6 +27,12 @@ export const handleGetProfilesAndPermissionSets = async () => {
     });
   return { profiles, permissionSets };
 };
+const cleanPermission = (p: any) => {
+  if (typeof p === 'string') {
+    return p === 'true';
+  }
+  return p;
+};
 const cleanUpProfilesOrPermissionSets = (p: any) => {
   if (p.classAccesses && !Array.isArray(p.classAccesses)) {
     p.classAccesses = [p.classAccesses];
@@ -56,16 +62,17 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
     p.classAccesses = p.classAccesses.map((perm: any) => {
       return {
         apexClass: perm.apexClass,
-        enabled: Boolean(perm.enabled),
+        enabled: cleanPermission(perm.enabled),
       };
     });
   }
   if (p.fieldPermissions) {
     p.fieldPermissions = p.fieldPermissions.map((perm: any) => {
+      console.log('THE PERMISSION TYPE', typeof perm.editable);
       return {
         field: perm.field,
-        editable: Boolean(perm.editable),
-        readable: Boolean(perm.readable),
+        editable: cleanPermission(perm.editable),
+        readable: cleanPermission(perm.readable),
       };
     });
   }
@@ -73,12 +80,12 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
     p.objectPermissions = p.objectPermissions.map((perm: any) => {
       return {
         object: perm.object,
-        allowCreate: Boolean(perm.allowCreate),
-        allowDelete: Boolean(perm.allowDelete),
-        allowEdit: Boolean(perm.allowEdit),
-        allowRead: Boolean(perm.allowRead),
-        modifyAllRecords: Boolean(perm.modifyAllRecords),
-        viewAllRecords: Boolean(perm.viewAllRecords),
+        allowCreate: cleanPermission(perm.allowCreate),
+        allowDelete: cleanPermission(perm.allowDelete),
+        allowEdit: cleanPermission(perm.allowEdit),
+        allowRead: cleanPermission(perm.allowRead),
+        modifyAllRecords: cleanPermission(perm.modifyAllRecords),
+        viewAllRecords: cleanPermission(perm.viewAllRecords),
       };
     });
   }
@@ -86,7 +93,7 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
     p.flowAccesses = p.flowAccesses.map((perm: any) => {
       return {
         flow: perm.flow,
-        enabled: Boolean(perm.enabled),
+        enabled: cleanPermission(perm.enabled),
       };
     });
   }
@@ -94,7 +101,7 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
     p.pageAccesses = p.pageAccesses.map((perm: any) => {
       return {
         apexPage: perm.apexPage,
-        enabled: Boolean(perm.enabled),
+        enabled: cleanPermission(perm.enabled),
       };
     });
   }
@@ -102,20 +109,16 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
     p.recordTypeVisibilities = p.recordTypeVisibilities.map((perm: any) => {
       return {
         recordType: perm.recordType,
-        default: Boolean(perm.default),
-        visible: Boolean(perm.visible),
+        default: cleanPermission(perm.default),
+        visible: cleanPermission(perm.visible),
       };
     });
-    console.log(
-      '🚀 ~ p.recordTypeVisibilities=p.recordTypeVisibilities.map ~ recordTypeVisibilities:',
-      p.recordTypeVisibilities
-    );
   }
   if (p.tabVisibilities) {
     p.tabVisibilities = p.tabVisibilities.map((perm: any) => {
       return {
         tab: perm.tab,
-        visibility: Boolean(perm.visibility),
+        visibility: cleanPermission(perm.visibility),
       };
     });
   }
@@ -123,7 +126,7 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
     p.userPermissions = p.userPermissions.map((perm: any) => {
       return {
         name: perm.name,
-        enabled: Boolean(perm.enabled),
+        enabled: cleanPermission(perm.enabled),
       };
     });
   }
