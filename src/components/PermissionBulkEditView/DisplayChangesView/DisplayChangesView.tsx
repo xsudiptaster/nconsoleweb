@@ -215,7 +215,7 @@ const UserPermissionChanges = (props: any) => {
 const DisplayChangesView: React.FC<IDisplayChangesViewProps> = (props) => {
   const { setDeployModal, profilePermissions, permissionSetPermissions } = props;
   const { message } = App.useApp();
-  const [trackChanges] = useRecoilState(trackChangesPermissionEditAtom);
+  const [trackChanges, setTrackChanges] = useRecoilState(trackChangesPermissionEditAtom);
   const [loginInfo] = useRecoilState(loginInfoAtom);
   const [, setLoading] = useRecoilState(loadingAtom);
   const [currentLoginInfo, setCurrentLoginInfo] = React.useState<any>({});
@@ -236,6 +236,7 @@ const DisplayChangesView: React.FC<IDisplayChangesViewProps> = (props) => {
     setLoading(false);
     if (response.success) {
       message.success(response.message);
+      setTrackChanges({});
     } else {
       message.error(response.message);
     }

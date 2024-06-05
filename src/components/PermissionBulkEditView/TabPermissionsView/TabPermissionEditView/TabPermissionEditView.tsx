@@ -1,7 +1,7 @@
+import { Radio } from 'antd';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { trackChangesPermissionEditAtom } from '../../../../atoms/atom';
-import CustomCheckBox from '../../../../utils/CustomCheckBox';
 import { updateChanges } from '../../PermissionBulkEditView.util';
 import { getTabPermissions, hasTabPermissionChanges } from '../TabPermissionsView.util';
 
@@ -20,18 +20,24 @@ const TabPermissionEditView: React.FC<ITabPermissionEditViewProps> = (props) => 
   let anyChanges = React.useMemo(() => {
     return hasTabPermissionChanges(p, permission);
   }, [p, permission]);
-  const onChange = (e: any) => {
+  const onChange = ({ target: { value } }: any) => {
     let tempPermission = { ...permission };
-    tempPermission.visibility = e.target.checked;
+    tempPermission.visibility = value;
     let changes = updateChanges(p, 'tabVisibilities', tempPermission, 'tab', trackChanges);
     setTrackChanges(changes);
   };
   return (
     <>
-      <CustomCheckBox
-        checked={permission.visibility}
-        onChange={onChange}
+      <Radio.Group
         style={{ backgroundColor: anyChanges.visibility ? 'red' : '' }}
+        options={[
+          { label: 'Default Off', value: 'DefaultOff' },
+          { label: 'Default On', value: 'DefaultOn' },
+          { label: 'Hidden', value: 'Hidden' },
+        ]}
+        size="small"
+        onChange={onChange}
+        value={permission.visibility}
       />
     </>
   );

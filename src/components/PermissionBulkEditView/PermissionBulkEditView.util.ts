@@ -114,14 +114,6 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
       };
     });
   }
-  if (p.tabVisibilities) {
-    p.tabVisibilities = p.tabVisibilities.map((perm: any) => {
-      return {
-        tab: perm.tab,
-        visibility: cleanPermission(perm.visibility),
-      };
-    });
-  }
   if (p.userPermissions) {
     p.userPermissions = p.userPermissions.map((perm: any) => {
       return {
@@ -144,6 +136,8 @@ const getUserPermissions = (pList: any[]) => {
 export const handleGetPermissions = async (profiles: any[], permissionSets: any[]) => {
   let responseProfiles =
     profiles.length > 0 ? await handleApi('metadataRead', { objectName: 'Profile', types: profiles }) : [];
+  console.log('🚀 ~ handleGetPermissions ~ responseProfiles:', responseProfiles);
+
   let responsePermissionSets =
     permissionSets.length > 0
       ? await handleApi('metadataRead', { objectName: 'PermissionSet', types: permissionSets })

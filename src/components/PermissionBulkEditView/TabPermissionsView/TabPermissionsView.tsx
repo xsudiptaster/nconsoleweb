@@ -1,9 +1,8 @@
-import { Card, Input, Space } from 'antd';
+import { Card, Input, Radio, Space } from 'antd';
 import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
 import { trackChangesPermissionEditAtom } from '../../../atoms/atom';
-import CustomCheckBox from '../../../utils/CustomCheckBox';
 import { updateChanges } from '../PermissionBulkEditView.util';
 import TabPermissionEditView from './TabPermissionEditView';
 import style from './TabPermissionsView.module.css';
@@ -37,17 +36,17 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
       });
   }, [dvSearchString, tablist]);
 
-  const onProfileChangeAll = (e: any, p: any) => {
+  const onProfileChangeAll = ({ target: { value } }: any, p: any) => {
     let changes = JSON.parse(JSON.stringify(trackChanges));
     tablist.forEach((tab: any) => {
-      let tempPermission = { tab: tab.Name, visibility: e.target.checked };
+      let tempPermission = { tab: tab.Name, visibility: value };
       changes = updateChanges(p, 'tabVisibilities', tempPermission, 'tab', changes);
     });
     setTrackChanges(changes);
   };
-  const onTabChangeAll = (e: any, tab: any) => {
+  const onTabChangeAll = ({ target: { value } }: any, tab: any) => {
     let changes = JSON.parse(JSON.stringify(trackChanges));
-    let tempPermission = { tab: tab.Name, visibility: e.target.checked };
+    let tempPermission = { tab: tab.Name, visibility: value };
     profiles.forEach((p: any) => {
       changes = updateChanges(p, 'tabVisibilities', tempPermission, 'tab', changes);
     });
@@ -80,7 +79,15 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
                     <th key={p.fullName}>
                       <Space size="small" direction="vertical">
                         {p.fullName}
-                        <CustomCheckBox onChange={(e: any) => onProfileChangeAll(e, p)} />
+                        <Radio.Group
+                          options={[
+                            { label: 'Default Off', value: 'DefaultOff' },
+                            { label: 'Default On', value: 'DefaultOn' },
+                            { label: 'Hidden', value: 'Hidden' },
+                          ]}
+                          size="small"
+                          onChange={(e: any) => onProfileChangeAll(e, p)}
+                        />
                       </Space>
                     </th>
                   );
@@ -90,7 +97,15 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
                     <th key={p.fullName}>
                       <Space size="small" direction="vertical">
                         {p.fullName}
-                        <CustomCheckBox onChange={(e: any) => onProfileChangeAll(e, p)} />
+                        <Radio.Group
+                          options={[
+                            { label: 'Default Off', value: 'DefaultOff' },
+                            { label: 'Default On', value: 'DefaultOn' },
+                            { label: 'Hidden', value: 'Hidden' },
+                          ]}
+                          size="small"
+                          onChange={(e: any) => onProfileChangeAll(e, p)}
+                        />
                       </Space>
                     </th>
                   );
@@ -104,7 +119,15 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
                     <td>
                       {tab.Label}
                       <div style={{ float: 'right' }}>
-                        <CustomCheckBox onChange={(e: any) => onTabChangeAll(e, tab)} />
+                        <Radio.Group
+                          options={[
+                            { label: 'Default Off', value: 'DefaultOff' },
+                            { label: 'Default On', value: 'DefaultOn' },
+                            { label: 'Hidden', value: 'Hidden' },
+                          ]}
+                          size="small"
+                          onChange={(e: any) => onTabChangeAll(e, tab)}
+                        />
                       </div>
                     </td>
                     {profiles.map((p: any) => {

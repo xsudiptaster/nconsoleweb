@@ -26,7 +26,7 @@ export const getTabPermissions = (p: any, tabName: string, changes: any) => {
       return savedPermission;
     }
   }
-  return { tab: tabName, visibility: false };
+  return { tab: tabName, visibility: 'Hidden' };
 };
 export const hasTabPermissionChanges = (p: any, permission: any) => {
   if (p.tabVisibilities) {
