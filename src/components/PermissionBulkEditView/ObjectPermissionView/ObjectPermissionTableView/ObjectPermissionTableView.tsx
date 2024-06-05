@@ -168,7 +168,9 @@ const ObjectPermissionTableView: React.FC<IObjectPermissionTableViewProps> = (pr
                       <sub>{field.name} </sub>
                       <Space size="small" direction="vertical" align="start">
                         <CustomCheckBox onChange={(e: any) => onFieldReadAll(e, field)}>Read All</CustomCheckBox>
-                        <CustomCheckBox onChange={(e: any) => onFieldEditAll(e, field)}>Edit All</CustomCheckBox>
+                        <CustomCheckBox onChange={(e: any) => onFieldEditAll(e, field)} disabled={field.calculated}>
+                          Edit All
+                        </CustomCheckBox>
                       </Space>
                     </div>
                   </td>
