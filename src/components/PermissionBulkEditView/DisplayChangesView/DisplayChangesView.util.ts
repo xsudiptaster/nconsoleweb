@@ -4,6 +4,7 @@ const makeUpdate = async (pList: any[], trackChanges: any, currentLoginInfo: any
   for (let i = 0; i < pList.length; i++) {
     if (trackChanges[pList[i].fileName]) {
       let p = trackChanges[pList[i].fileName];
+      console.log('🚀 ~ makeUpdate ~ p:', p);
       delete p.fileName;
       let result = await handleApiSecond('metadataUpsert', currentLoginInfo, {
         metadataType: type,
@@ -24,7 +25,12 @@ export const deployChanges = async (
   currentLoginInfo: any
 ) => {
   let total = profilePermissions.length + permissionSetPermissions.length;
-  let profileResults = makeUpdate(profilePermissions, trackChanges, currentLoginInfo, 'Profile', total);
-  let permissionResults = makeUpdate(permissionSetPermissions, trackChanges, currentLoginInfo, 'PermissionSet', total);
+  if (profilePermissions.length > 0) {
+    await makeUpdate(profilePermissions, trackChanges, currentLoginInfo, 'Profile', total);
+  }
+  if (permissionSetPermissions.length > 0) {
+    await makeUpdate(permissionSetPermissions, trackChanges, currentLoginInfo, 'PermissionSet', total);
+  }
+
   return { success: true, message: 'Saved Successfully !!' };
 };
