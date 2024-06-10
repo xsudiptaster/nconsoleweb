@@ -37,5 +37,5 @@ export const hasTabPermissionChanges = (p: any, permission: any) => {
       return { visibility: foundPermission.visibility !== permission.visibility };
     }
   }
-  return permission;
+  return { visibility: permission.visibility !== 'Hidden' };
 };

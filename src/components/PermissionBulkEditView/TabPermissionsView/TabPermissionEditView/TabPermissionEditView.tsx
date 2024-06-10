@@ -15,10 +15,14 @@ const TabPermissionEditView: React.FC<ITabPermissionEditViewProps> = (props) => 
   const { p, tab } = props;
   const [trackChanges, setTrackChanges] = useRecoilState(trackChangesPermissionEditAtom);
   let permission = React.useMemo(() => {
-    return getTabPermissions(p, tab.Name, trackChanges);
+    let response = getTabPermissions(p, tab.Name, trackChanges);
+    console.log('🚀 ~ permission ~ response:', response);
+    return response;
   }, [p, tab.Name, trackChanges]);
   let anyChanges = React.useMemo(() => {
-    return hasTabPermissionChanges(p, permission);
+    let response = hasTabPermissionChanges(p, permission);
+    console.log('🚀 ~ anyChanges ~ response:', response);
+    return response;
   }, [p, permission]);
   const onChange = ({ target: { value } }: any) => {
     let tempPermission = { ...permission };

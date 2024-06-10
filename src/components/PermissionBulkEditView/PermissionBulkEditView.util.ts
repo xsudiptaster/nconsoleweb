@@ -136,7 +136,6 @@ const getUserPermissions = (pList: any[]) => {
 export const handleGetPermissions = async (profiles: any[], permissionSets: any[]) => {
   let responseProfiles =
     profiles.length > 0 ? await handleApi('metadataRead', { objectName: 'Profile', types: profiles }) : [];
-  console.log('🚀 ~ handleGetPermissions ~ responseProfiles:', responseProfiles);
 
   let responsePermissionSets =
     permissionSets.length > 0
