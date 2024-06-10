@@ -177,9 +177,7 @@ const TabChanges = (props: any) => {
           {tabVisibilities.map((access: any) => (
             <tr key={access.tab}>
               <td>{access.tab}</td>
-              <td>
-                <CustomCheckBox checked={access.visibility} disabled />
-              </td>
+              <td>{access.visibility}</td>
             </tr>
           ))}
         </tbody>
