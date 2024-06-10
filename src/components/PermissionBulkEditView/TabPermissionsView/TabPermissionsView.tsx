@@ -130,7 +130,7 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
                           size="small"
                           onChange={(value: any) => onTabChangeAll(value, tab)}
                           showSearch
-                          placeholder="Select a person"
+                          placeholder="Select a permission"
                           optionFilterProp="children"
                           options={[
                             {

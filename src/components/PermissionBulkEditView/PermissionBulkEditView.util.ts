@@ -185,6 +185,7 @@ export const updateChanges = (p: any, permissionType: string, permission: any, c
   } else {
     changes[p.fileName] = {};
     changes[p.fileName].fullName = p.fullName;
+    changes[p.fileName].type = p.type;
     if (p.label) {
       changes[p.fileName].label = p.label;
     }
