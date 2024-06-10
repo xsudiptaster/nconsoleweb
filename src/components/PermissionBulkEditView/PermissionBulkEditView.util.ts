@@ -34,6 +34,7 @@ const cleanPermission = (p: any) => {
   return p;
 };
 const cleanUpProfilesOrPermissionSets = (p: any) => {
+  let type = p.fileName.split('/')[0];
   if (p.classAccesses && !Array.isArray(p.classAccesses)) {
     p.classAccesses = [p.classAccesses];
   }
@@ -52,8 +53,16 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
   if (p.recordTypeVisibilities && !Array.isArray(p.recordTypeVisibilities)) {
     p.recordTypeVisibilities = [p.recordTypeVisibilities];
   }
-  if (p.tabVisibilities && !Array.isArray(p.tabVisibilities)) {
-    p.tabVisibilities = [p.tabVisibilities];
+  if (type === 'permissionSet') {
+    if (p.tabSettings && !Array.isArray(p.tabSettings)) {
+      p.tabVisibilities = [p.tabSettings];
+    } else if (p.tabSettings) {
+      p.tabVisibilities = p.tabSettings;
+    }
+  } else {
+    if (p.tabVisibilities && !Array.isArray(p.tabVisibilities)) {
+      p.tabVisibilities = [p.tabVisibilities];
+    }
   }
   if (p.userPermissions && !Array.isArray(p.userPermissions)) {
     p.userPermissions = [p.userPermissions];
@@ -68,7 +77,6 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
   }
   if (p.fieldPermissions) {
     p.fieldPermissions = p.fieldPermissions.map((perm: any) => {
-      console.log('THE PERMISSION TYPE', typeof perm.editable);
       return {
         field: perm.field,
         editable: cleanPermission(perm.editable),
@@ -122,6 +130,7 @@ const cleanUpProfilesOrPermissionSets = (p: any) => {
       };
     });
   }
+  p.type = type;
   return p;
 };
 const getUserPermissions = (pList: any[]) => {

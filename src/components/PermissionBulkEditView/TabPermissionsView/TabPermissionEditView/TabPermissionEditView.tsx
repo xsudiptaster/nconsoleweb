@@ -2,6 +2,7 @@ import { Radio } from 'antd';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { trackChangesPermissionEditAtom } from '../../../../atoms/atom';
+import RenderIf from '../../../../utils/RenderIf';
 import { updateChanges } from '../../PermissionBulkEditView.util';
 import { getTabPermissions, hasTabPermissionChanges } from '../TabPermissionsView.util';
 
@@ -16,12 +17,10 @@ const TabPermissionEditView: React.FC<ITabPermissionEditViewProps> = (props) => 
   const [trackChanges, setTrackChanges] = useRecoilState(trackChangesPermissionEditAtom);
   let permission = React.useMemo(() => {
     let response = getTabPermissions(p, tab.Name, trackChanges);
-    console.log('🚀 ~ permission ~ response:', response);
     return response;
   }, [p, tab.Name, trackChanges]);
   let anyChanges = React.useMemo(() => {
     let response = hasTabPermissionChanges(p, permission);
-    console.log('🚀 ~ anyChanges ~ response:', response);
     return response;
   }, [p, permission]);
   const onChange = ({ target: { value } }: any) => {
@@ -32,17 +31,31 @@ const TabPermissionEditView: React.FC<ITabPermissionEditViewProps> = (props) => 
   };
   return (
     <>
-      <Radio.Group
-        style={{ backgroundColor: anyChanges.visibility ? 'red' : '' }}
-        options={[
-          { label: 'Default Off', value: 'DefaultOff' },
-          { label: 'Default On', value: 'DefaultOn' },
-          { label: 'Hidden', value: 'Hidden' },
-        ]}
-        size="small"
-        onChange={onChange}
-        value={permission.visibility}
-      />
+      <RenderIf renderIf={p.type === 'profile'}>
+        <Radio.Group
+          style={{ backgroundColor: anyChanges.visibility ? 'red' : '' }}
+          options={[
+            { label: 'Default Off', value: 'DefaultOff' },
+            { label: 'Default On', value: 'DefaultOn' },
+            { label: 'Hidden', value: 'Hidden' },
+          ]}
+          size="small"
+          onChange={onChange}
+          value={permission.visibility}
+        />
+      </RenderIf>
+      <RenderIf renderIf={p.type === 'permissionSet'}>
+        <Radio.Group
+          style={{ backgroundColor: anyChanges.visibility ? 'red' : '' }}
+          options={[
+            { label: 'Available', value: 'Available' },
+            { label: 'Visible', value: 'Visible' },
+          ]}
+          size="small"
+          onChange={onChange}
+          value={permission.visibility}
+        />
+      </RenderIf>
     </>
   );
 };

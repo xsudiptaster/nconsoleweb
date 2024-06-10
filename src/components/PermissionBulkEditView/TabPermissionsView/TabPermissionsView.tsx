@@ -1,4 +1,4 @@
-import { Card, Input, Radio, Space } from 'antd';
+import { Card, Input, Radio, Select, Space } from 'antd';
 import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
@@ -44,15 +44,22 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
     });
     setTrackChanges(changes);
   };
-  const onTabChangeAll = ({ target: { value } }: any, tab: any) => {
+  const onTabChangeAll = (value: any, tab: any) => {
+    console.log('🚀 ~ onTabChangeAll ~ value:', value);
     let changes = JSON.parse(JSON.stringify(trackChanges));
-    let tempPermission = { tab: tab.Name, visibility: value };
+    let tempPermissionProfile = { tab: tab.Name, visibility: value };
     profiles.forEach((p: any) => {
-      changes = updateChanges(p, 'tabVisibilities', tempPermission, 'tab', changes);
+      changes = updateChanges(p, 'tabVisibilities', tempPermissionProfile, 'tab', changes);
     });
-    permissionSets.forEach((p: any) => {
-      changes = updateChanges(p, 'tabVisibilities', tempPermission, 'tab', changes);
-    });
+    if (value !== 'Hidden') {
+      let tempPermissionPermissionSet = {
+        tab: tab.Name,
+        visibility: value.toString() === 'DefaultOff' ? 'Available' : 'Visible',
+      };
+      permissionSets.forEach((p: any) => {
+        changes = updateChanges(p, 'tabVisibilities', tempPermissionPermissionSet, 'tab', changes);
+      });
+    }
     setTrackChanges(changes);
   };
   return (
@@ -99,9 +106,8 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
                         {p.fullName}
                         <Radio.Group
                           options={[
-                            { label: 'Default Off', value: 'DefaultOff' },
-                            { label: 'Default On', value: 'DefaultOn' },
-                            { label: 'Hidden', value: 'Hidden' },
+                            { label: 'Available', value: 'Available' },
+                            { label: 'Visible', value: 'Visible' },
                           ]}
                           size="small"
                           onChange={(e: any) => onProfileChangeAll(e, p)}
@@ -119,14 +125,27 @@ const TabPermissionsView: React.FC<ITabPermissionsViewProps> = (props) => {
                     <td>
                       {tab.Label}
                       <div style={{ float: 'right' }}>
-                        <Radio.Group
-                          options={[
-                            { label: 'Default Off', value: 'DefaultOff' },
-                            { label: 'Default On', value: 'DefaultOn' },
-                            { label: 'Hidden', value: 'Hidden' },
-                          ]}
+                        <Select
+                          popupMatchSelectWidth
                           size="small"
-                          onChange={(e: any) => onTabChangeAll(e, tab)}
+                          onChange={(value: any) => onTabChangeAll(value, tab)}
+                          showSearch
+                          placeholder="Select a person"
+                          optionFilterProp="children"
+                          options={[
+                            {
+                              value: 'DefaultOff',
+                              label: 'Default Off/Available',
+                            },
+                            {
+                              value: 'DefaultOn',
+                              label: 'Default On/Visible',
+                            },
+                            {
+                              value: 'Hidden',
+                              label: 'Hidden',
+                            },
+                          ]}
                         />
                       </div>
                     </td>

@@ -4,8 +4,13 @@ const makeUpdate = async (pList: any[], trackChanges: any, currentLoginInfo: any
   for (let i = 0; i < pList.length; i++) {
     if (trackChanges[pList[i].fileName]) {
       let p = trackChanges[pList[i].fileName];
-      console.log('🚀 ~ makeUpdate ~ p:', p);
+
       delete p.fileName;
+      if (p.type === 'permissionSet') {
+        p.tabSettings = p.tabVisibilities;
+        delete p.tabVisibilities;
+      }
+      delete p.type;
       let result = await handleApiSecond('metadataUpsert', currentLoginInfo, {
         metadataType: type,
         records: [p],
