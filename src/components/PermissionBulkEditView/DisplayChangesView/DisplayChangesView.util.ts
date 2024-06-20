@@ -17,12 +17,12 @@ const concatPermissions = (array1: any[], array2: any[], compareTag: string) => 
 };
 
 const cleanPermissions = (p: any, oldP: any) => {
-  p.classAccesses = concatPermissions(p.classAccesses, oldP.classAccesses, 'apexClass');
-  p.fieldPermissions = concatPermissions(p.fieldPermissions, oldP.fieldPermissions, 'field');
-  p.flowAccesses = concatPermissions(p.flowAccesses, oldP.flowAccesses, 'flow');
-  p.objectPermissions = concatPermissions(p.objectPermissions, oldP.objectPermissions, 'object');
-  p.recordTypeVisibilities = concatPermissions(p.recordTypeVisibilities, oldP.recordTypeVisibilities, 'recordType');
-  p.tabVisibilities = concatPermissions(p.tabVisibilities, oldP.tabVisibilities, 'tab');
+  //  p.classAccesses = concatPermissions(p.classAccesses, oldP.classAccesses, 'apexClass');
+  //  p.fieldPermissions = concatPermissions(p.fieldPermissions, oldP.fieldPermissions, 'field');
+  //  p.flowAccesses = concatPermissions(p.flowAccesses, oldP.flowAccesses, 'flow');
+  //  p.objectPermissions = concatPermissions(p.objectPermissions, oldP.objectPermissions, 'object');
+  //  p.recordTypeVisibilities = concatPermissions(p.recordTypeVisibilities, oldP.recordTypeVisibilities, 'recordType');
+  //  p.tabVisibilities = concatPermissions(p.tabVisibilities, oldP.tabVisibilities, 'tab');
   p.userPermissions = concatPermissions(p.userPermissions, oldP.userPermissions, 'name');
   return p;
 };
