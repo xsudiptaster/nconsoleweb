@@ -234,7 +234,6 @@ const DisplayChangesView: React.FC<IDisplayChangesViewProps> = (props) => {
     setLoading(false);
     if (response.success) {
       message.success(response.message);
-      setTrackChanges({});
     } else {
       message.error(response.message);
     }
