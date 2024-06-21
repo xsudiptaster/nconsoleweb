@@ -30,6 +30,18 @@ export const getMetaDataTypeList = async (metaDataType: string) => {
         response.push(tempResponse);
       }
     }
+  } else if (metaDataType === 'Dashboard') {
+    let reponseDashboardFolders = await handleApi('metadataList', { types: [{ type: 'DashboardFolder', folder: '' }] });
+    for (let i = 0; i < reponseDashboardFolders.length; i++) {
+      let tempResponse = await handleApi('metadataList', {
+        types: [{ type: 'Dashboard', folder: reponseDashboardFolders[i].fullName }],
+      });
+      if (tempResponse[0]) {
+        response = [...response, ...tempResponse];
+      } else {
+        response.push(tempResponse);
+      }
+    }
   } else {
     response = await handleApi('metadataList', { types: [{ type: metaDataType, folder: '' }] });
   }
